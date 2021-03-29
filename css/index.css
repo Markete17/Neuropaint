@@ -16,6 +16,12 @@ body {
     margin: 40px 0 0;
     background: #91D1D3;
     font-family: 'Roboto', sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none;
 }
 a, a:hover {
     color: inherit;
@@ -125,7 +131,7 @@ ul.menu-list li span {
     height: 100%;
     width: 100%;
     border: none;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
 }
 @media screen and (min-width: 720px) {
     .editor {
@@ -667,4 +673,82 @@ body {
 
 .chiller-theme .sidebar-footer>a:last-child {
     border-right: none;
+}
+
+/*BUTTONS*/
+
+#buttons {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 15px 25px;
+  font-size: 20px;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.blue {
+  background-color: #55acee;
+  box-shadow: 0px 5px 0px 0px #3C93D5;
+}
+
+.blue:hover {
+  background-color: #6FC6FF;
+}
+
+.green {
+  background-color: #2ecc71;
+  box-shadow: 0px 5px 0px 0px #15B358;
+}
+
+.green:hover {
+  background-color: #48E68B;
+}
+
+.red {
+  background-color: #e74c3c;
+  box-shadow: 0px 5px 0px 0px #CE3323;
+}
+
+.red:hover {
+  background-color: #FF6656;
+}
+
+.purple {
+  background-color: #9b59b6;
+  box-shadow: 0px 5px 0px 0px #82409D;
+}
+
+.purple:hover {
+  background-color: #B573D0;
+}
+
+.orange {
+  background-color: #e67e22;
+  box-shadow: 0px 5px 0px 0px #CD6509;
+}
+
+.orange:hover {
+  background-color: #FF983C;
+}
+
+.yellow {
+  background-color: #f1c40f;
+  box-shadow: 0px 5px 0px 0px #D8AB00;
+}
+
+.yellow:hover {
+  background-color: #FFDE29;
 }
