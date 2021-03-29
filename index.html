@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+   <title>Neurotronik</title>
+   <meta name="google" content="notranslate">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta charset="utf-8">
+   <head>
+      <script src="js/codemirror.js"></script>
+      <script src="js/active-line.js"></script>
+      <link rel="stylesheet" href="css/00-codemirror.css">
+      <link rel="stylesheet" href="css/monokai.css">
+      <link rel="stylesheet" href="css/index.css">
+   </head>
+   <header><img src="images/title.PNG"></header>
+   <body>
+
+      <!-- EDITOR WINDOW -->
+      <div class="editor">
+          <div class="editor-container">
+            <h2 class="text-center">Your code</h2>
+            <hr>
+            <div class="paper">
+                <div class="paper-content">
+                    <textarea id="editor" autofocus></textarea>
+                </div>
+            </div>
+          </div>
+      </div>
+      <!-- PREVIEW WINDOW -->
+      <div class="preview">
+          <div class="preview-container">
+            <h2 class="text-center">Preview</h2>
+            <hr>
+            <iframe id="preview"></iframe>
+          </div>
+      </div>
+      <!-- HIDDEN INPUT FILE -->
+      <input type="file" id="file-open-input" accept=".html,.htm,.txt" class="hide">
+      <script>
+         var editor = document.getElementById('editor');
+         var preview = document.getElementById('preview');
+         var previewWrapper = document.getElementsByClassName('preview')[0];
+         var editorWrapper = document.getElementsByClassName('editor')[0];
+         var cm;
+         
+         function updatePreview(content)
+         {
+             preview.contentWindow.document.open();
+             preview.contentWindow.document.write(content);
+             preview.contentWindow.document.close();
+         }
+         
+         /**
+          * @credit https://stackoverflow.com/a/33542499
+          */
+         function saveAsFile(filename, data)
+         {
+             var blob = new Blob([data], {type: 'text/html'});
+         
+             if (window.navigator.msSaveOrOpenBlob) {
+                 window.navigator.msSaveBlob(blob, filename);
+         
+                 return;
+             }
+         
+             var elem = window.document.createElement('a');
+             elem.href = window.URL.createObjectURL(blob);
+             elem.download = filename;
+             document.body.appendChild(elem);
+         
+             elem.click();
+             document.body.removeChild(elem);
+         
+             window.URL.revokeObjectURL(blob);
+         }
+         
+         /**
+          * Keyboard shortcut for Hide or show Editor and Preview window
+          * CTRL+Shift+S = Save File
+          */
+         document.onkeyup = function(e)
+         {
+             e.preventDefault();
+         
+             // e.keyCode is deprecated from web standard and replaced with e.key
+             var theChar = null;
+             if (e.key !== undefined) {
+                 theChar = e.key.toUpperCase();
+             }
+             if (!theChar) {
+                 // Fallback to old standard
+                 theChar = String.fromCharCode(e.keyCode).toUpperCase();
+             }
+         
+             if (e.ctrlKey && e.shiftKey && theChar == 'S') {
+                 document.getElementById('menu-save-file').click();
+             }
+         }
+         
+         window.onbeforeunload = function(e)
+         {
+           if (e) {
+             // Cancel the event
+             e.preventDefault();
+             // Chrome requires returnValue to be set
+             e.returnValue = '';
+           }
+         
+           return 'Are you sure want to exit?';
+         };
+         
+         window.addEventListener('DOMContentLoaded', function(e)
+         {
+           cm = CodeMirror.fromTextArea(editor, {
+               lineNumbers: true,
+               styleActiveLine: true,
+               mode: 'text/html',
+           });
+         
+           cm.on('change', function() {
+               updatePreview(cm.getValue());
+           });
+         
+           updatePreview(cm.getValue());
+         });
+      </script>
+   </body>
+</html>
