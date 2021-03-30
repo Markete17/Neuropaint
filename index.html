@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html>
-   <title>Neurotronik</title>
-   <meta name="google" content="notranslate">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta charset="utf-8">
-   <head>
-      <script src="js/codemirror.js"></script>
-      <script src="js/active-line.js"></script>
-      <script src="js/jquery-3.5.1.min.js"></script>
-      <script src="js/index.js"></script>
-      <link rel="stylesheet" href="css/00-codemirror.css">
-      <link rel="stylesheet" href="css/index.css">
-   </head>
-   <header>
-       <img src="images/title.PNG">
-       <div class="media-buttons">
+<title>Neurotronik</title>
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+<head>
+    <script src="js/codemirror.js"></script>
+    <script src="js/active-line.js"></script>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/00-codemirror.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<header>
+    <img src="images/title.PNG">
+    <div class="media-buttons">
         <a class="btn btn-social-icon btn-twitter">
             <span class="fa fa-twitter"></span>
-          </a>
-       </div>
-    </header>
-   <body>
+        </a>
+    </div>
+</header>
 
-      <!-- EDITOR WINDOW -->
-      <div class="editor">
-          <div class="editor-container">
+<body>
+    <div class="container">
+
+    </div>
+    <!-- EDITOR WINDOW -->
+    <div class="editor">
+        <div class="editor-container">
             <h2 class="text-center">Your code</h2>
             <hr>
             <div class="paper">
@@ -32,50 +36,51 @@
                     <textarea id="editor" autofocus></textarea>
                 </div>
             </div>
-            <a id="target" onclick="example.init(0)" class="btn purple">Example 1</a>
-            <a id="target" onclick="example.init(1)" class="btn red">Example 2</a>
-            <a id="target" onclick="example.init(2)" class="btn green">Example 3</a>
-            <a id="target" onclick="example.init(3)" class="btn orange">Example 4</a>
-          </div>
-      </div>
-      <!-- PREVIEW WINDOW -->
-      <div class="preview">
-          <div class="preview-container">
+            <div class="text-center">
+                <a id="target" onclick="example.init(0)" class="btn purple">Example 1</a>
+                <a id="target" onclick="example.init(1)" class="btn red">Example 2</a>
+                <a id="target" onclick="example.init(2)" class="btn green">Example 3</a>
+                <a id="target" onclick="example.init(3)" class="btn orange">Example 4</a>
+            </div>
+        </div>
+    </div>
+    <!-- PREVIEW WINDOW -->
+    <div class="preview">
+        <div class="preview-container">
             <h2 class="text-center">Preview</h2>
             <hr>
             <iframe id="preview"></iframe>
-          </div>
-      </div>
-      <!-- HIDDEN INPUT FILE -->
-      <input type="file" id="file-open-input" accept=".html,.htm,.txt" class="hide">
-      <script>
-         var editor = document.getElementById('editor');
-         var preview = document.getElementById('preview');
-         var previewWrapper = document.getElementsByClassName('preview')[0];
-         var editorWrapper = document.getElementsByClassName('editor')[0];
-         var cm;
-         
-         function updatePreview(content)
-         {
-             preview.contentWindow.document.open();
-             preview.contentWindow.document.write(content);
-             preview.contentWindow.document.close();
-         }
-         
-         window.addEventListener('DOMContentLoaded', function(e)
-         {
-           cm = CodeMirror.fromTextArea(editor, {
-               lineNumbers: true,
-               styleActiveLine: true,
-               mode: 'text/html',
-           });
-         
-           cm.on('change', function() {
-               updatePreview(cm.getValue());
-           });
-         
-           updatePreview(cm.getValue());
-         });
-      </script>
-   </body>
+        </div>
+    </div>
+    <!-- HIDDEN INPUT FILE -->
+    <input type="file" id="file-open-input" accept=".html,.htm,.txt" class="hide">
+    <script>
+        var editor = document.getElementById('editor');
+        var preview = document.getElementById('preview');
+        var previewWrapper = document.getElementsByClassName('preview')[0];
+        var editorWrapper = document.getElementsByClassName('editor')[0];
+        var cm;
+
+        function updatePreview(content) {
+            preview.contentWindow.document.open();
+            preview.contentWindow.document.write(content);
+            preview.contentWindow.document.close();
+        }
+
+        window.addEventListener('DOMContentLoaded', function(e) {
+            cm = CodeMirror.fromTextArea(editor, {
+                lineNumbers: true,
+                styleActiveLine: true,
+                mode: 'text/html',
+            });
+
+            cm.on('change', function() {
+                updatePreview(cm.getValue());
+            });
+
+            updatePreview(cm.getValue());
+        });
+    </script>
+</body>
+
 </html>
