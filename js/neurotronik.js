@@ -333,17 +333,17 @@ class Layers {
 		return cubeList;
 	}
 	concatenate(nodes) {
-		let node = undefined[0];
+		let node = nodes[0];
 		let z = 0;
-		for (const n of nodes) {
+		for (let n of nodes) {
 			z += n.getLastCube().getZ();
 		}
-		let cubeList = new ArrayList();
+		let cubeList = new Array();
 		if (this.denseLayer) {
 			return cubeList;
 		}
 		let newCube = new Cube(new Coordinate(node.getLastCube().getX(), node.getLastCube().getY(), z), this.drawSettings);
-		cubeList.add(newCube);
+		cubeList.push(newCube);
 		this.cube_actual = newCube;
 		return cubeList;
 	}
@@ -712,3 +712,168 @@ class Pyramid {
 		return this.vertex;
 	}
 }
+
+/*NODE CLASS*/
+class Node {
+	constructor() {
+	  this.cubeList = new ArrayList();
+	  this.lastCube = null;
+	  this.parent = null;
+	  this.children = new ArrayList();
+	}
+	getCubeList() {
+	  return this.cubeList;
+	}
+	getLastCube() {
+	  return this.lastCube;
+	}
+	setLastCube(lastCube) {
+	  this.lastCube = this.lastCube;
+	}
+	setParent(parent) {
+	  this.parent = this.parent;
+	}
+	getChildren() {
+	  return this.children;
+	}
+	getParent() {
+	  return this.parent;
+	}
+	add(cubeList) {
+	  this.getCubeList().addAll(this.cubeList);
+	  if (!this.getCubeList().isEmpty()) {
+		this.setLastCube(this.cubeList.get(this.cubeList.size() - 1));
+	  }
+	}
+  }
+
+  /*NEURALNETOWRK TREE*/
+  class NeuralNetworkTree {
+	constructor() {
+	  this.root = null;
+	  this.nodes = null;
+	  this.jumps = new Array();
+	}
+	isEmpty() {
+	  return (this.root === null);
+	}
+	isLeaf(node) {
+	  return (node.getChildren() === null) || (node.getChildren().isEmpty());
+	}
+	isRoot(node) {
+	  return (node === this.root());
+	}
+	getNodes() {
+	  return this.nodes;
+	}
+	getJumps() {
+	  return this.jumps;
+	}
+	root() {
+	  if (this.root === null) {
+		throw new RuntimeException('The tree is empty');
+	  }
+	  return this.root;
+	}
+	addRoot(node) {
+	  if (this.isEmpty()) {
+		this.root = node;
+	  } else {
+		throw new RuntimeException('Tree already has a root');
+	  }
+	}
+	add(child, parent) {
+	  parent.getChildren().add(child);
+	  child.setParent(parent);
+	}
+	levels(node, maxDepth) {
+	  if (node !== null) {
+		if (this.isLeaf(node)) {
+		  if (!this.nodes[this.maxDepth - 1].contains(node)) {
+			this.nodes[this.maxDepth - 1].add(node);
+		  }
+		} else {
+		  let level = this.level(node);
+		  if (!this.nodes[this.level].contains(node)) {
+			this.nodes[level].push(node);
+		  }
+		  for (let child of node.getChildren()) {
+			this.levels(child, maxDepth);
+		  }
+		}
+	  }
+	}
+	maxDepth(root) {
+	  if (this.root === null) {
+		return 0;
+	  }
+	  let max = Integer.MIN_VALUE;
+	  for (let child of root.getChildren()) {
+		max = Math.max(max, this.maxDepth(child));
+	  }
+	  return 1 + Math.max(max, 0);
+	}
+	level(node) {
+	  let l = 0;
+	  while (!this.isParent(node)) {
+		node = node.getParent();
+		l++;
+	  }
+	  return l;
+	}
+	greaterDepthChild(children) {
+	  let max = Double.MIN_VALUE;
+	  for (let child of children) {
+		if (child.getCoordinates()[0].getZ() > max) {
+		  max = child.getLastCube().getCoordinates()[0].getZ();
+		}
+	  }
+	  return max;
+	}
+	findLastChild(nodes) {
+	  let max = Number.MIN_VALUE;
+	  let lastChild = null;
+	  for (let node of nodes) {
+		let cube = node.getCubeList().get(0);
+		if (cube.getCoordinates()[1].getX() > max) {
+		  max = cube.getCoordinates()[1].getX();
+		  lastChild = node;
+		}
+	  }
+	  return lastChild;
+	}
+	findFirstChild(nodes) {
+	  let min = Number.MAX_VALUE;
+	  let firstChild = null;
+	  for (let node of nodes) {
+		let cube = node.getCubeList().get(0);
+		if (cube.getCoordinates()[1].getX() < min) {
+		  min = cube.getCoordinates()[1].getX();
+		  firstChild = node;
+		}
+	  }
+	  return firstChild;
+	}
+	isParent(node) {
+	  return node.getParent() === null;
+	}
+	check() {
+	  for (let nodes of this.getNodes()) {
+		for (let node of nodes) {
+		  if (node.getCubeList().isEmpty() || node.getCubeList() === null) {
+			throw new RuntimeException('The neural network has been poorly defined.');
+		  }
+		}
+	  }
+	}
+	initializeNodes(){
+		let maxDepth = this.maxDepth(this.root());
+		this.nodes = [];
+		for(let i=0;i<maxDepth;i++){
+			this.nodes[i] = new Array();
+		}
+		this.levels(this.root(),maxDepth);
+		this.check();
+		Collections.reverse(Arrays.asList(this.nodes));
+	}
+  }
