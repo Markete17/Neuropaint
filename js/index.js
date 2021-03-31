@@ -1,5 +1,20 @@
-/*Slider Menu*/
+
+var cm;
+var previewWrapper = document.getElementsByClassName('preview')[0];
+var editorWrapper = document.getElementsByClassName('editor')[0];
 $(function() {
+    var editor = document.getElementById('editor');
+    var preview = document.getElementById('preview');
+    cm = CodeMirror.fromTextArea(editor, {
+        lineNumbers: true,
+        styleActiveLine: true,
+        mode: 'text/html',
+    });
+    updatePreview(cm.getValue());
+    cm.on('change', function() {
+        updatePreview(cm.getValue());
+    });
+    /*SLIDER MENU*/
     function slideMenu() {
         var activeState = $("#menu-container .menu-list").hasClass("active");
         $("#menu-container .menu-list").animate({ left: activeState ? "0%" : "-100%" }, 400);
@@ -21,16 +36,11 @@ $(function() {
         $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
     });
 });
-var example = {
-    data: [
-        '<h1>Example 1</h1>',
-        '<h1>Example 2</h1>',
-        '<h1>Example 3</h1>',
-        '<h1>Example 4</h1>'
-    ],
-    init: function(number) {
-        cm.setValue(example.data[number]);
-    }
+
+function updatePreview(content) {
+    preview.contentWindow.document.open();
+    preview.contentWindow.document.write(content);
+    preview.contentWindow.document.close();
 }
 
 function saveAsFile(filename, data) {
@@ -55,20 +65,51 @@ function saveAsFile(filename, data) {
 
 /**
  * Keyboard shortcut for Hide or show Editor and Preview window
+ * CTRL+Shift+O = Open File
  * CTRL+Shift+S = Save File
+ * CTRL+Shift+B = Word wrap
+ * CTRL+Shift+E = Hide/Show Editor
+ * CTRL+Shift+W = Hide/Show Preview
  */
-document.onkeyup = function(e) {
-    e.preventDefault();
+ document.onkeyup = function(e)
+ {
+     e.preventDefault();
+ 
+     // e.keyCode is deprecated from web standard and replaced with e.key
+     var theChar = null;
+     if (e.key !== undefined) {
+         theChar = e.key.toUpperCase();
+     }
+     if (!theChar) {
+         // Fallback to old standard
+         theChar = String.fromCharCode(e.keyCode).toUpperCase();
+     }
+ 
+     if (e.ctrlKey && e.shiftKey && theChar == 'O') {
+         document.getElementById('menu-open-file').click();
+     }
+ 
+     if (e.ctrlKey && e.shiftKey && theChar == 'S') {
+         document.getElementById('menu-save-file').click();
+     }
+ 
+     if (e.ctrlKey && e.shiftKey && theChar == 'E') {
+        expandPreview();
+     }
 
-    var theChar = null;
-    if (e.key !== undefined) {
-        theChar = e.key.toUpperCase();
+ }
+
+ function expandPreview(){
+    var isVisible = $("#ed").is(":visible");
+    if(isVisible){
+        $( "#ed" ).hide( "slow" );
+        $("#pr").css("width", "100%");
     }
-    if (!theChar) {
-        // Fallback to old standard
-        theChar = String.fromCharCode(e.key).toUpperCase();
+    else{
+        $( "#ed" ).show( "slow" );
+        $("#pr").css("width", "60%");
     }
-}
+ }
 
 window.onbeforeunload = function(e) {
     if (e) {

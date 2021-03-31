@@ -10,6 +10,7 @@
     <script src="js/active-line.js"></script>
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/neurotronik.js"></script>
     <link rel="stylesheet" href="css/00-codemirror.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -73,7 +74,7 @@
     <!-- menu-container -->
 
     <!-- EDITOR WINDOW -->
-    <div class="editor">
+    <div id="ed" class="editor">
         <div class="editor-container">
             <h2 class="text-center">Your code</h2>
             <hr>
@@ -91,42 +92,17 @@
         </div>
     </div>
     <!-- PREVIEW WINDOW -->
-    <div class="preview">
+    <div id="pr" class="preview">
+        
         <div class="preview-container">
             <h2 class="text-center">Preview</h2>
             <hr>
+            <a onclick="expandPreview();" class="icon-button2 expand"><i class="fa fa-expand"></i><span></span></a>
             <iframe id="preview"></iframe>
         </div>
     </div>
     <!-- HIDDEN INPUT FILE -->
     <input type="file" id="file-open-input" accept=".html,.htm,.txt" class="hide">
-    <script>
-        var editor = document.getElementById('editor');
-        var preview = document.getElementById('preview');
-        var previewWrapper = document.getElementsByClassName('preview')[0];
-        var editorWrapper = document.getElementsByClassName('editor')[0];
-        var cm;
-
-        function updatePreview(content) {
-            preview.contentWindow.document.open();
-            preview.contentWindow.document.write(content);
-            preview.contentWindow.document.close();
-        }
-
-        window.addEventListener('DOMContentLoaded', function(e) {
-            cm = CodeMirror.fromTextArea(editor, {
-                lineNumbers: true,
-                styleActiveLine: true,
-                mode: 'text/html',
-            });
-
-            cm.on('change', function() {
-                updatePreview(cm.getValue());
-            });
-
-            updatePreview(cm.getValue());
-        });
-    </script>
 </body>
 
 </html>

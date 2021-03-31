@@ -46,7 +46,7 @@ a.button {
 }
 
 .container {
-    margin-top: -5%;
+    margin-top: -3%;
 }
 
 .preview,
@@ -734,7 +734,7 @@ body {
 #menu-container a {
     text-decoration: none;
     color: black;
-    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
 }
 
 #menu-wrapper {
@@ -888,8 +888,41 @@ body {
 	width: 3.6rem;
 }
 
+.icon-button2{
+    background-color: white;
+	border-radius: 1.6rem;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 2.0rem;
+	height: 3.6rem;
+	line-height: 3.6rem;
+	position: absolute;
+	text-align: center;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	width: 3.6rem;
+    margin-left: auto;
+}
+
 /* Circle */
 .icon-button span {
+	border-radius: 0;
+	display: block;
+	height: 0;
+	left: 50%;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	-webkit-transition: all 0.3s;
+	   -moz-transition: all 0.3s;
+	     -o-transition: all 0.3s;
+	        transition: all 0.3s;
+	width: 0;
+}
+/* Circle */
+.icon-button2 span {
 	border-radius: 0;
 	display: block;
 	height: 0;
@@ -909,6 +942,12 @@ body {
 	border-radius: 3.6rem;
 	margin: -1.8rem;
 }
+.icon-button2:hover span {
+	width: 3.6rem;
+	height: 3.6rem;
+	border-radius: 3.6rem;
+	margin: -1.8rem;
+}
 .twitter span {
 	background-color: #4099ff;
 }
@@ -920,6 +959,9 @@ body {
 }
 .instagram span {
 	background-color: #f39fde;
+}
+.expand span {
+	background-color: #a3d9dd;
 }
 /* Icons */
 .icon-button i {
@@ -949,6 +991,26 @@ body {
 .icon-button .icon-instagram {
 	color: #423b3a;
 }
+.icon-button .icon-expand {
+	color: #423b3a;
+}
 .icon-button:hover .icon-button{
 	color: rgb(255, 255, 255);
+}
+
+/* Icons */
+.icon-button2 i {
+	background: none;
+	color: rgb(46, 45, 45);
+	height: 3.6rem;
+	left: 0;
+	line-height: 3.6rem;
+	position: absolute;
+	top: 0;
+	-webkit-transition: all 0.3s;
+	   -moz-transition: all 0.3s;
+	     -o-transition: all 0.3s;
+	        transition: all 0.3s;
+	width: 3.6rem;
+	z-index: 10;
 }
