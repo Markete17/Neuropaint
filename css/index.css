@@ -178,10 +178,6 @@ a.button {
     }
 }
 
-body {
-    font-size: 0.9rem;
-}
-
 .page-wrapper .sidebar-wrapper,
 .sidebar-wrapper .sidebar-brand>a,
 .sidebar-wrapper .sidebar-dropdown>a:after,
@@ -886,11 +882,12 @@ body {
 	    -ms-user-select: none;
 	        user-select: none;
 	width: 3.6rem;
+    border:2px solid rgb(0, 0, 0);
 }
 
 .icon-button2{
     background-color: white;
-	border-radius: 1.6rem;
+	border-radius: 3.6rem;
 	cursor: pointer;
 	display: inline-block;
 	font-size: 2.0rem;
@@ -903,7 +900,8 @@ body {
 	    -ms-user-select: none;
 	        user-select: none;
 	width: 3.6rem;
-    margin-left: auto;
+    margin-left: 93%;
+    border:2px solid rgb(0, 0, 0)
 }
 
 /* Circle */
@@ -961,7 +959,7 @@ body {
 	background-color: #f39fde;
 }
 .expand span {
-	background-color: #a3d9dd;
+	background-color: #c7c7c7;
 }
 /* Icons */
 .icon-button i {
@@ -992,7 +990,7 @@ body {
 	color: #423b3a;
 }
 .icon-button .icon-expand {
-	color: #423b3a;
+	color: #b68e88;
 }
 .icon-button:hover .icon-button{
 	color: rgb(255, 255, 255);

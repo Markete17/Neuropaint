@@ -104,10 +104,15 @@ function saveAsFile(filename, data) {
     if(isVisible){
         $( "#ed" ).hide( "slow" );
         $("#pr").css("width", "100%");
+        $("#btnexp").removeClass("fa fa-expand");
+        $("#btnexp").addClass("fa fa-window-maximize");
     }
     else{
         $( "#ed" ).show( "slow" );
         $("#pr").css("width", "60%");
+        $("#btnexp").removeClass("fa fa-window-maximize");
+        $("#btnexp").addClass("fa fa-expand");
+        
     }
  }
 
