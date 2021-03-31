@@ -46,7 +46,7 @@ a.button {
 }
 
 .container {
-    margin-top: -5%;
+    margin-top: -3.5%;
 }
 
 .preview,
@@ -852,6 +852,9 @@ a.button {
 .accordion-toggle.active-tab {
     background: #0EB0DF;
     transition: all 0.3s ease;
+}
+.accordion-toggle:hover{
+    background-color: #dce7eb;
 }
 
 .accordion-toggle a.active:before {

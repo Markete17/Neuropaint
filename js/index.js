@@ -1,19 +1,4 @@
-
-var cm;
-var previewWrapper = document.getElementsByClassName('preview')[0];
-var editorWrapper = document.getElementsByClassName('editor')[0];
 $(function() {
-    var editor = document.getElementById('editor');
-    var preview = document.getElementById('preview');
-    cm = CodeMirror.fromTextArea(editor, {
-        lineNumbers: true,
-        styleActiveLine: true,
-        mode: 'text/html',
-    });
-    updatePreview(cm.getValue());
-    cm.on('change', function() {
-        updatePreview(cm.getValue());
-    });
     /*SLIDER MENU*/
     function slideMenu() {
         var activeState = $("#menu-container .menu-list").hasClass("active");
@@ -36,12 +21,6 @@ $(function() {
         $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
     });
 });
-
-function updatePreview(content) {
-    preview.contentWindow.document.open();
-    preview.contentWindow.document.write(content);
-    preview.contentWindow.document.close();
-}
 
 function saveAsFile(filename, data) {
     var blob = new Blob([data], { type: 'text/html' });
