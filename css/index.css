@@ -46,7 +46,7 @@ a.button {
 }
 
 .container {
-    margin-top: -3%;
+    margin-top: -5%;
 }
 
 .preview,
@@ -900,7 +900,6 @@ a.button {
 	    -ms-user-select: none;
 	        user-select: none;
 	width: 3.6rem;
-    margin-left: 93%;
     border:2px solid rgb(0, 0, 0)
 }
 
@@ -1011,4 +1010,9 @@ a.button {
 	        transition: all 0.3s;
 	width: 3.6rem;
 	z-index: 10;
+}
+
+.viewbuttons{
+    font-size: 20px;
+    margin-left: 92%;
 }
