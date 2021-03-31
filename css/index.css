@@ -66,6 +66,7 @@ a.button {
     width: 100%;
     border: none;
     background-color: rgb(255, 255, 255);
+    border:2px solid #1b6181;
 }
 
 @media screen and (min-width: 720px) {
