@@ -885,41 +885,8 @@ a.button {
     border:2px solid rgb(0, 0, 0);
 }
 
-.icon-button2{
-    background-color: white;
-	border-radius: 3.6rem;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 2.0rem;
-	height: 3.6rem;
-	line-height: 3.6rem;
-	position: absolute;
-	text-align: center;
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-	        user-select: none;
-	width: 3.6rem;
-    border:2px solid rgb(0, 0, 0)
-}
-
 /* Circle */
 .icon-button span {
-	border-radius: 0;
-	display: block;
-	height: 0;
-	left: 50%;
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	-webkit-transition: all 0.3s;
-	   -moz-transition: all 0.3s;
-	     -o-transition: all 0.3s;
-	        transition: all 0.3s;
-	width: 0;
-}
-/* Circle */
-.icon-button2 span {
 	border-radius: 0;
 	display: block;
 	height: 0;
@@ -939,12 +906,6 @@ a.button {
 	border-radius: 3.6rem;
 	margin: -1.8rem;
 }
-.icon-button2:hover span {
-	width: 3.6rem;
-	height: 3.6rem;
-	border-radius: 3.6rem;
-	margin: -1.8rem;
-}
 .twitter span {
 	background-color: #4099ff;
 }
@@ -952,13 +913,10 @@ a.button {
 	background-color: #50699e;
 }
 .github span {
-	background-color: #f1aa70;
+	background-color: #e0741a;
 }
 .instagram span {
-	background-color: #f39fde;
-}
-.expand span {
-	background-color: #c7c7c7;
+	background-color: #bd2a98;
 }
 /* Icons */
 .icon-button i {
@@ -976,29 +934,38 @@ a.button {
 	width: 3.6rem;
 	z-index: 10;
 }
-.icon-button .icon-twitter {
-	color: #4099ff;
+
+.icon-button:hover .fa{
+    color:white;
 }
-.icon-button .icon-facebook {
-	color: #3B5998;
+
+/*VIEW BUTTONS*/
+.viewbuttons{
+    font-size: 20px;
+    margin-left: 92%;
 }
-.icon-button .icon-github {
-	color: #423b3a;
-}
-.icon-button .icon-instagram {
-	color: #423b3a;
-}
-.icon-button .icon-expand {
-	color: #b68e88;
-}
-.icon-button:hover .icon-button{
-	color: rgb(255, 255, 255);
+.icon-button2{
+    background-color: white;
+	border-radius: 3.6rem;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 2.0rem;
+	height: 3.6rem;
+	line-height: 3.6rem;
+	position: absolute;
+	text-align: center;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	width: 3.6rem;
+    border:2px solid rgb(0, 0, 0)
 }
 
 /* Icons */
 .icon-button2 i {
 	background: none;
-	color: rgb(46, 45, 45);
+	color: rgb(12, 11, 11);
 	height: 3.6rem;
 	left: 0;
 	line-height: 3.6rem;
@@ -1011,8 +978,31 @@ a.button {
 	width: 3.6rem;
 	z-index: 10;
 }
+/* Circle */
+.icon-button2 span {
+	border-radius: 0;
+	display: block;
+	height: 0;
+	left: 50%;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	-webkit-transition: all 0.3s;
+	   -moz-transition: all 0.3s;
+	     -o-transition: all 0.3s;
+	        transition: all 0.3s;
+	width: 0;
+}
+.icon-button2:hover span {
+	width: 3.6rem;
+	height: 3.6rem;
+	border-radius: 3.6rem;
+	margin: -1.8rem;
+}
 
-.viewbuttons{
-    font-size: 20px;
-    margin-left: 92%;
+.icon-button2:hover .fa{
+    color:white;
+}
+.expand span {
+	background-color: #3e9bb3;
 }
