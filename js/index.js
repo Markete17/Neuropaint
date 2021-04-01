@@ -1,6 +1,6 @@
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 
-$(function() {
-
+    $(function() {
     var body = document.querySelector('body');
     var input1 = document.getElementById('input1');
     var input3 = document.getElementById('input3');
@@ -175,8 +175,8 @@ function saveAsFile(filename, data, type) {
         $( "#ed" ).show( "slow" );
         $("#pr").css("width", "60%");
         $(".viewbuttons .expand").css("margin-left", "92%");
-        $(".viewbuttons .open").css("margin-left", "86%");
-        $(".viewbuttons .save").css("margin-left", "80%");
+        $(".viewbuttons .open").css("margin-left", "85%");
+        $(".viewbuttons .save").css("margin-left", "78%");
         $("#btnexp").removeClass("fa fa-window-maximize");
         $("#btnexp").addClass("fa fa-expand");
         
