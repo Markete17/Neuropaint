@@ -946,7 +946,15 @@ a.button {
 /*VIEW BUTTONS*/
 .viewbuttons{
     font-size: 20px;
+}
+.viewbuttons .expand{
     margin-left: 92%;
+}
+.viewbuttons .open{
+    margin-left: 86%;
+}
+.viewbuttons .save{
+    margin-left: 80%;
 }
 .icon-button2{
     background-color: white;
@@ -1003,10 +1011,19 @@ a.button {
 	border-radius: 3.6rem;
 	margin: -1.8rem;
 }
+input{
+    display: none;
+}
 
 .icon-button2:hover .fa{
     color:white;
 }
 .expand span {
+	background-color: #3e9bb3;
+}
+.save span {
+	background-color: #3e9bb3;
+}
+.open span {
 	background-color: #3e9bb3;
 }

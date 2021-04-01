@@ -1,6 +1,7 @@
 var cm;
 var previewWrapper = document.getElementsByClassName('preview')[0];
 var editorWrapper = document.getElementsByClassName('editor')[0];
+var svg = "";
 $(function () {
 	var editor = document.getElementById('editor');
 	var preview = document.getElementById('preview');
@@ -17,11 +18,10 @@ $(function () {
 });
 
 function updatePreview(content) {
-	console.log(content);
 	
 	if(content.includes('var svgController')){
 		eval(content);
-		let svg=svgController.draw(model.getModelTree());
+		svg=svgController.draw(model.getModelTree());
 		preview.contentWindow.document.open();
 		preview.contentWindow.document.write(svg);
 		preview.contentWindow.document.close();

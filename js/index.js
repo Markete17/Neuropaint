@@ -22,8 +22,46 @@ $(function() {
     });
 });
 
-function saveAsFile(filename, data) {
-    var blob = new Blob([data], { type: 'text/html' });
+function save(){
+    var fname1 = prompt('Code File', 'neurotronikCode');
+    var fname2 = prompt('Svg File', 'neurotronikSVG');
+    if (fname1) {
+        saveAsFile(fname1, cm.getValue(),'text/plain');
+    }
+    if (fname2) {
+        saveAsFile(fname2, svg,'image/svg+xml');
+    }
+}
+
+function openFile(){
+    $('#openFile').click();
+    
+    document.getElementById("openFile").addEventListener('change',function(){
+        var fr=new FileReader();
+        fr.onload = function(){
+            if(fileValidation()){
+            cm.setValue(this.result);
+            
+            }
+        }
+        fr.readAsText(this.files[0]);
+    })
+}
+
+function fileValidation(){
+    var fileInput = document.getElementById('openFile');
+    var filePath = fileInput.value;
+    if(!filePath.includes(".txt")){
+        alert('Please upload file having extensions .txt only.');
+        fileInput.value = '';
+        return false;
+    }
+    return true;
+}
+
+
+function saveAsFile(filename, data, type) {
+    var blob = new Blob([data], { type});
 
     if (window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveBlob(blob, filename);
@@ -48,7 +86,6 @@ function saveAsFile(filename, data) {
  * CTRL+Shift+S = Save File
  * CTRL+Shift+B = Word wrap
  * CTRL+Shift+E = Hide/Show Editor
- * CTRL+Shift+W = Hide/Show Preview
  */
  document.onkeyup = function(e)
  {
@@ -69,7 +106,7 @@ function saveAsFile(filename, data) {
      }
  
      if (e.ctrlKey && e.shiftKey && theChar == 'S') {
-         document.getElementById('menu-save-file').click();
+         save();
      }
  
      if (e.ctrlKey && e.shiftKey && theChar == 'E') {
@@ -83,20 +120,23 @@ function saveAsFile(filename, data) {
     if(isVisible){
         $( "#ed" ).hide( "slow" );
         $("#pr").css("width", "100%");
-        $(".viewbuttons").css("margin-left", "95%");
+        $(".viewbuttons .expand").css("margin-left", "95%");
+        $(".viewbuttons .open").css("margin-left", "91%");
+        $(".viewbuttons .save").css("margin-left", "87%");
         $("#btnexp").removeClass("fa fa-expand");
         $("#btnexp").addClass("fa fa-window-maximize");
     }
     else{
         $( "#ed" ).show( "slow" );
         $("#pr").css("width", "60%");
-        $(".viewbuttons").css("margin-left", "92%");
+        $(".viewbuttons .expand").css("margin-left", "92%");
+        $(".viewbuttons .open").css("margin-left", "86%");
+        $(".viewbuttons .save").css("margin-left", "80%");
         $("#btnexp").removeClass("fa fa-window-maximize");
         $("#btnexp").addClass("fa fa-expand");
         
     }
  }
-
 window.onbeforeunload = function(e) {
     if (e) {
         // Cancel the event
