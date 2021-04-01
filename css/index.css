@@ -813,6 +813,16 @@ a.button {
     border-top: 1px solid #dbdcd2;
 }
 
+#menu-container .menu-list li.accordion-toggle2,
+#menu-container .menu-list .menu-login {
+    font-size: 14px;
+    padding: 5px;
+    text-transform: uppercase;
+    border-top: 1px solid #dbdcd2;
+    margin-right: 10%;
+    text-align: center;
+}
+
 #menu-container .menu-list li:first-of-type {
     border-top: 0;
 }
@@ -820,15 +830,24 @@ a.button {
 .accordion-toggle,
 .accordion-content {
     cursor: pointer;
-    font-size: 16px;
+    font-size: 13px;
     position: relative;
     letter-spacing: 1px;
 }
 
+.accordion-toggle2,
+.accordion-content2 {
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    letter-spacing: 1px;
+}
 .accordion-content {
     display: none;
 }
-
+.accordion-content2 {
+    display: none;
+}
 .accordion-toggle a:before,
 .accordion-toggle a:after {
     content: '';
@@ -868,6 +887,26 @@ a.button {
     background: #fff !important;
     opacity: 0;
 }
+/*a*/
+.accordion-toggle2.active-tab {
+    background: #8fcddf;
+    transition: all 0.3s ease;
+}
+.accordion-toggle2:hover{
+    background-color: #dce7eb;
+}
+
+.accordion-toggle2 a.active:before {
+    transform: rotate(0deg);
+    background: rgb(255, 255, 255) !important;
+}
+
+.accordion-toggle2 a.active:after {
+    transform: rotate(180deg);
+    background: #fff !important;
+    opacity: 0;
+}
+
 
 /*SOCIAL MEDIA*/
 /* Wrapper */
@@ -909,18 +948,6 @@ a.button {
 	height: 3.6rem;
 	border-radius: 3.6rem;
 	margin: -1.8rem;
-}
-.twitter span {
-	background-color: #4099ff;
-}
-.facebook span {
-	background-color: #50699e;
-}
-.github span {
-	background-color: #e0741a;
-}
-.instagram span {
-	background-color: #bd2a98;
 }
 /* Icons */
 .icon-button i {
@@ -1011,7 +1038,7 @@ a.button {
 	border-radius: 3.6rem;
 	margin: -1.8rem;
 }
-input{
+#openFile{
     display: none;
 }
 
@@ -1027,3 +1054,156 @@ input{
 .open span {
 	background-color: #3e9bb3;
 }
+.twitter span {
+	background-color: #4099ff;
+}
+.facebook span {
+	background-color: #50699e;
+}
+.github span {
+	background-color: #e0741a;
+}
+.instagram span {
+	background-color: #bd2a98;
+}
+
+/**INPUT SETTINGS**/
+:root {
+    --cubeColor: #F9A52F;
+    --kernelColor: #85F7F9;
+    --denseColor: #14D8FF;
+    --pyramidColor: #FFB3D1;
+    --arrowColor: #000000;
+    --strokeColor: #000000;
+    --fontColor: #000000;
+}
+.color-input {
+    width: 50px;
+    height: 50px;
+    border: none;
+    outline: none;
+    opacity: 0;
+  }
+  
+  .custom {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-top: -15%;
+    border: 2px solid rgb(0, 0, 0);
+  }
+  
+  .custom:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 5px #4e4e4e;
+  }
+  
+  .color-input:hover {
+    cursor: pointer;
+  }
+  
+  .color-input:hover + .custom {
+    box-shadow: 0px 0px 20px 5px #4e4e4e;
+  }
+  /**COLORS**/
+  #custom-input-1 {
+    background-color: var(--cubeColor);
+  }
+  #custom-input-3 {
+    background-color: var(--kernelColor);
+  }
+  #custom-input-5 {
+    background-color: var(--denseColor);
+  }
+  #custom-input-7 {
+    background-color: var(--pyramidColor);
+  }
+  #custom-input-9 {
+    background-color: var(--arrowColor);
+  }
+  #custom-input-11 {
+    background-color: var(--strokeColor);
+  }
+  #custom-input-13 {
+    background-color: var(--fontColor);
+  }
+
+  /**RADIO BUTTONS*/
+  @keyframes click-wave {
+    0% {
+      height: 40px;
+      width: 40px;
+      opacity: 0.35;
+      position: relative;
+    }
+    100% {
+      height: 200px;
+      width: 200px;
+      margin-left: -80px;
+      margin-top: -80px;
+      opacity: 0;
+    }
+  }
+  
+  .option-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    position: relative;
+    top: 13.33333px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    transition: all 0.15s ease-out 0s;
+    background: #cbd1d8;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 0.5rem;
+    outline: none;
+    position: relative;
+    z-index: 1000;
+    margin-top: -5%;
+  }
+  .option-input:hover {
+    background: #9faab7;
+  }
+  .option-input:checked {
+    background: #40e0d0;
+  }
+  .option-input:checked::before {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    content: '✔';
+    display: inline-block;
+    font-size: 26.66667px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .option-input:checked::after {
+    -webkit-animation: click-wave 0.65s;
+    -moz-animation: click-wave 0.65s;
+    animation: click-wave 0.65s;
+    background: #40e0d0;
+    content: '';
+    display: block;
+    position: relative;
+    z-index: 100;
+  }
+  .option-input.radio {
+    border-radius: 50%;
+  }
+  .option-input.radio::after {
+    border-radius: 50%;
+  }
+
+  .radiotitle{
+      font-weight: bold;
+      font-size: 15px;
+  }

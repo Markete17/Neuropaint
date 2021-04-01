@@ -33,34 +33,139 @@
         <ul class="menu-list accordion">
             <li id="nav1" class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
-                <a class="menu-link" href="#">Color Settings</a>
+                <a class="menu-link">Color Settings</a>
             </li>
-            <ul class="menu-submenu accordion-content">
-                <li><a class="head" href="#">Submenu1</a></li>
-                <li><a class="head" href="#">Submenu2</a></li>
-                <li><a class="head" href="#">Submenu3</a></li>
-            </ul>
+                <ul class="menu-submenu accordion-content">
+                    <li id="nav1" class="toggle accordion-toggle2">
+                        <a class="menu-link">Cube</a>
+                    </li>
+                    <ul class="menu-submenu accordion-content2">
+                        <li>
+                                    <input id="input1" type="color" value="#F9A52F" class="color-input"/>
+                                    <div id="custom-input-1" class="custom"></div>
+                                    <p>Opacity: </p><input id="input2" type="number" value=0 step="0.1" max="1" min="0" placeholder="0.00"/>
+                        </li>
+                    </ul>
+                    <li id="nav2" class="toggle accordion-toggle2">
+                        <a class="menu-link">Kernel</a>
+                    </li>
+                    <ul class="menu-submenu accordion-content2">
+                        <li>
+                                    <input id="input3" type="color" value="#85F7F9" class="color-input"/>
+                                    <div id="custom-input-3" class="custom"></div>
+                                    <p>Opacity: </p><input id="input4" type="number" value=0 step="0.1" max="1" min="0" placeholder="0.00"/>
+                        </li>
+                    </ul>
+                    <li id="nav3" class="toggle accordion-toggle2">
+                        <a class="menu-link">Dense</a>
+                    </li>
+                    <ul class="menu-submenu accordion-content2">
+                        <li>
+                                    <input id="input5" type="color" value="#14D8FF" class="color-input"/>
+                                    <div id="custom-input-5" class="custom"></div>
+                                    <p>Opacity: </p><input id="input6" type="number" value=0 step="0.1" max="1" min="0" placeholder="0.00"/>
+                        </li>
+                    </ul>
+                    <li id="nav4" class="toggle accordion-toggle2">
+                        <a class="menu-link">Pyramid</a>
+                    </li>
+                    <ul class="menu-submenu accordion-content2">
+                        <li>
+                                    <input id="input7" type="color" value="#FFB3D1" class="color-input"/>
+                                    <div id="custom-input-7" class="custom"></div>
+                                    <p>Opacity: </p><input id="input8" type="number" value=0 step="0.1" max="1" min="0" placeholder="0.00"/>
+                        </li>
+                    </ul>
+                    <li id="nav5" class="toggle accordion-toggle2">
+                        <a class="menu-link">Arrow</a>
+                    </li>
+                    <ul class="menu-submenu accordion-content2">
+                        <li>
+                                    <input id="input9" type="color" value="#000000" class="color-input"/>
+                                    <div id="custom-input-9" class="custom"></div>
+                                    <p>Opacity: </p><input id="input10" type="number" value=0 step="0.1" max="1" min="0" placeholder="0.00"/>
+                        </li>
+                    </ul>
+                    <li id="nav6" class="toggle accordion-toggle2">
+                        <a class="menu-link">Stroke</a>
+                    </li>
+                    <ul class="menu-submenu accordion-content2">
+                        <li>
+                                    <input id="input11" type="color" value="#000000" class="color-input"/>
+                                    <div id="custom-input-11" class="custom"></div>
+                                    <p>Width: </p><input id="input12" type="number" value=0 step="0.1" max="1" min="0" placeholder="0.00"/>
+                        </li>
+                    </ul>
+                </ul>
             <li id="nav2" class="toggle accordion-toggle">
-                <span class="icon-plus"></span>
-                <a class="menu-link" href="#">Position Settings</a>
+                    <span class="icon-plus"></span>
+                    <a class="menu-link">Font Settings</a>
             </li>
             <ul class="menu-submenu accordion-content">
-                <li><a class="head" href="#">Submenu1</a></li>
-                <li><a class="head" href="#">Submenu2</a></li>
+                <input id="input13" type="color" value="#000000" class="color-input"/>
+                <div id="custom-input-13" class="custom"></div>
+                <p>Size: </p><input id="input14" type="number" value=0 step="1"  min="0" placeholder="0"/>
             </ul>
             <li id="nav3" class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
-                <a class="menu-link" href="#">ViewBox</a>
+                <a class="menu-link">Dimension Settings</a>
             </li>
             <ul class="menu-submenu accordion-content">
-                <li><a class="head" href="#">Submenu1</a></li>
-                <li><a class="head" href="#">Submenu2</a></li>
-                <li><a class="head" href="#">Submenu3</a></li>
-                <li><a class="head" href="#">Submenu4</a></li>
+                <li id="nav1" class="toggle accordion-toggle2">
+                    <a class="menu-link">Dimensions Text</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <p class="radiotitle">Cube Dimensions</p>  
+                        <label>
+                            <input type="radio" class="option-input radio" name="select1" checked />
+                            Activate
+                        </label>
+                        <label>
+                            <input type="radio" class="option-input radio" name="select1" />
+                            Desactivate
+                        </label>
+                        <p class="radiotitle">Kernel Dimensions</p>
+                        <label>
+                            <input type="radio" class="option-input radio" name="select2" checked/>
+                            Activate
+                        </label>
+                        <label>
+                            <input type="radio" class="option-input radio" name="select2" />
+                            Desactivate
+                        </label>
+                    </li>
+                </ul>
+                <li id="nav2" class="toggle accordion-toggle2">
+                    <a class="menu-link">Logarithms</a>
+                    
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <p class="radiotitle">WidthLogs</p>  
+                        <label>
+                            <input type="radio" class="option-input radio" name="select3"/>
+                            Activate
+                        </label>
+                        <label>
+                            <input type="radio" class="option-input radio" name="select3"checked/>
+                            Desactivate
+                        </label>
+                        <p class="radiotitle">Height Logs</p>
+                        <label>
+                            <input type="radio" class="option-input radio" name="select4"/>
+                            Activate
+                        </label>
+                        <label>
+                            <input type="radio" class="option-input radio" name="select4"checked/>
+                            Desactivate
+                        </label>
+                    </li>
+                </ul>
             </ul>
             <li id="nav3" class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
-                <a class="menu-link" href="#">About</a>
+                <a class="menu-link">About</a>
             </li>
             <ul class="menu-submenu accordion-content">
                     <a href="https://github.com/Markete17" target="_blank" class="icon-button github"><i class="fa fa-github"></i><span></span></a>

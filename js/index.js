@@ -1,4 +1,42 @@
+
 $(function() {
+
+    var body = document.querySelector('body');
+    var input1 = document.getElementById('input1');
+    var input3 = document.getElementById('input3');
+    var input5 = document.getElementById('input5');
+    var input7 = document.getElementById('input7');
+    var input9 = document.getElementById('input9');
+    
+    input1.addEventListener('change', function() {
+        body.style.setProperty('--cubeColor', input1.value);
+        $('#input1').val(input1.value);
+    });
+    input3.addEventListener('change', function() {
+        body.style.setProperty('--kernelColor', input3.value);
+        $('#input3').val(input3.value);
+    });
+    input5.addEventListener('change', function() {
+        body.style.setProperty('--denseColor', input5.value);
+        $('#input5').val(input5.value);
+    });
+    input7.addEventListener('change', function() {
+        body.style.setProperty('--pyramidColor', input7.value);
+        $('#input7').val(input7.value);
+    });
+    input9.addEventListener('change', function() {
+        body.style.setProperty('--arrowColor', input9.value);
+        $('#input9').val(input9.value);
+    });
+    input11.addEventListener('change', function() {
+        body.style.setProperty('--strokeColor', input11.value);
+        $('#input9').val(input11.value);
+    });
+    input13.addEventListener('change', function() {
+        body.style.setProperty('--fontColor', input13.value);
+        $('#input13').val(input13.value);
+    });
+
     /*SLIDER MENU*/
     function slideMenu() {
         var activeState = $("#menu-container .menu-list").hasClass("active");
@@ -19,6 +57,14 @@ $(function() {
 
         $(".menu-list .accordion-content").not($(this).next()).slideUp("fast").removeClass("open");
         $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
+    });
+
+    $(".menu-list").find(".accordion-toggle2").click(function() {
+        $(this).next().toggleClass("open").slideToggle("fast");
+        $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
+
+        $(".menu-list .accordion-content2").not($(this).next()).slideUp("fast").removeClass("open");
+        $(".menu-list .accordion-toggle2").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
     });
 });
 
@@ -91,18 +137,17 @@ function saveAsFile(filename, data, type) {
  {
      e.preventDefault();
  
-     // e.keyCode is deprecated from web standard and replaced with e.key
      var theChar = null;
      if (e.key !== undefined) {
          theChar = e.key.toUpperCase();
      }
      if (!theChar) {
          // Fallback to old standard
-         theChar = String.fromCharCode(e.keyCode).toUpperCase();
+         theChar = String.fromCharCode(e.key).toUpperCase();
      }
  
      if (e.ctrlKey && e.shiftKey && theChar == 'O') {
-         document.getElementById('menu-open-file').click();
+         openFile();
      }
  
      if (e.ctrlKey && e.shiftKey && theChar == 'S') {
