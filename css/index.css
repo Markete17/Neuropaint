@@ -75,18 +75,9 @@ a.button {
         float: left;
         padding-bottom: 0;
     }
-    .menu {
-        width: 300px;
-        border-right: 1px dotted #999;
-        border-bottom: 1px dotted #999;
-    }
     .preview {
         width: 60%;
         float: left;
-    }
-    .full-width {
-        width: 100%;
-        float: initial;
     }
 }
 
@@ -736,8 +727,9 @@ a.button {
 
 #menu-wrapper {
     overflow: hidden;
-    max-width: 100%;
     cursor: pointer;
+    margin-right: 96%;
+    margin-left: 0.5%;
 }
 
 #menu-wrapper #hamburger-menu {
@@ -977,7 +969,7 @@ a.button {
 .viewbuttons .expand{
     margin-left: 92%;
 }
-.viewbuttons .open{
+.viewbuttons .openFile{
     margin-left: 85%;
 }
 .viewbuttons .save{
@@ -1051,7 +1043,7 @@ a.button {
 .save span {
 	background-color: #3e9bb3;
 }
-.open span {
+.openFile span {
 	background-color: #3e9bb3;
 }
 .twitter span {
@@ -1081,16 +1073,19 @@ a.button {
     width: 50px;
     height: 50px;
     border: none;
-    outline: none;
     opacity: 0;
+    outline: none;
+    position: absolute;
+    z-index: 50;
   }
   
   .custom {
     width: 50px;
     height: 50px;
     border-radius: 50px;
-    margin-top: -15%;
+    position: relative;
     border: 2px solid rgb(0, 0, 0);
+    z-index: 20;
   }
   
   .custom:hover {
@@ -1206,4 +1201,131 @@ a.button {
   .radiotitle{
       font-weight: bold;
       font-size: 15px;
+  }
+  .input-number {
+    width: 80px;
+    padding: 0 12px;
+    vertical-align: top;
+    text-align: center;
+    outline: none;
+}
+.input-number, .input-number-decrement, .input-number-increment {
+    border: 1px solid #ccc;
+    height: 40px;
+    user-select: none;
+}
+.input-number-decrement, .input-number-increment {
+    display: inline-block;
+    width: 30px;
+    line-height: 38px;
+    background: #f1f1f1;
+    color: #444;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.input-number-decrement:active, .input-number-increment:active {
+    background: #ddd;
+}
+.input-number-decrement {
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+}
+.input-number-increment {
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+}
+.color-opacity{
+    display: flex;
+}
+.opacity{
+    margin-top: -13%;
+    margin-left: 20%;
+}
+/**BUTTON**/
+.btn3d {
+	position: relative;
+	top: -6px;
+	border: 0;
+	transition: all 40ms linear;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 2px;
+	margin-right: 2px;
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.btn3d:active:focus,
+.btn3d:focus:hover,
+.btn3d:focus {
+	outline: medium none;
+}
+
+.btn3d:active,
+.btn3d.active {
+	top: 2px;
+}
+
+.btn3d.btn-default {
+	color: #497c9e;
+	box-shadow: 0 0 0 1px #a3c9e9 inset, 0 0 0 2px rgba(255, 255, 255, 0.10) inset, 0 8px 0 0 #a3c9e9, 0 8px 8px 1px rgba(0, 0, 0, .2);
+	background-color: #beecec;
+}
+
+.btn3d.btn-default:active,
+.btn3d.btn-default.active {
+	color: #0b3f61;
+	box-shadow: 0 0 0 1px #a3c9e9 inset, 0 0 0 1px rgba(240, 234, 234, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, .1);
+	background-color: #beecec;
+}
+.button-distance{
+    margin-left: 15%;
+}
+#fontButton{
+    font-family: 'Calibri';
+}
+
+/*RANGE SLIDER*/
+.rangediv {
+    margin-left: 15%;
+    margin-right: 20%;
+}
+  .rangeValue {
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    margin-top: -0.5%;
+    margin-left: 1%;
+  }
+  .range {
+    width: 200px;
+    height: 15px;
+    -webkit-appearance: none;
+    background: #cccccc;
+    outline: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 1);
+    border: 2px solid rgb(1, 1, 49);
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #2982c7;
+    cursor: pointer;
+    border: 1px solid rgb(1, 1, 49);
+    box-shadow: -407px 0 0 400px #2982c7;
+  }
+  .rangetitle{
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    margin-left: 15%;
   }

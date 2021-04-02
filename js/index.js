@@ -105,6 +105,107 @@ function fileValidation(){
     return true;
 }
 
+function decrement(number){
+    let input = $('#input'+number);
+    let n1=parseFloat(input.val());
+    //Size
+    if(number==14||number==15 || number==16 || number==17){
+        let result = parseFloat(n1-1);
+        if(result>0){
+            $('#input'+number).val(result.toFixed(0));
+        }
+        else{
+            $('#input'+number).val(0);
+        }
+    }
+    else{
+        let result = parseFloat(n1-0.1);
+        if(result>0){
+            $('#input'+number).val(result.toFixed(1));
+        }
+        else{
+            $('#input'+number).val(0);
+        }
+    }
+}
+
+function increment(number){
+    let input = $('#input'+number);
+    let n1=parseFloat(input.val());
+    //Size
+    if(number==14){
+        let result = parseFloat(n1+1);
+        if(result<30){
+            $('#input'+number).val(result.toFixed(0));
+        }
+        else{
+            $('#input'+number).val(30);
+        }
+    }
+    else if(number==15 || number==16 || number==17){
+        let result = parseFloat(n1+1);
+        if(result<150){
+            $('#input'+number).val(result.toFixed(0));
+        }
+        else{
+            $('#input'+number).val(300);
+        }
+    }
+    else{
+        let result = parseFloat(n1+0.1);
+        if(result<1){
+            $('#input'+number).val(result.toFixed(1));
+        }
+        else{
+            $('#input'+number).val(1);
+        }
+    }
+
+}
+
+function checkInputNumber(number){
+    let input = $('#input'+number);
+    if(number==14){
+        let n1=parseFloat(input.val());
+        if(n1>30){
+            $('#input'+number).val(30);
+        }
+        if(n1<0){
+            $('#input'+number).val(0);
+        }
+    }
+    else{
+        let n1=parseFloat(input.val());
+        if(n1>1){
+            $('#input'+number).val(1);
+        }
+        if(n1<0){
+            $('#input'+number).val(0);
+        }
+    }
+
+}
+var fonts = {
+    list:[
+    'Calibri',
+    'Arial',
+    'Consolas',
+    'Georgia',
+    'Courier',
+    ],
+    index:0
+}
+function toggleButton(){
+    fonts.index = fonts.index+1;
+    let i = (fonts.index) % fonts.list.length;
+    $('#fontButton').text(fonts.list[i]);
+    $('#fontButton').css('font-family',fonts.list[i]);
+}
+
+function rangeSlide(value,number) {
+    document.getElementById('rangeValue'+number).innerHTML = value;
+}
+
 
 function saveAsFile(filename, data, type) {
     var blob = new Blob([data], { type});
