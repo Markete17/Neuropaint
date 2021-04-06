@@ -45,10 +45,6 @@ a.button {
     display: none;
 }
 
-.container {
-    margin-top: -9%;
-}
-
 .preview{
     height: 100%;
     width: 100%;
@@ -974,8 +970,9 @@ a.button {
 .viewbuttons{
     font-size: 20px;
     display: inline-block;
-    position: relative;
+    position: absolute;
     margin-left: 85%;
+    margin-top: 3%;
 }
 
 #openFile{
