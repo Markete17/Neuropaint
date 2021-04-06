@@ -16,10 +16,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type="image/png" href="images/favicon.PNG"/>
 </head>
+
 <header>
     <img src="images/title.PNG">
-</header>
 
+</header>
+<div class="viewbuttons">
+    <a onclick="save();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
+    <a onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen" class="fa fa-folder-open"></i><span></span></a>
+    <input type="file" name="open" id="openFile">
+    <a onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"class="fa fa-expand"></i><span></span></a>
+</div>
 <body>
     <div class="container">
 
@@ -170,21 +177,21 @@
                         <div>
                             <span class="rangetitle">Nodes Distance</span>
                             <div class="color-opacity">
-                                <Input class="range" type="range" value="100" min="0" max="150" onChange="rangeSlide(this.value,1)" onmousemove="rangeSlide(this.value)"></Input>
+                                <input class="range" type="range" value="100" min="0" max="150" onChange="rangeSlide(this.value,1)" onmousemove="rangeSlide(this.value)"></Input>
                                 <span class="rangeValue" id="rangeValue1">100</span>
                             </div>
                         </div>
                         <div>
                             <span class="rangetitle">Layers Distance</span>
                             <div class="color-opacity">
-                                <Input class="range" type="range" value="50" min="0" max="150" onChange="rangeSlide(this.value,2)" onmousemove="rangeSlide(this.value)"></Input>
+                                <input class="range" type="range" value="50" min="0" max="150" onChange="rangeSlide(this.value,2)" onmousemove="rangeSlide(this.value)"></Input>
                                 <span class="rangeValue" id="rangeValue2">50</span>
                             </div>
                         </div>
                         <div>
                             <span class="rangetitle">Parents Distance</span>
                             <div class="color-opacity">
-                                <Input class="range" type="range" value="50" min="0" max="150" onChange="rangeSlide(this.value,3)" onmousemove="rangeSlide(this.value)"></Input>
+                                <input class="range" type="range" value="50" min="0" max="150" onChange="rangeSlide(this.value,3)" onmousemove="rangeSlide(this.value)"></Input>
                                 <span class="rangeValue" id="rangeValue3">50</span>
                             </div>
                         </div>
@@ -252,11 +259,13 @@
                 <a class="menu-link">About</a>
             </li>
             <ul class="menu-submenu accordion-content">
-                    <a href="https://github.com/Markete17" target="_blank" class="icon-button github"><i class="fa fa-github"></i><span></span></a>
-                    <a href="https://twitter.com/markete17" target="_blank" class="icon-button twitter"><i class="fa fa-twitter"></i><span></span></a>
-                    <a href="https://www.instagram.com/markete_17/" target="_blank" class="icon-button instagram"><i class="fa fa-instagram"></i><span></span></a>
-                    <a href="https://www.facebook.com/profile.php?id=100009550702601" target="_blank" class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
-            </ul>
+                    <div class="social-media-container">
+                        <a href="https://github.com/Markete17" target="_blank" class="icon-button github"><i class="fa fa-github"></i><span></span></a>
+                        <a href="https://twitter.com/markete17" target="_blank" class="icon-button twitter"><i class="fa fa-twitter"></i><span></span></a>
+                        <a href="https://www.instagram.com/markete_17/" target="_blank" class="icon-button instagram"><i class="fa fa-instagram"></i><span></span></a>
+                        <a href="https://www.facebook.com/profile.php?id=100009550702601" target="_blank" class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
+                    </div>
+                </ul>
             <!-- menu-submenu accordon-content-->
         </ul>
         <!-- menu-list accordion-->
@@ -264,7 +273,7 @@
     <!-- menu-container -->
 
     <!-- EDITOR WINDOW -->
-    <div id="ed" class="editor">
+    <div class="editor">
         <div class="editor-container">
             <h2 class="text-center">Your Code</h2>
             <div class="paper">
@@ -281,14 +290,7 @@
         </div>
     </div>
     <!-- PREVIEW WINDOW -->
-    <div id="pr" class="preview">
-
-        <div class="viewbuttons">
-            <a onclick="save();" class="icon-button2 save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
-            <a onclick="openFile();" class="icon-button2 openFile"><i id="btnopen" class="fa fa-folder-open"></i><span></span></a>
-            <input type="file" name="open" id="openFile">
-            <a onclick="expandPreview();" class="icon-button2 expand"><i id="btnexp" class="fa fa-expand"></i><span></span></a>
-        </div>
+    <div class="preview">
 
         <div class="preview-container">
             <h2 class="text-center">Preview</h2>

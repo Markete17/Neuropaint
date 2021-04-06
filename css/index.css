@@ -46,10 +46,14 @@ a.button {
 }
 
 .container {
-    margin-top: -3.5%;
+    margin-top: -9%;
 }
 
-.preview,
+.preview{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
 .CodeMirror {
     height: 100%;
     width: 100%;
@@ -77,7 +81,7 @@ a.button {
     }
     .preview {
         width: 60%;
-        float: left;
+        float: left; 
     }
 }
 
@@ -86,9 +90,10 @@ a.button {
 }
 
 .preview-container {
+    position: relative;
     height: 100%;
-    margin-left: 1%;
-    margin-right: 1%;
+    padding-left: 0.5%;
+    padding-right: 1%;
 }
 
 
@@ -818,6 +823,9 @@ a.button {
 #menu-container .menu-list li:first-of-type {
     border-top: 0;
 }
+.social-media-container{
+    margin-left: 10%;
+}
 
 .accordion-toggle,
 .accordion-content {
@@ -965,78 +973,15 @@ a.button {
 /*VIEW BUTTONS*/
 .viewbuttons{
     font-size: 20px;
-}
-.viewbuttons .expand{
-    margin-left: 92%;
-}
-.viewbuttons .openFile{
+    display: inline-block;
+    position: relative;
     margin-left: 85%;
 }
-.viewbuttons .save{
-    margin-left: 78%;
-}
-.icon-button2{
-    background-color: white;
-	border-radius: 3.6rem;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 2.0rem;
-	height: 3.6rem;
-	line-height: 3.6rem;
-	position: absolute;
-	text-align: center;
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-	        user-select: none;
-	width: 3.6rem;
-    border:2px solid rgb(0, 0, 0)
-}
 
-/* Icons */
-.icon-button2 i {
-	background: none;
-	color: rgb(12, 11, 11);
-	height: 3.6rem;
-	left: 0;
-	line-height: 3.6rem;
-	position: absolute;
-	top: 0;
-	-webkit-transition: all 0.3s;
-	   -moz-transition: all 0.3s;
-	     -o-transition: all 0.3s;
-	        transition: all 0.3s;
-	width: 3.6rem;
-	z-index: 10;
-}
-/* Circle */
-.icon-button2 span {
-	border-radius: 0;
-	display: block;
-	height: 0;
-	left: 50%;
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	-webkit-transition: all 0.3s;
-	   -moz-transition: all 0.3s;
-	     -o-transition: all 0.3s;
-	        transition: all 0.3s;
-	width: 0;
-}
-.icon-button2:hover span {
-	width: 3.6rem;
-	height: 3.6rem;
-	border-radius: 3.6rem;
-	margin: -1.8rem;
-}
 #openFile{
     display: none;
 }
 
-.icon-button2:hover .fa{
-    color:white;
-}
 .expand span {
 	background-color: #3e9bb3;
 }

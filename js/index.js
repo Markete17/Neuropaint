@@ -262,22 +262,17 @@ function saveAsFile(filename, data, type) {
  }
 
  function expandPreview(){
-    var isVisible = $("#ed").is(":visible");
+    var isVisible = $(".editor").is(":visible");
     if(isVisible){
-        $( "#ed" ).hide( "slow" );
-        $("#pr").css("width", "100%");
-        $(".viewbuttons .expand").css("margin-left", "95%");
-        $(".viewbuttons .open").css("margin-left", "91%");
-        $(".viewbuttons .save").css("margin-left", "87%");
+        $(".editor" ).hide( "slow" );
+        $(".preview").css("width", "100%");
+        $(".preview").css("height", "200%");
         $("#btnexp").removeClass("fa fa-expand");
         $("#btnexp").addClass("fa fa-window-maximize");
     }
     else{
-        $( "#ed" ).show( "slow" );
-        $("#pr").css("width", "60%");
-        $(".viewbuttons .expand").css("margin-left", "92%");
-        $(".viewbuttons .open").css("margin-left", "85%");
-        $(".viewbuttons .save").css("margin-left", "78%");
+        $(".editor" ).show( "slow" );
+        $(".preview").css("width", "60%");
         $("#btnexp").removeClass("fa fa-window-maximize");
         $("#btnexp").addClass("fa fa-expand");
         
