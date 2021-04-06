@@ -973,6 +973,7 @@ a.button {
     position: absolute;
     margin-left: 85%;
     margin-top: 3%;
+    z-index: 500;
 }
 
 #openFile{
