@@ -273,6 +273,7 @@ function saveAsFile(filename, data, type) {
     else{
         $(".editor" ).show( "slow" );
         $(".preview").css("width", "60%");
+        $(".preview").css("height", "100%");
         $("#btnexp").removeClass("fa fa-window-maximize");
         $("#btnexp").addClass("fa fa-expand");
         
