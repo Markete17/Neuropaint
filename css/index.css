@@ -968,12 +968,9 @@ a.button {
 
 /*VIEW BUTTONS*/
 .viewbuttons{
-    font-size: 20px;
-    display: inline-block;
     position: absolute;
-    margin-left: 85%;
-    margin-top: 3%;
-    z-index: 500;
+    right: 0;
+    margin-right: 1%;
 }
 
 #openFile{

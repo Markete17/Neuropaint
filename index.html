@@ -20,12 +20,6 @@
 <header>
     <a href="https://github.com/Markete17/Neurotronik-Web" target="_blank"><img src="images/title.PNG"></a>
 </header>
-<div class="viewbuttons">
-    <a onclick="save();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
-    <a onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen" class="fa fa-folder-open"></i><span></span></a>
-    <input type="file" name="open" id="openFile">
-    <a onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"class="fa fa-expand"></i><span></span></a>
-</div>
 <body>
     <div id="menu-container">
         <div id="menu-wrapper">
@@ -287,7 +281,12 @@
     </div>
     <!-- PREVIEW WINDOW -->
     <div class="preview">
-
+        <div class="viewbuttons">
+            <a onclick="save();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
+            <a onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen" class="fa fa-folder-open"></i><span></span></a>
+            <input type="file" name="open" id="openFile">
+            <a onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"class="fa fa-expand"></i><span></span></a>
+        </div>
         <div class="preview-container">
             <h2 class="text-center">Preview</h2>
             
