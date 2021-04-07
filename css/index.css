@@ -991,15 +991,9 @@ a.button {
     font-weight: bold;
 }
 
-.zoom1:active {
+.icon-button:active {
 	top: 4px;
 }
-
-.zoom2:active {
-	top: 4px;
-}
-
-
 
 #openFile{
     display: none;
