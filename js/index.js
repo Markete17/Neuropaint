@@ -1,12 +1,16 @@
     $("html, body").animate({ scrollTop: 0 }, "slow");
-
+    var zoom = 100;
+    
     $(function() {
+    
     var body = document.querySelector('body');
     var input1 = document.getElementById('input1');
     var input3 = document.getElementById('input3');
     var input5 = document.getElementById('input5');
     var input7 = document.getElementById('input7');
     var input9 = document.getElementById('input9');
+
+    $("#zoomtext").text(zoom+'%');
     
     input1.addEventListener('change', function() {
         body.style.setProperty('--cubeColor', input1.value);
@@ -206,6 +210,19 @@ function rangeSlide(value,number) {
     document.getElementById('rangeValue'+number).innerHTML = value;
 }
 
+function zoomIn(){
+    if(zoom != 200){
+        zoom +=25;
+        $("#zoomtext").text(zoom+'%');
+    }
+}
+
+function zoomOut(){
+    if(zoom != 0){
+        zoom -=25;
+        $("#zoomtext").text(zoom+'%');
+    }
+}
 
 function saveAsFile(filename, data, type) {
     var blob = new Blob([data], { type});

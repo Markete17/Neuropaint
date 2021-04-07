@@ -973,6 +973,29 @@ a.button {
     margin-right: 1%;
 }
 
+.zoombuttons{
+    position: absolute;
+    left: 0;
+}
+
+#zoomtext{
+    position: absolute;
+    margin-top: -15%;
+    margin-left: 35%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.zoom1:active {
+	top: 4px;
+}
+
+.zoom2:active {
+	top: 4px;
+}
+
+
+
 #openFile{
     display: none;
 }
@@ -994,6 +1017,12 @@ a.button {
 }
 .github span {
 	background-color: #e0741a;
+}
+.zoom1 span {
+	background-color: #e0741a;
+}
+.zoom2 span {
+	background-color: #F9A52F;
 }
 .instagram span {
 	background-color: #bd2a98;
