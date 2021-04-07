@@ -2,9 +2,11 @@ var cm;
 var previewWrapper = document.getElementsByClassName('preview')[0];
 var editorWrapper = document.getElementsByClassName('editor')[0];
 var svg = "";
+var layers;
 $(function () {
 	var editor = document.getElementById('editor');
 	var preview = document.getElementById('preview');
+	
 	cm = CodeMirror.fromTextArea(editor, {
 		lineNumbers: true,
 		styleActiveLine: true,
@@ -13,35 +15,87 @@ $(function () {
 	cm.setValue(example.data[0]);
 	updatePreview(cm.getValue());
 	cm.on('change', function () {
+		initializeDrawSettings();
 		updatePreview(cm.getValue());
 	});
 });
 
-function updatePreview(content) {
+function initializeDrawSettings(){
+	let settings = "";
 	
-	if(content.includes('var svgController')){
-		eval(content);
+	let cubeColor = $('#input1').val();
+	let cubeOpacity = $('#input2').val();
+
+	let kernelColor = $('#input3').val();
+	let kernelOpacity = $('#input4').val();
+
+	let denseColor = $('#input5').val();
+	let denseOpacity = $('#input6').val();
+
+	let pyramidColor = $('#input7').val();
+	let pyramidOpacity = $('#input8').val();
+	
+	let arrowColor = $('#input9').val();
+	let arrowOpacity = $('#input10').val();
+
+	settings +='var color = new Color("'+cubeColor+'","'+kernelColor+'","'+denseColor+'","'+pyramidColor+'","'+arrowColor+'","'+cubeOpacity+'","'+kernelOpacity+'","'+pyramidOpacity+'","'+arrowOpacity+'","'+denseOpacity+'");\n';
+	let strokeColor = $('#input11').val();
+	let strokeWidth = $('#input12').val();
+
+	settings += 'var stroke = new Stroke("'+strokeColor+'","'+strokeWidth+'");\n';
+	settings += 'var alfa = new Alfa(30,60,0);\n';
+
+	let fontColor = $('#input13').val();
+	let fontSize = $('#input14').val();
+	let fontFamily = $('#fontButton').text();
+	settings += 'var font = new Font('+fontSize+',"'+fontFamily+'","'+fontColor+'");\n';
+	
+	let nodesDistance = $('#rangeValue1').text();
+	let layersDistance = $('#rangeValue2').text();
+	let parentsDistance = $('#rangeValue3').text();
+	settings +='var shift = new Shift('+nodesDistance+','+layersDistance+','+parentsDistance+');\n';
+	settings +='var viewBox = new ViewBox(3000,2000,'+(zoom-100)+');\n';
+
+	let cubeDimensions= ($('input:radio[name=cubedimensions]:checked').val() == 'true');
+	let kernelDimensions=($('input:radio[name=kerneldimensions]:checked').val() =='true');
+	let widthLogs= ($('input:radio[name=widthlogs]:checked').val() == 'true');
+	let depthtLogs= ($('input:radio[name=depthlogs]:checked').val() == 'true');
+
+	settings+='var drawSettings = new DrawSettings(color,alfa,shift,font,stroke,viewBox,'+depthtLogs+','+widthLogs+','+cubeDimensions+','+kernelDimensions+');\n';
+	settings+='var model = new Model();\n';
+	settings+='var svgController = new SvgController(drawSettings)\n';
+	settings+='var layers = new Layers(drawSettings);\n';
+	let color = new Color(cubeColor,kernelColor,denseColor,pyramidColor,arrowColor,cubeOpacity,kernelOpacity,pyramidOpacity,arrowOpacity,denseOpacity);
+	let alfa = new Alfa(30, 60, 0);
+	let shift = new Shift(nodesDistance,layersDistance,parentsDistance);
+	let font = new Font(fontSize,fontFamily,fontColor);
+	let stroke = new Stroke(strokeColor,strokeWidth);
+	let viewBox = new ViewBox(3000,2000,0)
+	layers=new Layers(new DrawSettings(color,alfa,shift,font,stroke,viewBox,depthtLogs,widthLogs,cubeDimensions,kernelDimensions));
+	return settings;
+}
+
+function updatePreview(content) {
+	let settings=initializeDrawSettings();
+	var svgID = document.getElementById('svg');
+	if(content.includes('new')){
+		let code = settings+content;
+		eval(code);
 		svg=svgController.draw(model.getModelTree());
-		preview.contentWindow.document.open();
-		preview.contentWindow.document.write(svg);
-		preview.contentWindow.document.close();
+		svgID.innerHTML = svg;
+
 	}
 	else{
-		preview.contentWindow.document.open();
-		preview.contentWindow.document.write(content);
-		preview.contentWindow.document.close();
+		svgID.innerHTML = svg;
 	}
 }
 
 var example = {
 	data: [
-		'var model = new Model();\n'+'var color = new Color("orange", "darkturquoise", "darkturquoise", "pink", "black", 0.5, 0.75, 0.75, 0.5, 0.75);\n'
-	+'var alfa = new Alfa(30, 60, 0);\n'+'let shift = new Shift(100, 50, 50);\n'+'var font = new Font(6, "calibri", "black");\n'+'var stroke = new Stroke("black", 0.3);\n'+'var viewBox = new ViewBox(3000, 2000, 0);\n'
-	+'var drawSettings=new DrawSettings(color,alfa,shift,font,stroke,viewBox,false,false,true,true);\n'+'var svgController = new SvgController(drawSettings);\n'+'var layers = new Layers(drawSettings);\n'
-	+'var n1 = new Node(); '+'n1.add(layers.Input(new Cube(new Coordinate(48,32,10),drawSettings)));\n'+'n1.add(layers.Conv2D(32, new Tuple(10, 10), new Tuple(1, 1), "same"));\n'
-	+'layers.MaxPooling2D(new Tuple(2,2));\n'+'n1.add(layers.Conv2D(64,new Tuple(5,5),new Tuple(1,1),"same"));\n'+'layers.MaxPooling2D(new Tuple(2,2));\n'+'n1.add(layers.Conv2D(72,new Tuple(10,10),new Tuple(1,1),"same"));\n'
-	+'n1.add(layers.Dense(200));\n'+'n1.add(layers.Dense(300));\n'+'n1.add(layers.Dense(400));\n'+'n1.add(layers.Dense(500));\n'+'model.add(n1);',
-		'<h1>Example 2</h1>',
+	'<!-- Part 1: Nodes Definition -->\n\nvar n1 = new Node();\n\n<!-- Part 2: Neural Network -->\n\n'+'n1.add(Input(48,32,10));\n'+'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
+	+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n'+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
+	+'n1.add(Dense(200));\n'+'n1.add(Dense(300));\n'+'n1.add(Dense(400));\n'+'n1.add(Dense(500));\n\n<!-- Part 3: Model Definition-->\n\n'+'model.add(n1);',
+	'var n1 = new Node();\n'+'n1.add(Input(48,32,10));\n'+'n1.add(Conv2D(32, [10,10], [1,1], "same"));'+'model.add(n1);',
 		'<h1>Example 3</h1>',
 		'<h1>Example 4</h1>'
 	],
@@ -403,6 +457,26 @@ class Layers {
 		let coordinate = new Coordinate(x, y, z);
 		this.cube_actual = new Cube(coordinate, this.drawSettings);
 	}
+	getDrawSettings(){
+		return this.drawSettings;
+	}
+}
+
+function Input(x,y,z){
+	return layers.Input(new Cube(new Coordinate(x,y,z),layers.getDrawSettings()));
+}
+
+function Conv2D(filters,kernel,strides,padding){
+	return layers.Conv2D(filters,new Tuple(kernel[0],kernel[1]),new Tuple(strides[0],strides[1]),padding);
+}
+
+function MaxPooling2D(tuple){
+	
+	return layers.MaxPooling2D(new Tuple(tuple[0],tuple[1]));
+}
+
+function Dense(vector){
+	return layers.Dense(vector);
 }
 
 /*MATRICES*/
@@ -686,7 +760,7 @@ class Cube {
 		this.isDenseLayer = false;
 		this.isKernel = false;
 		let x_aux = drawSettings.logWidth(this.x);
-		let y_aux = drawSettings.logWidth(this.y);
+		let y_aux = this.y;
 		let z_aux = drawSettings.logDepth(this.z);
 		this.coordinates=new Array();
 		this.coordinates.push(new Coordinate(-(x_aux / 2), -(y_aux / 2), z_aux / 2));

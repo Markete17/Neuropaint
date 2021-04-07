@@ -976,6 +976,7 @@ a.button {
 .zoombuttons{
     position: absolute;
     left: 0;
+    margin-left: 1%;
 }
 
 #zoomtext{
@@ -1030,8 +1031,8 @@ a.button {
 
 /**INPUT SETTINGS**/
 :root {
-    --cubeColor: #F9A52F;
-    --kernelColor: #85F7F9;
+    --cubeColor: #FFB433;
+    --kernelColor: #51FB7B;
     --denseColor: #14D8FF;
     --pyramidColor: #FFB3D1;
     --arrowColor: #000000;

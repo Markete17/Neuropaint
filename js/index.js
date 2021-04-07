@@ -9,36 +9,49 @@
     var input5 = document.getElementById('input5');
     var input7 = document.getElementById('input7');
     var input9 = document.getElementById('input9');
+    var input11 = document.getElementById('input11');
+    var input13 = document.getElementById('input13');
 
     $("#zoomtext").text(zoom+'%');
     
     input1.addEventListener('change', function() {
         body.style.setProperty('--cubeColor', input1.value);
         $('#input1').val(input1.value);
+        updatePreview(cm.getValue());
     });
     input3.addEventListener('change', function() {
         body.style.setProperty('--kernelColor', input3.value);
         $('#input3').val(input3.value);
+        updatePreview(cm.getValue());
     });
     input5.addEventListener('change', function() {
         body.style.setProperty('--denseColor', input5.value);
         $('#input5').val(input5.value);
+        updatePreview(cm.getValue());
     });
     input7.addEventListener('change', function() {
         body.style.setProperty('--pyramidColor', input7.value);
         $('#input7').val(input7.value);
+        updatePreview(cm.getValue());
     });
     input9.addEventListener('change', function() {
         body.style.setProperty('--arrowColor', input9.value);
         $('#input9').val(input9.value);
+        updatePreview(cm.getValue());
     });
     input11.addEventListener('change', function() {
         body.style.setProperty('--strokeColor', input11.value);
-        $('#input9').val(input11.value);
+        $('#input11').val(input11.value);
+        updatePreview(cm.getValue());
     });
     input13.addEventListener('change', function() {
         body.style.setProperty('--fontColor', input13.value);
         $('#input13').val(input13.value);
+        updatePreview(cm.getValue());
+    });
+
+    $('input[type=radio]').change(function() {
+        updatePreview(cm.getValue());
     });
 
     /*SLIDER MENU*/
@@ -131,6 +144,7 @@ function decrement(number){
             $('#input'+number).val(0);
         }
     }
+    updatePreview(cm.getValue());
 }
 
 function increment(number){
@@ -164,7 +178,7 @@ function increment(number){
             $('#input'+number).val(1);
         }
     }
-
+    updatePreview(cm.getValue());
 }
 
 function checkInputNumber(number){
@@ -204,24 +218,24 @@ function toggleButton(){
     let i = (fonts.index) % fonts.list.length;
     $('#fontButton').text(fonts.list[i]);
     $('#fontButton').css('font-family',fonts.list[i]);
+    updatePreview(cm.getValue());
 }
 
 function rangeSlide(value,number) {
     document.getElementById('rangeValue'+number).innerHTML = value;
+    updatePreview(cm.getValue());
 }
 
 function zoomIn(){
-    if(zoom != 200){
         zoom +=25;
         $("#zoomtext").text(zoom+'%');
-    }
+    updatePreview(cm.getValue());
 }
 
 function zoomOut(){
-    if(zoom != 0){
         zoom -=25;
         $("#zoomtext").text(zoom+'%');
-    }
+    updatePreview(cm.getValue());
 }
 
 function saveAsFile(filename, data, type) {
