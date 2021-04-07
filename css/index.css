@@ -50,6 +50,10 @@ a.button {
     width: 100%;
     position: relative;
 }
+#svg{
+    text-align: center;
+}
+
 .CodeMirror {
     height: 100%;
     width: 100%;
@@ -1298,4 +1302,10 @@ a.button {
     font-size: 15px;
     text-align: center;
     margin-left: 15%;
+  }
+  .axistitle{
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    margin-left: 32.5%;
   }

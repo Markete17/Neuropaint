@@ -11,6 +11,7 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/neurotronik.js"></script>
+    <script src="js/jquery-ui.js"></script>
     <link rel="stylesheet" href="css/00-codemirror.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -160,34 +161,63 @@
             </ul>
             <li id="nav2" class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
-                <a class="menu-link">Distance Settings</a>
+                <a class="menu-link">Rotations Settings</a>
             </li>
                 <ul class="menu-submenu accordion-content">
                     <li class="rangediv">
                         <div>
-                            <span class="rangetitle">Nodes Distance</span>
+                            <span class="axistitle">X-Axis</span>
                             <div class="color-opacity">
-                                <input class="range" type="range" value="100" min="0" max="150" onchange="rangeSlide(this.value,1)"></Input>
-                                <span class="rangeValue" id="rangeValue1">100</span>
+                                <input class="range" type="range" value="30" min="-360" max="360" onchange="rangeSlide(this.value,4)"></Input>
+                                <span class="rangeValue" id="rangeValue4">30</span>
                             </div>
                         </div>
                         <div>
-                            <span class="rangetitle">Layers Distance</span>
+                            <span class="axistitle">Y-Axis</span>
                             <div class="color-opacity">
-                                <input class="range" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,2)"></Input>
-                                <span class="rangeValue" id="rangeValue2">50</span>
+                                <input class="range" type="range" value="60" min="-360" max="360" onchange="rangeSlide(this.value,5)"></Input>
+                                <span class="rangeValue" id="rangeValue5">60</span>
                             </div>
                         </div>
                         <div>
-                            <span class="rangetitle">Parents Distance</span>
+                            <span class="axistitle">Z-Axis</span>
                             <div class="color-opacity">
-                                <input class="range" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,3)"></Input>
-                                <span class="rangeValue" id="rangeValue3">50</span>
+                                <input class="range" type="range" value="0" min="-360" max="360" onchange="rangeSlide(this.value,6)"></Input>
+                                <span class="rangeValue" id="rangeValue6">0</span>
                             </div>
                         </div>
                     </li>
                 </ul>
-            <li id="nav3" class="toggle accordion-toggle">
+                <li id="nav3" class="toggle accordion-toggle">
+                    <span class="icon-plus"></span>
+                    <a class="menu-link">Distance Settings</a>
+                </li>
+                    <ul class="menu-submenu accordion-content">
+                        <li class="rangediv">
+                            <div>
+                                <span class="rangetitle">Nodes Distance</span>
+                                <div class="color-opacity">
+                                    <input class="range" type="range" value="100" min="0" max="150" onchange="rangeSlide(this.value,1)"></Input>
+                                    <span class="rangeValue" id="rangeValue1">100</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="rangetitle">Layers Distance</span>
+                                <div class="color-opacity">
+                                    <input class="range" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,2)"></Input>
+                                    <span class="rangeValue" id="rangeValue2">50</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="rangetitle">Parents Distance</span>
+                                <div class="color-opacity">
+                                    <input class="range" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,3)"></Input>
+                                    <span class="rangeValue" id="rangeValue3">50</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+            <li id="nav4" class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">Dimension Settings</a>
             </li>
@@ -217,7 +247,7 @@
                         </label>
                     </li>
                 </ul>
-                <li id="nav2" class="toggle accordion-toggle2">
+                <li id="nav5" class="toggle accordion-toggle2">
                     <a class="menu-link">Logarithms</a>
                     
                 </li>
@@ -244,7 +274,7 @@
                     </li>
                 </ul>
             </ul>
-            <li id="nav3" class="toggle accordion-toggle">
+            <li id="nav6" class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">About</a>
             </li>

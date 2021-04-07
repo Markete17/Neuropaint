@@ -43,7 +43,12 @@ function initializeDrawSettings(){
 	let strokeWidth = $('#input12').val();
 
 	settings += 'var stroke = new Stroke("'+strokeColor+'","'+strokeWidth+'");\n';
-	settings += 'var alfa = new Alfa(30,60,0);\n';
+
+	let xAxis = $('#rangeValue4').text();
+	let yAxis = $('#rangeValue5').text();
+	let zAxis = $('#rangeValue6').text();
+
+	settings += 'var alfa = new Alfa('+xAxis+','+yAxis+','+zAxis+');\n';
 
 	let fontColor = $('#input13').val();
 	let fontSize = $('#input14').val();
@@ -66,7 +71,7 @@ function initializeDrawSettings(){
 	settings+='var svgController = new SvgController(drawSettings)\n';
 	settings+='var layers = new Layers(drawSettings);\n';
 	let color = new Color(cubeColor,kernelColor,denseColor,pyramidColor,arrowColor,cubeOpacity,kernelOpacity,pyramidOpacity,arrowOpacity,denseOpacity);
-	let alfa = new Alfa(30, 60, 0);
+	let alfa = new Alfa(xAxis, yAxis, zAxis);
 	let shift = new Shift(nodesDistance,layersDistance,parentsDistance);
 	let font = new Font(fontSize,fontFamily,fontColor);
 	let stroke = new Stroke(strokeColor,strokeWidth);
@@ -88,6 +93,13 @@ function updatePreview(content) {
 	else{
 		svgID.innerHTML = svg;
 	}
+	$( function() {
+        $( "#svgImage" ).draggable();
+		$("#svgImage").on("mouseover", function () {
+			$('#svgImage').css('cursor',"all-scroll");
+		});
+    } );
+
 }
 
 var example = {
@@ -1231,7 +1243,7 @@ class Node {
 	  return new Coordinate(x, y, z);
 	}
 	addHeader() {
-		this.svgString = '<svg width=\'' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size()) + 'px\' height=\'' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size()) + 'px\' viewBox=\'' + (this.x_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.y_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + ' ' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
+		this.svgString = '<svg id="svgImage" width=\'' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size()) + 'px\' height=\'' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size()) + 'px\' viewBox=\'' + (this.x_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.y_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + ' ' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
 	}
 	addFooter() {
 	  this.svgString += '\t </g>\n' + '</svg>';
