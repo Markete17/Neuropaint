@@ -87,6 +87,7 @@ function updatePreview(content) {
 		let code = settings+content;
 		eval(code);
 		svg=svgController.draw(model.getModelTree());
+		console.log(svg);
 		svgID.innerHTML = svg;
 
 	}
@@ -107,19 +108,18 @@ var example = {
 	'<!-- Part 1: Nodes Definition -->\n\nvar n1 = new Node();\n\n<!-- Part 2: Neural Network -->\n\n'+'n1.add(Input(48,32,10));\n'+'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
 	+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n'+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
 	+'n1.add(Dense(200));\n'+'n1.add(Dense(300));\n'+'n1.add(Dense(400));\n'+'n1.add(Dense(500));\n\n<!-- Part 3: Model Definition-->\n\n'+'model.add(n1);',
-	'var n1 = new Node();\n'+'n1.add(Input(48,32,10));\n'+'n1.add(Conv2D(32, [10,10], [1,1], "same"));'+'model.add(n1);',
+
+	'<!-- Part 1: Nodes Definition -->\n'+'\n'+'var n1 = new Node();\n'+'var n2 = new Node();\n'+'var n3 = new Node();\n'+'\n'+'\n'+'<!-- Part 2: Neural Network -->\n'+'\n'+
+	'n1.add(Input(48,32,10));\n'+'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n'+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'+'\n'+
+	'n2.add(Input(48,32,10));\n'+'n2.add(Conv2D(32, [10,10], [1,1], "same"));\n'+'MaxPooling2D([2,2]);\n'+'n2.add(Conv2D(64,[5,5],[1,1],"same"));\n'+'MaxPooling2D([2,2]);\n'+'n2.add(Conv2D(72,[10,10],[1,1],"same"));\n'+'\n'+
+	'DenseLayer();\n'+'n3.add(Concatenate(n3,[n1,n2]));\n'+'n3.add(Dense(200));\n'+'\n'+'\n'+'<!-- Part 3: Model Definition-->\n'+'\n'+'model.add(n3);\n'+
+	'model.add(n1,n3);\n'+
+	'model.add(n2,n3);\n'+
+'         \n',
 		'<h1>Example 3</h1>',
 		'<h1>Example 4</h1>'
 	],
 	init: function (number) {
-		/**		eval('let model = new Model(); '+' let color = new Color("orange", "darkturquoise", "darkturquoise", "pink", "black", 0.5, 0.75, 0.75, 0.5, 0.75); '
-	+' let alfa = new Alfa(30, 60, 0); '+' let shift = new Shift(100, 50, 50); '+' let font = new Font(6, "calibri", "black"); '+' let stroke = new Stroke("black", 0.3); '+' let viewBox = new ViewBox(3000, 2000, 0); '
-	+' let drawSettings=new DrawSettings(color,alfa,shift,font,stroke,viewBox,false,false,true,true); '+' let svgController = new SvgController(drawSettings); '+' let layers = new Layers(drawSettings); '
-	+' let n1 = new Node(); '+' n1.add(layers.Input(new Cube(new Coordinate(48,32,10),drawSettings))); '+' n1.add(layers.Conv2D(32, new Tuple(10, 10), new Tuple(1, 1), "same")); '+
-	+' layers.MaxPooling2D(new Tuple(2,2)); '+' n1.add(layers.Conv2D(64,new Tuple(5,5),new Tuple(1,1),"same")); '+' layers.MaxPooling2D(new Tuple(2,2)); '+' n1.add(layers.Conv2D(72,new Tuple(10,10),new Tuple(1,1),"same")); '
-	+' n1.add(layers.Dense(200)); '+' n1.add(layers.Dense(300)); '+'n1.add(layers.Dense(400)); '+'n1.add(layers.Dense(500)); '+' model.add(n1);'+' let svg=svgController.draw(model.getModelTree());'); */
-	
-	
 	cm.setValue(example.data[number]);
 	},
 }
@@ -377,6 +377,7 @@ class Layers {
 	constructor(drawSettings) {
 		this.cube_actual = new Cube();
 		this.drawSettings = drawSettings;
+		this.denseLayer = false;
 	}
 	Input(input) {
 		let cubeList = new Array();
@@ -421,17 +422,21 @@ class Layers {
 		cubeList.push(cube);
 		return cubeList;
 	}
-	concatenate(nodes) {
-		let node = nodes[0];
+	concatenate(node,nodes) {
+		if (this.denseLayer) {
+			return new Array();
+		}
+		let x = 0;
+		let y = 0
 		let z = 0;
+
 		for (let n of nodes) {
+			x += n.getLastCube().getX();
+			y += n.getLastCube().getY();
 			z += n.getLastCube().getZ();
 		}
 		let cubeList = new Array();
-		if (this.denseLayer) {
-			return cubeList;
-		}
-		let newCube = new Cube(new Coordinate(node.getLastCube().getX(), node.getLastCube().getY(), z), this.drawSettings);
+		let newCube = new Cube(new Coordinate(x, y, z), this.drawSettings);
 		cubeList.push(newCube);
 		this.cube_actual = newCube;
 		return cubeList;
@@ -489,6 +494,14 @@ function MaxPooling2D(tuple){
 
 function Dense(vector){
 	return layers.Dense(vector);
+}
+
+function Concatenate(n,nodes){
+	return layers.concatenate(n,nodes);
+}
+
+function DenseLayer(){
+	layers.setDenseLayer(true);
 }
 
 /*MATRICES*/
@@ -850,10 +863,10 @@ class Node {
 	  return this.lastCube;
 	}
 	setLastCube(lastCube) {
-	  this.lastCube = this.lastCube;
+	  this.lastCube = lastCube;
 	}
 	setParent(parent) {
-	  this.parent = this.parent;
+	  this.parent = parent;
 	}
 	getChildren() {
 	  return this.children;
@@ -863,8 +876,8 @@ class Node {
 	}
 	add(cubeList) {
 	  Array.prototype.push.apply(this.cubeList, cubeList);
-	  if (!this.getCubeList.length==0) {
-		this.setLastCube(this.cubeList[this.getCubeList.length - 1]);
+	  if (!this.getCubeList().length==0) {
+		this.setLastCube(this.cubeList[this.getCubeList().length - 1]);
 	  }
 	}
   }
@@ -911,13 +924,12 @@ class Node {
 	levels(node, maxDepth) {
 	  if (node !== null) {
 		if (this.isLeaf(node)) {
-			let n = this.nodes[maxDepth-1];
 		  if (!this.nodes[maxDepth - 1].includes(node)) {
 			this.nodes[maxDepth - 1].push(node);
 		  }
 		} else {
 		  let level = this.level(node);
-		  if (!this.nodes[this.level].includes(node)) {
+		  if (!this.nodes[level].includes(node)) {
 			this.nodes[level].push(node);
 		  }
 		  for (let child of node.getChildren()) {
@@ -945,9 +957,9 @@ class Node {
 	  return l;
 	}
 	greaterDepthChild(children) {
-	  let max = Double.MIN_VALUE;
+	  let max = Number.MIN_VALUE;
 	  for (let child of children) {
-		if (child.getCoordinates()[0].getZ() > max) {
+		if (child.getLastCube().getCoordinates()[0].getZ() > max) {
 		  max = child.getLastCube().getCoordinates()[0].getZ();
 		}
 	  }
@@ -1072,7 +1084,7 @@ class Node {
 			let centerChild2 = this.calculateCenter(lastChild.getCubeList()[0].getCoordinates());
 			this.length = (Math.abs(centerChild1.getX() + centerChild2.getX()) / 2);
 			let depth = modelTree.greaterDepthChild(node.getChildren());
-			let depthCube = node.getCubeList()[0][1].getZ();
+			let depthCube = node.getCubeList()[0].getCoordinates()[1].getZ();
 			let l = Math.abs(depth + depthCube);
 			this.depth = l + this.drawSettings.getShift().getShiftParent();
 			this.shiftNode(node);
@@ -1105,13 +1117,9 @@ class Node {
 		} else {
 		  this.drawCube(cube);
 		}
-		if (cube.isDenseLayer) {
-		  try {
+		if (cube.isDenseLayer && i!=0) {
 			let lastCube = modelQueue[i-1];
 			this.lineTo(lastCube, cube);
-		  } catch (e) {
-			  continue;
-		  }
 		}
 		if (cube.isKernel) {
 		  this.activate = true;

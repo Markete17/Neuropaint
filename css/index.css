@@ -132,6 +132,7 @@ a.button {
     left: 60px;
     background: linear-gradient(transparent, transparent 28px, #91D1D3 28px);
     background-size: 30px 30px;
+    height: 100%;
 }
 
 @keyframes swing {
