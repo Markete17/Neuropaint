@@ -6,7 +6,7 @@ var layers;
 $(function () {
 	var editor = document.getElementById('editor');
 	var preview = document.getElementById('preview');
-	
+
 	cm = CodeMirror.fromTextArea(editor, {
 		lineNumbers: true,
 		styleActiveLine: true,
@@ -20,9 +20,9 @@ $(function () {
 	});
 });
 
-function initializeDrawSettings(){
+function initializeDrawSettings() {
 	let settings = "";
-	
+
 	let cubeColor = $('#input1').val();
 	let cubeOpacity = $('#input2').val();
 
@@ -34,93 +34,103 @@ function initializeDrawSettings(){
 
 	let pyramidColor = $('#input7').val();
 	let pyramidOpacity = $('#input8').val();
-	
+
 	let arrowColor = $('#input9').val();
 	let arrowOpacity = $('#input10').val();
 
-	settings +='var color = new Color("'+cubeColor+'","'+kernelColor+'","'+denseColor+'","'+pyramidColor+'","'+arrowColor+'","'+cubeOpacity+'","'+kernelOpacity+'","'+pyramidOpacity+'","'+arrowOpacity+'","'+denseOpacity+'");\n';
+	settings += 'var color = new Color("' + cubeColor + '","' + kernelColor + '","' + denseColor + '","' + pyramidColor + '","' + arrowColor + '","' + cubeOpacity + '","' + kernelOpacity + '","' + pyramidOpacity + '","' + arrowOpacity + '","' + denseOpacity + '");\n';
 	let strokeColor = $('#input11').val();
 	let strokeWidth = $('#input12').val();
 
-	settings += 'var stroke = new Stroke("'+strokeColor+'","'+strokeWidth+'");\n';
+	settings += 'var stroke = new Stroke("' + strokeColor + '","' + strokeWidth + '");\n';
 
 	let xAxis = $('#rangeValue4').text();
 	let yAxis = $('#rangeValue5').text();
 	let zAxis = $('#rangeValue6').text();
 
-	settings += 'var alfa = new Alfa('+xAxis+','+yAxis+','+zAxis+');\n';
+	settings += 'var alfa = new Alfa(' + xAxis + ',' + yAxis + ',' + zAxis + ');\n';
 
 	let fontColor = $('#input13').val();
 	let fontSize = $('#input14').val();
 	let fontFamily = $('#fontButton').text();
-	settings += 'var font = new Font('+fontSize+',"'+fontFamily+'","'+fontColor+'");\n';
-	
+	settings += 'var font = new Font(' + fontSize + ',"' + fontFamily + '","' + fontColor + '");\n';
+
 	let nodesDistance = $('#rangeValue1').text();
 	let layersDistance = $('#rangeValue2').text();
 	let parentsDistance = $('#rangeValue3').text();
-	settings +='var shift = new Shift('+nodesDistance+','+layersDistance+','+parentsDistance+');\n';
-	settings +='var viewBox = new ViewBox(3000,2000,'+(zoom-100)+');\n';
+	settings += 'var shift = new Shift(' + nodesDistance + ',' + layersDistance + ',' + parentsDistance + ');\n';
+	settings += 'var viewBox = new ViewBox(3000,2000,' + (zoom - 100) + ');\n';
 
-	let cubeDimensions= ($('input:radio[name=cubedimensions]:checked').val() == 'true');
-	let kernelDimensions=($('input:radio[name=kerneldimensions]:checked').val() =='true');
-	let widthLogs= ($('input:radio[name=widthlogs]:checked').val() == 'true');
-	let depthtLogs= ($('input:radio[name=depthlogs]:checked').val() == 'true');
+	let cubeDimensions = ($('input:radio[name=cubedimensions]:checked').val() == 'true');
+	let kernelDimensions = ($('input:radio[name=kerneldimensions]:checked').val() == 'true');
+	let widthLogs = ($('input:radio[name=widthlogs]:checked').val() == 'true');
+	let depthtLogs = ($('input:radio[name=depthlogs]:checked').val() == 'true');
 
-	settings+='var drawSettings = new DrawSettings(color,alfa,shift,font,stroke,viewBox,'+depthtLogs+','+widthLogs+','+cubeDimensions+','+kernelDimensions+');\n';
-	settings+='var model = new Model();\n';
-	settings+='var svgController = new SvgController(drawSettings)\n';
-	settings+='var layers = new Layers(drawSettings);\n';
-	let color = new Color(cubeColor,kernelColor,denseColor,pyramidColor,arrowColor,cubeOpacity,kernelOpacity,pyramidOpacity,arrowOpacity,denseOpacity);
+	settings += 'var drawSettings = new DrawSettings(color,alfa,shift,font,stroke,viewBox,' + depthtLogs + ',' + widthLogs + ',' + cubeDimensions + ',' + kernelDimensions + ');\n';
+	settings += 'var model = new Model();\n';
+	settings += 'var svgController = new SvgController(drawSettings)\n';
+	settings += 'var layers = new Layers(drawSettings);\n';
+	let color = new Color(cubeColor, kernelColor, denseColor, pyramidColor, arrowColor, cubeOpacity, kernelOpacity, pyramidOpacity, arrowOpacity, denseOpacity);
 	let alfa = new Alfa(xAxis, yAxis, zAxis);
-	let shift = new Shift(nodesDistance,layersDistance,parentsDistance);
-	let font = new Font(fontSize,fontFamily,fontColor);
-	let stroke = new Stroke(strokeColor,strokeWidth);
-	let viewBox = new ViewBox(3000,2000,0)
-	layers=new Layers(new DrawSettings(color,alfa,shift,font,stroke,viewBox,depthtLogs,widthLogs,cubeDimensions,kernelDimensions));
+	let shift = new Shift(nodesDistance, layersDistance, parentsDistance);
+	let font = new Font(fontSize, fontFamily, fontColor);
+	let stroke = new Stroke(strokeColor, strokeWidth);
+	let viewBox = new ViewBox(3000, 2000, 0)
+	layers = new Layers(new DrawSettings(color, alfa, shift, font, stroke, viewBox, depthtLogs, widthLogs, cubeDimensions, kernelDimensions));
 	return settings;
 }
 
 function updatePreview(content) {
-	let settings=initializeDrawSettings();
-	var svgID = document.getElementById('svg');
-	if(content.includes('new')){
-		let code = settings+content;
-		eval(code);
-		svg=svgController.draw(model.getModelTree());
-		console.log(svg);
-		svgID.innerHTML = svg;
+	try {
+		let settings = initializeDrawSettings();
+		var svgID = document.getElementById('svg');
+		if (content.includes('model')) {
+			let code = settings + content;
+			eval(code);
+			svg = svgController.draw(model.getModelTree());
+			svgID.innerHTML = svg;
 
-	}
-	else{
-		svgID.innerHTML = svg;
-	}
-	$( function() {
-        $( "#svgImage" ).draggable();
-		$("#svgImage").on("mouseover", function () {
-			$('#svgImage').css('cursor',"all-scroll");
+		}
+		else {
+			svgID.innerHTML = content;
+		}
+		$('#svg').css('background-color', "");
+		$('#svg').css('color', "");
+		$('#svg').css('font-size', "");
+		$('#preview').css('border', '2px solid #1b6181');
+		$(function () {
+			$("#svgImage").draggable();
+			$("#svgImage").on("mouseover", function () {
+				$('#svgImage').css('cursor', "all-scroll");
+			});
 		});
-    } );
-
+	} catch (e) {
+		svgID.innerHTML = e;
+		$('#svg').css('background-color', "rgba(228, 122, 36, 0.2)");
+		$('#svg').css('color', "#ce0f0f");
+		$('#svg').css('font-size', "30px");
+		$('#preview').css('border', '2px solid #ce0f0f');
+	}
 }
 
 var example = {
 	data: [
-	'<!-- Part 1: Nodes Definition -->\n\nvar n1 = new Node();\n\n<!-- Part 2: Neural Network -->\n\n'+'n1.add(Input(48,32,10));\n'+'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
-	+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n'+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
-	+'n1.add(Dense(200));\n'+'n1.add(Dense(300));\n'+'n1.add(Dense(400));\n'+'n1.add(Dense(500));\n\n<!-- Part 3: Model Definition-->\n\n'+'model.add(n1);',
+		'<!-- Part 1: Nodes Definition -->\n\nvar n1 = new Node();\n\n<!-- Part 2: Neural Network -->\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
+		+ 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
+		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n' + 'n1.add(Dense(400));\n' + 'n1.add(Dense(500));\n\n<!-- Part 3: Model Definition-->\n\n' + 'model.add(n1);',
 
-	'<!-- Part 1: Nodes Definition -->\n'+'\n'+'var n1 = new Node();\n'+'var n2 = new Node();\n'+'var n3 = new Node();\n'+'\n'+'\n'+'<!-- Part 2: Neural Network -->\n'+'\n'+
-	'n1.add(Input(48,32,10));\n'+'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n'+'MaxPooling2D([2,2]);\n'+'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'+'\n'+
-	'n2.add(Input(48,32,10));\n'+'n2.add(Conv2D(32, [10,10], [1,1], "same"));\n'+'MaxPooling2D([2,2]);\n'+'n2.add(Conv2D(64,[5,5],[1,1],"same"));\n'+'MaxPooling2D([2,2]);\n'+'n2.add(Conv2D(72,[10,10],[1,1],"same"));\n'+'\n'+
-	'DenseLayer();\n'+'n3.add(Concatenate(n3,[n1,n2]));\n'+'n3.add(Dense(200));\n'+'\n'+'\n'+'<!-- Part 3: Model Definition-->\n'+'\n'+'model.add(n3);\n'+
-	'model.add(n1,n3);\n'+
-	'model.add(n2,n3);\n'+
-'         \n',
+		'<!-- Part 1: Nodes Definition -->\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '<!-- Part 2: Neural Network -->\n' + '\n' +
+		'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
+		'n2.add(Input(48,32,10));\n' + 'n2.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n2.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n2.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
+		'DenseLayer();\n' + 'n3.add(Concatenate(n3,[n1,n2]));\n' + 'n3.add(Dense(200));\n' + '\n' + '\n' + '<!-- Part 3: Model Definition-->\n' + '\n' + 'model.add(n3);\n' +
+		'model.add(n1,n3);\n' +
+		'model.add(n2,n3);\n' +
+		'         \n',
 		'<h1>Example 3</h1>',
 		'<h1>Example 4</h1>'
 	],
 	init: function (number) {
-	cm.setValue(example.data[number]);
+		cm.setValue(example.data[number]);
 	},
 }
 
@@ -167,7 +177,7 @@ class Coordinate {
 	setZ(z) {
 		this.coordinateMatrix[2][0] = z;
 	}
-	getCoordinateMatrix(){
+	getCoordinateMatrix() {
 		return this.coordinateMatrix;
 	}
 }
@@ -422,7 +432,7 @@ class Layers {
 		cubeList.push(cube);
 		return cubeList;
 	}
-	concatenate(node,nodes) {
+	concatenate(node, nodes) {
 		if (this.denseLayer) {
 			return new Array();
 		}
@@ -453,11 +463,11 @@ class Layers {
 		let output_w = this.cube_actual.getX();
 		let output_h = this.cube_actual.getY();
 		if (strides !== null && padding !== null) {
-			if (padding=='valid') {
+			if (padding == 'valid') {
 				output_w = (this.cube_actual.getX() - kernel_size.getN1() + 1) / strides.getN1();
 				output_h = (this.cube_actual.getY() - kernel_size.getN2() + 1) / strides.getN2();
 			}
-			if (padding=='same') {
+			if (padding == 'same') {
 				output_w = (this.cube_actual.getX()) / strides.getN1();
 				output_h = (this.cube_actual.getY()) / strides.getN2();
 			}
@@ -474,33 +484,33 @@ class Layers {
 		let coordinate = new Coordinate(x, y, z);
 		this.cube_actual = new Cube(coordinate, this.drawSettings);
 	}
-	getDrawSettings(){
+	getDrawSettings() {
 		return this.drawSettings;
 	}
 }
 
-function Input(x,y,z){
-	return layers.Input(new Cube(new Coordinate(x,y,z),layers.getDrawSettings()));
+function Input(x, y, z) {
+	return layers.Input(new Cube(new Coordinate(x, y, z), layers.getDrawSettings()));
 }
 
-function Conv2D(filters,kernel,strides,padding){
-	return layers.Conv2D(filters,new Tuple(kernel[0],kernel[1]),new Tuple(strides[0],strides[1]),padding);
+function Conv2D(filters, kernel, strides, padding) {
+	return layers.Conv2D(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
 }
 
-function MaxPooling2D(tuple){
-	
-	return layers.MaxPooling2D(new Tuple(tuple[0],tuple[1]));
+function MaxPooling2D(tuple) {
+
+	return layers.MaxPooling2D(new Tuple(tuple[0], tuple[1]));
 }
 
-function Dense(vector){
+function Dense(vector) {
 	return layers.Dense(vector);
 }
 
-function Concatenate(n,nodes){
-	return layers.concatenate(n,nodes);
+function Concatenate(n, nodes) {
+	return layers.concatenate(n, nodes);
 }
 
-function DenseLayer(){
+function DenseLayer() {
 	layers.setDenseLayer(true);
 }
 
@@ -529,12 +539,12 @@ class RotationMatrixX {
 		this.matrix[2][0] = 0;
 
 		this.matrix[0][1] = 0;
-		this.matrix[1][1] = Math.cos(alfa*(Math.PI/180));
-		this.matrix[2][1] = Math.sin(alfa*(Math.PI/180));
+		this.matrix[1][1] = Math.cos(alfa * (Math.PI / 180));
+		this.matrix[2][1] = Math.sin(alfa * (Math.PI / 180));
 
 		this.matrix[0][2] = 0;
-		this.matrix[1][2] = -(Math.sin(alfa*(Math.PI/180)));
-		this.matrix[2][2] = Math.cos(alfa*(Math.PI/180));
+		this.matrix[1][2] = -(Math.sin(alfa * (Math.PI / 180)));
+		this.matrix[2][2] = Math.cos(alfa * (Math.PI / 180));
 	}
 	getMatrix() {
 		return this.matrix;
@@ -560,17 +570,17 @@ class RotationMatrixY {
 			};
 			return allocate(dims);
 		})([3, 3]);
-		this.matrix[0][0] = Math.cos(alfa*(Math.PI/180));
+		this.matrix[0][0] = Math.cos(alfa * (Math.PI / 180));
 		this.matrix[1][0] = 0;
-		this.matrix[2][0] = -(Math.sin(alfa*(Math.PI/180)));
+		this.matrix[2][0] = -(Math.sin(alfa * (Math.PI / 180)));
 
 		this.matrix[0][1] = 0;
 		this.matrix[1][1] = 1;
 		this.matrix[2][1] = 0;
 
-		this.matrix[0][2] = Math.sin(alfa*(Math.PI/180));
+		this.matrix[0][2] = Math.sin(alfa * (Math.PI / 180));
 		this.matrix[1][2] = 0;
-		this.matrix[2][2] = Math.cos(alfa*(Math.PI/180));
+		this.matrix[2][2] = Math.cos(alfa * (Math.PI / 180));
 	}
 	getMatrix() {
 		return this.matrix;
@@ -596,12 +606,12 @@ class RotationMatrixZ {
 			};
 			return allocate(dims);
 		})([3, 3]);
-		this.matrix[0][0] = Math.cos(alfa*(Math.PI/180));
-		this.matrix[1][0] = Math.sin(alfa*(Math.PI/180));
+		this.matrix[0][0] = Math.cos(alfa * (Math.PI / 180));
+		this.matrix[1][0] = Math.sin(alfa * (Math.PI / 180));
 		this.matrix[2][0] = 0;
 
-		this.matrix[0][1] = -(Math.sin(alfa*(Math.PI/180)));
-		this.matrix[1][1] = Math.cos(alfa*(Math.PI/180));
+		this.matrix[0][1] = -(Math.sin(alfa * (Math.PI / 180)));
+		this.matrix[1][1] = Math.cos(alfa * (Math.PI / 180));
 		this.matrix[2][1] = 0;
 
 		this.matrix[0][2] = 0;
@@ -766,17 +776,17 @@ class Arrow {
 
 /*CUBE CLASS*/
 class Cube {
-	constructor$0() {}
+	constructor$0() { }
 	constructor$2(coordinates, drawSettings) {
-	  this.initializeCube(coordinates, drawSettings);
+		this.initializeCube(coordinates, drawSettings);
 	}
 	constructor(...args$) {
-	  switch (args$.length) {
-		case 0:
-		  return this.constructor$0(...args$);
-		case 2:
-		  return this.constructor$2(...args$);
-	  }
+		switch (args$.length) {
+			case 0:
+				return this.constructor$0(...args$);
+			case 2:
+				return this.constructor$2(...args$);
+		}
 	}
 	initializeCube(coordinate, drawSettings) {
 		this.x = coordinate.getX();
@@ -787,19 +797,19 @@ class Cube {
 		let x_aux = drawSettings.logWidth(this.x);
 		let y_aux = this.y;
 		let z_aux = drawSettings.logDepth(this.z);
-		this.coordinates=new Array();
+		this.coordinates = new Array();
 		this.coordinates.push(new Coordinate(-(x_aux / 2), -(y_aux / 2), z_aux / 2));
 		this.coordinates.push(new Coordinate(x_aux / 2, -(y_aux / 2), z_aux / 2));
 		this.coordinates.push(new Coordinate(-(x_aux / 2), (y_aux / 2), z_aux / 2));
 		this.coordinates.push(new Coordinate(x_aux / 2, y_aux / 2, z_aux / 2));
 		this.coordinates.push(new Coordinate(-(x_aux / 2), -(y_aux / 2), -(z_aux / 2)));
 		this.coordinates.push(new Coordinate(x_aux / 2, -(y_aux / 2), -(z_aux / 2)));
-        this.coordinates.push(new Coordinate(-(x_aux / 2), y_aux / 2, -(z_aux / 2)));
-        this.coordinates.push(new Coordinate(x_aux / 2, y_aux / 2, -(z_aux / 2)));
+		this.coordinates.push(new Coordinate(-(x_aux / 2), y_aux / 2, -(z_aux / 2)));
+		this.coordinates.push(new Coordinate(x_aux / 2, y_aux / 2, -(z_aux / 2)));
 
-		let x_random = Math.random() * (this.coordinates[5].getX()-this.coordinates[4].getX()) + this.coordinates[4].getX();
-		let y_random = Math.random() * (this.coordinates[6].getY() - this.coordinates[4].getY()) + this.coordinates[4].getY(); 
-		this.coordinates.push(new Coordinate(x_random,y_random,this.coordinates[4].getZ()));
+		let x_random = Math.random() * (this.coordinates[5].getX() - this.coordinates[4].getX()) + this.coordinates[4].getX();
+		let y_random = Math.random() * (this.coordinates[6].getY() - this.coordinates[4].getY()) + this.coordinates[4].getY();
+		this.coordinates.push(new Coordinate(x_random, y_random, this.coordinates[4].getZ()));
 	}
 	getX() {
 		return this.x;
@@ -833,7 +843,7 @@ class Pyramid {
 	}
 	initializePyramid(coordinates, point) {
 		this.vertex = new Coordinate(point.getX(), point.getY(), point.getZ());
-		this.coordinates=new Array();
+		this.coordinates = new Array();
 		this.coordinates.push(new Coordinate(coordinates[0].getX(), coordinates[0].getY(), coordinates[0].getZ()));
 		this.coordinates.push(new Coordinate(coordinates[1].getX(), coordinates[1].getY(), coordinates[1].getZ()));
 		this.coordinates.push(new Coordinate(coordinates[2].getX(), coordinates[2].getY(), coordinates[2].getZ()));
@@ -851,493 +861,493 @@ class Pyramid {
 /*NODE CLASS*/
 class Node {
 	constructor() {
-	  this.cubeList = new Array();
-	  this.lastCube = null;
-	  this.parent = null;
-	  this.children = new Array();
+		this.cubeList = new Array();
+		this.lastCube = null;
+		this.parent = null;
+		this.children = new Array();
 	}
 	getCubeList() {
-	  return this.cubeList;
+		return this.cubeList;
 	}
 	getLastCube() {
-	  return this.lastCube;
+		return this.lastCube;
 	}
 	setLastCube(lastCube) {
-	  this.lastCube = lastCube;
+		this.lastCube = lastCube;
 	}
 	setParent(parent) {
-	  this.parent = parent;
+		this.parent = parent;
 	}
 	getChildren() {
-	  return this.children;
+		return this.children;
 	}
 	getParent() {
-	  return this.parent;
+		return this.parent;
 	}
 	add(cubeList) {
-	  Array.prototype.push.apply(this.cubeList, cubeList);
-	  if (!this.getCubeList().length==0) {
-		this.setLastCube(this.cubeList[this.getCubeList().length - 1]);
-	  }
+		Array.prototype.push.apply(this.cubeList, cubeList);
+		if (!this.getCubeList().length == 0) {
+			this.setLastCube(this.cubeList[this.getCubeList().length - 1]);
+		}
 	}
-  }
+}
 
-  /*NEURALNETOWRK TREE*/
-  class NeuralNetworkTree {
+/*NEURALNETOWRK TREE*/
+class NeuralNetworkTree {
 	constructor() {
-	  this.root = null;
-	  this.nodes = null;
-	  this.jumps = new Array();
+		this.root = null;
+		this.nodes = null;
+		this.jumps = new Array();
 	}
 	isEmpty() {
-	  return (this.root === null);
+		return (this.root === null);
 	}
 	isLeaf(node) {
-	  return (node.getChildren() === null) || (node.getChildren().length==0);
+		return (node.getChildren() === null) || (node.getChildren().length == 0);
 	}
 	isRoot(node) {
-	  return (node === this.root);
+		return (node === this.root);
 	}
 	getNodes() {
-	  return this.nodes;
+		return this.nodes;
 	}
 	getJumps() {
-	  return this.jumps;
+		return this.jumps;
 	}
 	root() {
-	  if (this.root === null) {
-		throw new RuntimeException('The tree is empty');
-	  }
-	  return this.root;
+		if (this.root === null) {
+			throw new RuntimeException('The tree is empty');
+		}
+		return this.root;
 	}
 	addRoot(node) {
-	  if (this.isEmpty) {
-		this.root = node;
-	  } else {
-		throw new RuntimeException('Tree already has a root');
-	  }
+		if (this.isEmpty) {
+			this.root = node;
+		} else {
+			throw new RuntimeException('Tree already has a root');
+		}
 	}
 	add(child, parent) {
-	  parent.getChildren().push(child);
-	  child.setParent(parent);
+		parent.getChildren().push(child);
+		child.setParent(parent);
 	}
 	levels(node, maxDepth) {
-	  if (node !== null) {
-		if (this.isLeaf(node)) {
-		  if (!this.nodes[maxDepth - 1].includes(node)) {
-			this.nodes[maxDepth - 1].push(node);
-		  }
-		} else {
-		  let level = this.level(node);
-		  if (!this.nodes[level].includes(node)) {
-			this.nodes[level].push(node);
-		  }
-		  for (let child of node.getChildren()) {
-			this.levels(child, maxDepth);
-		  }
+		if (node !== null) {
+			if (this.isLeaf(node)) {
+				if (!this.nodes[maxDepth - 1].includes(node)) {
+					this.nodes[maxDepth - 1].push(node);
+				}
+			} else {
+				let level = this.level(node);
+				if (!this.nodes[level].includes(node)) {
+					this.nodes[level].push(node);
+				}
+				for (let child of node.getChildren()) {
+					this.levels(child, maxDepth);
+				}
+			}
 		}
-	  }
 	}
 	maxDepth(root) {
-	  if (this.root === null) {
-		return 0;
-	  }
-	  let max = Number.MIN_VALUE;
-	  for (let child of root.getChildren()) {
-		max = Math.max(max, this.maxDepth(child));
-	  }
-	  return 1 + Math.max(max, 0);
+		if (this.root === null) {
+			return 0;
+		}
+		let max = Number.MIN_VALUE;
+		for (let child of root.getChildren()) {
+			max = Math.max(max, this.maxDepth(child));
+		}
+		return 1 + Math.max(max, 0);
 	}
 	level(node) {
-	  let l = 0;
-	  while (!this.isParent(node)) {
-		node = node.getParent();
-		l++;
-	  }
-	  return l;
+		let l = 0;
+		while (!this.isParent(node)) {
+			node = node.getParent();
+			l++;
+		}
+		return l;
 	}
 	greaterDepthChild(children) {
-	  let max = Number.MIN_VALUE;
-	  for (let child of children) {
-		if (child.getLastCube().getCoordinates()[0].getZ() > max) {
-		  max = child.getLastCube().getCoordinates()[0].getZ();
+		let max = Number.MIN_VALUE;
+		for (let child of children) {
+			if (child.getLastCube().getCoordinates()[0].getZ() > max) {
+				max = child.getLastCube().getCoordinates()[0].getZ();
+			}
 		}
-	  }
-	  return max;
+		return max;
 	}
 	findLastChild(nodes) {
-	  let max = Number.MIN_VALUE;
-	  let lastChild = null;
-	  for (let node of nodes) {
-		let cube = node.getCubeList()[0];
-		if (cube.getCoordinates()[1].getX() > max) {
-		  max = cube.getCoordinates()[1].getX();
-		  lastChild = node;
+		let max = Number.MIN_VALUE;
+		let lastChild = null;
+		for (let node of nodes) {
+			let cube = node.getCubeList()[0];
+			if (cube.getCoordinates()[1].getX() > max) {
+				max = cube.getCoordinates()[1].getX();
+				lastChild = node;
+			}
 		}
-	  }
-	  return lastChild;
+		return lastChild;
 	}
 	findFirstChild(nodes) {
-	  let min = Number.MAX_VALUE;
-	  let firstChild = null;
-	  for (let node of nodes) {
-		let cube = node.getCubeList()[0];
-		if (cube.getCoordinates()[1].getX() < min) {
-		  min = cube.getCoordinates()[1].getX();
-		  firstChild = node;
+		let min = Number.MAX_VALUE;
+		let firstChild = null;
+		for (let node of nodes) {
+			let cube = node.getCubeList()[0];
+			if (cube.getCoordinates()[1].getX() < min) {
+				min = cube.getCoordinates()[1].getX();
+				firstChild = node;
+			}
 		}
-	  }
-	  return firstChild;
+		return firstChild;
 	}
 	isParent(node) {
-	  return node.getParent() === null;
+		return node.getParent() === null;
 	}
 	check() {
-	  for (let nodes of this.getNodes()) {
-		for (let node of nodes) {
-		  if (node.getCubeList().length==0 || node.getCubeList() === null) {
-			throw new RuntimeException('The neural network has been poorly defined.');
-		  }
+		for (let nodes of this.getNodes()) {
+			for (let node of nodes) {
+				if (node.getCubeList().length == 0 || node.getCubeList() === null) {
+					throw new RuntimeException('The neural network has been poorly defined.');
+				}
+			}
 		}
-	  }
 	}
-	initializeNodes(){
+	initializeNodes() {
 		let maxDepth = this.maxDepth(this.root);
 		this.nodes = new Array();
-		for(let i=0;i<maxDepth;i++){
+		for (let i = 0; i < maxDepth; i++) {
 			this.nodes.push(new Array());
 		}
-		this.levels(this.root,maxDepth);
+		this.levels(this.root, maxDepth);
 		this.check();
 		this.nodes.reverse();
 	}
-  }
+}
 
-  /*SVGCONTROLLER CLASS */
-  class SvgController {
+/*SVGCONTROLLER CLASS */
+class SvgController {
 	constructor(settings) {
-	  this.depth = 0;
-	  this.depthAux = 0;
-	  this.length = 0;
-	  this.lengthAux = 0;
-	  this.activate = false;
-	  this.aux = '';
-	  this.z = 0;
-	  this.imageCenter = null;
-	  this.x_max = -Number.MAX_VALUE;
-	  this.y_max = -Number.MAX_VALUE;
-	  this.z_max = -Number.MAX_VALUE;
-	  this.x_min = Number.MAX_VALUE;
-	  this.y_min = Number.MAX_VALUE;
-	  this.z_min = Number.MAX_VALUE;
-	  this.drawOrderList = new Array();
-	  this.svgString = '';
-  
-	  this.drawSettings = settings;
-	  this.matrixController = new MatrixController(this.drawSettings.getAlfa().getAlfaX(), this.drawSettings.getAlfa().getAlfaY(), this.drawSettings.getAlfa().getAlfaZ());
+		this.depth = 0;
+		this.depthAux = 0;
+		this.length = 0;
+		this.lengthAux = 0;
+		this.activate = false;
+		this.aux = '';
+		this.z = 0;
+		this.imageCenter = null;
+		this.x_max = -Number.MAX_VALUE;
+		this.y_max = -Number.MAX_VALUE;
+		this.z_max = -Number.MAX_VALUE;
+		this.x_min = Number.MAX_VALUE;
+		this.y_min = Number.MAX_VALUE;
+		this.z_min = Number.MAX_VALUE;
+		this.drawOrderList = new Array();
+		this.svgString = '';
+
+		this.drawSettings = settings;
+		this.matrixController = new MatrixController(this.drawSettings.getAlfa().getAlfaX(), this.drawSettings.getAlfa().getAlfaY(), this.drawSettings.getAlfa().getAlfaZ());
 	}
 	draw(modelTree) {
-	  this.shiftTree(modelTree);
-	  this.calculateImageCenter();
-	  for (let i = 0; i < modelTree.getNodes().length; i++) {
-		for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
-		  let node = modelTree.getNodes()[i][j];
-		  this.drawNode(node);
+		this.shiftTree(modelTree);
+		this.calculateImageCenter();
+		for (let i = 0; i < modelTree.getNodes().length; i++) {
+			for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
+				let node = modelTree.getNodes()[i][j];
+				this.drawNode(node);
+			}
 		}
-	  }
-	  this.drawUnions(modelTree);
-	  this.drawJumps(modelTree.getJumps());
-	  this.drawOrderList.sort((a, b) => (a.getZ() > b.getZ()) ? -1 : 1)
-	  this.addHeader();
-	  for (let n of this.drawOrderList) {
-		this.svgString += n.getSvgString();
-	  }
-	  this.addFooter();
-	  return this.svgString;
+		this.drawUnions(modelTree);
+		this.drawJumps(modelTree.getJumps());
+		this.drawOrderList.sort((a, b) => (a.getZ() > b.getZ()) ? -1 : 1)
+		this.addHeader();
+		for (let n of this.drawOrderList) {
+			this.svgString += n.getSvgString();
+		}
+		this.addFooter();
+		return this.svgString;
 	}
 	shiftTree(modelTree) {
-	  modelTree.initializeNodes();
-	  for (let i = 0; i < modelTree.getNodes().length; i++) {
-		if (i === 0) {
-		  for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
-			let node = modelTree.getNodes()[i][j];
-			if (j !== 0) {
-			  let l = 0;
-			  if (node.getCubeList()[0].getX() > modelTree.getNodes()[i][j-1].getCubeList()[0].getX()) {
-				l = Math.abs(node.getCubeList()[0].getCoordinates()[0].getX() - this.lengthAux);
-			  } else {
-				l = Math.abs(this.lengthAux - node.getCubeList()[0].getCoordinates()[0].getX());
-			  }
-			  this.length += l + this.drawSettings.getShift().getShiftNodes();
+		modelTree.initializeNodes();
+		for (let i = 0; i < modelTree.getNodes().length; i++) {
+			if (i === 0) {
+				for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
+					let node = modelTree.getNodes()[i][j];
+					if (j !== 0) {
+						let l = 0;
+						if (node.getCubeList()[0].getX() > modelTree.getNodes()[i][j - 1].getCubeList()[0].getX()) {
+							l = Math.abs(node.getCubeList()[0].getCoordinates()[0].getX() - this.lengthAux);
+						} else {
+							l = Math.abs(this.lengthAux - node.getCubeList()[0].getCoordinates()[0].getX());
+						}
+						this.length += l + this.drawSettings.getShift().getShiftNodes();
+					}
+					this.lengthAux = node.getCubeList()[0].getCoordinates()[1].getX();
+					this.shiftNode(node);
+					this.depth = 0;
+					this.depthAux = 0;
+				}
+			} else {
+				for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
+					let node = modelTree.getNodes()[i][j];
+					let firstChild = modelTree.findFirstChild(node.getChildren());
+					let lastChild = modelTree.findLastChild(node.getChildren());
+					let centerChild1 = this.calculateCenter(firstChild.getCubeList()[0].getCoordinates());
+					let centerChild2 = this.calculateCenter(lastChild.getCubeList()[0].getCoordinates());
+					this.length = (Math.abs(centerChild1.getX() + centerChild2.getX()) / 2);
+					let depth = modelTree.greaterDepthChild(node.getChildren());
+					let depthCube = node.getCubeList()[0].getCoordinates()[1].getZ();
+					let l = Math.abs(depth + depthCube);
+					this.depth = l + this.drawSettings.getShift().getShiftParent();
+					this.shiftNode(node);
+				}
+				this.depth = 0;
+				this.depthAux = 0;
 			}
-			this.lengthAux = node.getCubeList()[0].getCoordinates()[1].getX();
-			this.shiftNode(node);
-			this.depth = 0;
-			this.depthAux = 0;
-		  }
-		} else {
-		  for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
-			let node = modelTree.getNodes()[i][j];
-			let firstChild = modelTree.findFirstChild(node.getChildren());
-			let lastChild = modelTree.findLastChild(node.getChildren());
-			let centerChild1 = this.calculateCenter(firstChild.getCubeList()[0].getCoordinates());
-			let centerChild2 = this.calculateCenter(lastChild.getCubeList()[0].getCoordinates());
-			this.length = (Math.abs(centerChild1.getX() + centerChild2.getX()) / 2);
-			let depth = modelTree.greaterDepthChild(node.getChildren());
-			let depthCube = node.getCubeList()[0].getCoordinates()[1].getZ();
-			let l = Math.abs(depth + depthCube);
-			this.depth = l + this.drawSettings.getShift().getShiftParent();
-			this.shiftNode(node);
-		  }
-		  this.depth = 0;
-		  this.depthAux = 0;
+			this.length = 0;
 		}
-		this.length = 0;
-	  }
 	}
 	drawNode(node) {
-	  let modelQueue = node.getCubeList();
-	  for (let i = 0; i < modelQueue.length; i++) {
-		let cube = modelQueue[i];
-		this.doTransformations(cube.getCoordinates());
-		if (this.activate) {
-		  let kernelCube = modelQueue[i-1];
-		  let vertex = cube.getCoordinates()[8];
-		  let pyramid = new Pyramid(kernelCube.getCoordinates().slice(0,4), new Coordinate(vertex.getX(), vertex.getY(), vertex.getZ()));
-		  this.drawPyramid(pyramid);
-		  this.activate = false;
+		let modelQueue = node.getCubeList();
+		for (let i = 0; i < modelQueue.length; i++) {
+			let cube = modelQueue[i];
+			this.doTransformations(cube.getCoordinates());
+			if (this.activate) {
+				let kernelCube = modelQueue[i - 1];
+				let vertex = cube.getCoordinates()[8];
+				let pyramid = new Pyramid(kernelCube.getCoordinates().slice(0, 4), new Coordinate(vertex.getX(), vertex.getY(), vertex.getZ()));
+				this.drawPyramid(pyramid);
+				this.activate = false;
+			}
+			if (i !== modelQueue.length - 1) {
+				if (modelQueue[i + 1].isDenseLayer) {
+					this.drawSingleCube(cube);
+				}
+			}
+			if (i === modelQueue.length - 1 || cube.isDenseLayer) {
+				this.drawSingleCube(cube);
+			} else {
+				this.drawCube(cube);
+			}
+			if (cube.isDenseLayer && i != 0) {
+				let lastCube = modelQueue[i - 1];
+				this.lineTo(lastCube, cube);
+			}
+			if (cube.isKernel) {
+				this.activate = true;
+			}
+			this.updateMaxMin(cube.getCoordinates());
 		}
-		if (i !== modelQueue.length - 1) {
-		  if (modelQueue[i+1].isDenseLayer) {
-			this.drawSingleCube(cube);
-		  }
-		}
-		if (i === modelQueue.length - 1 || cube.isDenseLayer) {
-		  this.drawSingleCube(cube);
-		} else {
-		  this.drawCube(cube);
-		}
-		if (cube.isDenseLayer && i!=0) {
-			let lastCube = modelQueue[i-1];
-			this.lineTo(lastCube, cube);
-		}
-		if (cube.isKernel) {
-		  this.activate = true;
-		}
-		this.updateMaxMin(cube.getCoordinates());
-	  }
 	}
 	drawSingleCube(cube) {
-	  let color = this.selectColor(cube);
-	  let opacity = this.selectOpacity(cube);
-	  let svg = '';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + '\'/>' + '\n';
-	  if (this.drawSettings.isActivateLayerDimensions()) {
-		svg += this.drawText(cube);
-	  }
-	  let z = this.calculateAverageZ(cube.getCoordinates());
-	  let sn = new SortNode(svg, z);
-	  this.drawOrderList.push(sn);
+		let color = this.selectColor(cube);
+		let opacity = this.selectOpacity(cube);
+		let svg = '';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + '\'/>' + '\n';
+		if (this.drawSettings.isActivateLayerDimensions()) {
+			svg += this.drawText(cube);
+		}
+		let z = this.calculateAverageZ(cube.getCoordinates());
+		let sn = new SortNode(svg, z);
+		this.drawOrderList.push(sn);
 	}
 	drawUnions(modelTree) {
-	  for (let i = 0; i < modelTree.getNodes().length; i++) {
-		for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
-		  let parent = modelTree.getNodes()[i][j];
-		  for (let child of parent.getChildren()) {
-			let lastCube = child.getLastCube();
-			this.lineTo(lastCube, parent.getCubeList()[0]);
-		  }
+		for (let i = 0; i < modelTree.getNodes().length; i++) {
+			for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
+				let parent = modelTree.getNodes()[i][j];
+				for (let child of parent.getChildren()) {
+					let lastCube = child.getLastCube();
+					this.lineTo(lastCube, parent.getCubeList()[0]);
+				}
+			}
 		}
-	  }
 	}
 	drawCube(cube) {
-	  let color = this.selectColor(cube);
-	  let opacity = this.selectOpacity(cube);
-	  let svg = '';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + '\'/>' + '\n';
-	  if (cube.isKernel) {
-		if (this.drawSettings.isActivateKernelDimensions()) {
-		  svg += this.drawText(cube);
+		let color = this.selectColor(cube);
+		let opacity = this.selectOpacity(cube);
+		let svg = '';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + '\'/>' + '\n';
+		if (cube.isKernel) {
+			if (this.drawSettings.isActivateKernelDimensions()) {
+				svg += this.drawText(cube);
+			}
+			this.aux = svg + this.aux;
+			let sn = new SortNode(this.aux, this.z);
+			this.drawOrderList.push(sn);
+		} else {
+			if (this.drawSettings.isActivateLayerDimensions()) {
+				svg += this.drawText(cube);
+			}
+			this.aux = svg;
+			this.z = this.calculateAverageZ(cube.getCoordinates());
 		}
-		this.aux = svg + this.aux;
-		let sn = new SortNode(this.aux, this.z);
-		this.drawOrderList.push(sn);
-	  } else {
-		if (this.drawSettings.isActivateLayerDimensions()) {
-		  svg += this.drawText(cube);
-		}
-		this.aux = svg;
-		this.z = this.calculateAverageZ(cube.getCoordinates());
-	  }
 	}
 	drawText(cube) {
-	  let svg = '';
-	  svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
-	  svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
-	  svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
-	  return svg;
+		let svg = '';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		return svg;
 	}
 	drawPyramid(pyramid) {
-	  let svg = '';
-	  svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + '\'/>' + '\n';
-	  svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + '\'/>' + '\n\n';
-	  let z = this.calculateAverageZ(pyramid.getCoordinates());
-	  let sn = new SortNode(svg, z);
-	  this.drawOrderList.push(sn);
+		let svg = '';
+		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + '\'/>' + '\n';
+		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + '\'/>' + '\n\n';
+		let z = this.calculateAverageZ(pyramid.getCoordinates());
+		let sn = new SortNode(svg, z);
+		this.drawOrderList.push(sn);
 	}
 	drawArrow(arrow) {
-	  let svg = '';
-	  svg += '<!-- Arrow -->\n';
-	  svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getArrowOpacity() + '\' stroke=\'' + this.drawSettings.getColor().getArrowColor() + '\' d=\'' + 'M' + arrow.getVertex1().getX() + ' ' + arrow.getVertex1().getY() + ' L' + arrow.getVertex2().getX() + ' ' + arrow.getVertex2().getY() + '\'/>' + '\n';
-	  svg += '\t\t<circle opacity=\'' + this.drawSettings.getColor().getArrowOpacity() + '\' cx=\'' + arrow.getVertex2().getX() + '\' cy=\'' + arrow.getVertex2().getY() + '\' r=\'1\' fill=\'' + this.drawSettings.getColor().getArrowColor() + '\' />\n';
-	  let z = this.calculateAverageZ(arrow.getCoordinates());
-	  let sn = new SortNode(svg, z);
-	  this.drawOrderList.push(sn);
+		let svg = '';
+		svg += '<!-- Arrow -->\n';
+		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getArrowOpacity() + '\' stroke=\'' + this.drawSettings.getColor().getArrowColor() + '\' d=\'' + 'M' + arrow.getVertex1().getX() + ' ' + arrow.getVertex1().getY() + ' L' + arrow.getVertex2().getX() + ' ' + arrow.getVertex2().getY() + '\'/>' + '\n';
+		svg += '\t\t<circle opacity=\'' + this.drawSettings.getColor().getArrowOpacity() + '\' cx=\'' + arrow.getVertex2().getX() + '\' cy=\'' + arrow.getVertex2().getY() + '\' r=\'1\' fill=\'' + this.drawSettings.getColor().getArrowColor() + '\' />\n';
+		let z = this.calculateAverageZ(arrow.getCoordinates());
+		let sn = new SortNode(svg, z);
+		this.drawOrderList.push(sn);
 	}
 	drawJumps(jumps) {
-	  for (let jump of jumps) {
-		let lastCube = jump[0].getLastCube();
-		let firstCube = jump[1].getCubeList()[0];
-		this.lineTo(lastCube,firstCube);
-	  }
+		for (let jump of jumps) {
+			let lastCube = jump[0].getLastCube();
+			let firstCube = jump[1].getCubeList()[0];
+			this.lineTo(lastCube, firstCube);
+		}
 	}
 	selectColor(cube) {
-	  if (cube.isKernel) {
-		return this.drawSettings.getColor().getKernelColor();
-	  } else {
-		if (!cube.isKernel && !cube.isDenseLayer) {
-		  return this.drawSettings.getColor().getCubeColor();
+		if (cube.isKernel) {
+			return this.drawSettings.getColor().getKernelColor();
 		} else {
-		  return this.drawSettings.getColor().getDenseColor();
+			if (!cube.isKernel && !cube.isDenseLayer) {
+				return this.drawSettings.getColor().getCubeColor();
+			} else {
+				return this.drawSettings.getColor().getDenseColor();
+			}
 		}
-	  }
 	}
 	selectOpacity(cube) {
-	  if (cube.isKernel) {
-		return this.drawSettings.getColor().getKernelOpacity();
-	  } else {
-		if (!cube.isKernel && !cube.isDenseLayer) {
-		  return this.drawSettings.getColor().getLayerOpacity();
+		if (cube.isKernel) {
+			return this.drawSettings.getColor().getKernelOpacity();
 		} else {
-		  return this.drawSettings.getColor().getDenseOpacity();
+			if (!cube.isKernel && !cube.isDenseLayer) {
+				return this.drawSettings.getColor().getLayerOpacity();
+			} else {
+				return this.drawSettings.getColor().getDenseOpacity();
+			}
 		}
-	  }
 	}
 	doTransformations(coordinates) {
-	  this.matrixController.move('x', coordinates, -this.imageCenter.getX());
-	  this.matrixController.move('y', coordinates, -this.imageCenter.getY());
-	  this.matrixController.move('z', coordinates, -this.imageCenter.getZ());
-	  this.matrixController.rotate(coordinates);
-	  this.matrixController.move('x', coordinates, this.imageCenter.getX());
-	  this.matrixController.move('y', coordinates, this.imageCenter.getY());
-	  this.matrixController.move('z', coordinates, this.imageCenter.getZ());
+		this.matrixController.move('x', coordinates, -this.imageCenter.getX());
+		this.matrixController.move('y', coordinates, -this.imageCenter.getY());
+		this.matrixController.move('z', coordinates, -this.imageCenter.getZ());
+		this.matrixController.rotate(coordinates);
+		this.matrixController.move('x', coordinates, this.imageCenter.getX());
+		this.matrixController.move('y', coordinates, this.imageCenter.getY());
+		this.matrixController.move('z', coordinates, this.imageCenter.getZ());
 	}
 	calculateCenter(coordinates) {
-	  let x = (coordinates[0].getX() + coordinates[1].getX() + coordinates[2].getX() + coordinates[3].getX()) / 4;
-	  let y = (coordinates[0].getY() + coordinates[1].getY() + coordinates[2].getY() + coordinates[3].getY()) / 4;
-	  let z = (coordinates[0].getZ() + coordinates[1].getZ() + coordinates[2].getZ() + coordinates[3].getZ()) / 4;
-	  return new Coordinate(x, y, z);
+		let x = (coordinates[0].getX() + coordinates[1].getX() + coordinates[2].getX() + coordinates[3].getX()) / 4;
+		let y = (coordinates[0].getY() + coordinates[1].getY() + coordinates[2].getY() + coordinates[3].getY()) / 4;
+		let z = (coordinates[0].getZ() + coordinates[1].getZ() + coordinates[2].getZ() + coordinates[3].getZ()) / 4;
+		return new Coordinate(x, y, z);
 	}
 	addHeader() {
 		this.svgString = '<svg id="svgImage" width=\'' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size()) + 'px\' height=\'' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size()) + 'px\' viewBox=\'' + (this.x_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.y_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + ' ' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
 	}
 	addFooter() {
-	  this.svgString += '\t </g>\n' + '</svg>';
+		this.svgString += '\t </g>\n' + '</svg>';
 	}
 	shiftNode(node) {
-	  let modelQueue = node.getCubeList();
-	  for (let i = 0; i < modelQueue.length; i++) {
-		let cube = modelQueue[i];
-		this.matrixController.move('x', cube.getCoordinates(), this.length);
-		if (!cube.isKernel && i !== 0) {
-		  let l = Math.abs(this.depthAux - cube.getCoordinates()[4].getZ());
-		  this.depth = l + this.drawSettings.getShift().getShiftLayers();
+		let modelQueue = node.getCubeList();
+		for (let i = 0; i < modelQueue.length; i++) {
+			let cube = modelQueue[i];
+			this.matrixController.move('x', cube.getCoordinates(), this.length);
+			if (!cube.isKernel && i !== 0) {
+				let l = Math.abs(this.depthAux - cube.getCoordinates()[4].getZ());
+				this.depth = l + this.drawSettings.getShift().getShiftLayers();
+			}
+			this.matrixController.move('z', cube.getCoordinates(), this.depth);
+			if (!cube.isKernel) {
+				this.depthAux = cube.getCoordinates()[0].getZ();
+			}
+			if (cube.isKernel) {
+				let cube_actual = modelQueue[i - 1];
+				this.moveKernel(cube_actual, cube);
+			}
+			this.updateMaxMin(cube.getCoordinates());
 		}
-		this.matrixController.move('z', cube.getCoordinates(), this.depth);
-		if (!cube.isKernel) {
-		  this.depthAux = cube.getCoordinates()[0].getZ();
-		}
-		if (cube.isKernel) {
-		  let cube_actual = modelQueue[i-1];
-		  this.moveKernel(cube_actual, cube);
-		}
-		this.updateMaxMin(cube.getCoordinates());
-	  }
 	}
 	updateMaxMin(coordinates) {
-	  for (let coordinate of coordinates) {
-		if (coordinate.getX() > this.x_max) {
-		  this.x_max = coordinate.getX();
+		for (let coordinate of coordinates) {
+			if (coordinate.getX() > this.x_max) {
+				this.x_max = coordinate.getX();
+			}
+			if (coordinate.getX() < this.x_min) {
+				this.x_min = coordinate.getX();
+			}
+			if (coordinate.getY() > this.y_max) {
+				this.y_max = coordinate.getY();
+			}
+			if (coordinate.getY() < this.y_min) {
+				this.y_min = coordinate.getY();
+			}
+			if (coordinate.getZ() > this.z_max) {
+				this.z_max = coordinate.getZ();
+			}
+			if (coordinate.getZ() < this.z_min) {
+				this.z_min = coordinate.getZ();
+			}
 		}
-		if (coordinate.getX() < this.x_min) {
-		  this.x_min = coordinate.getX();
-		}
-		if (coordinate.getY() > this.y_max) {
-		  this.y_max = coordinate.getY();
-		}
-		if (coordinate.getY() < this.y_min) {
-		  this.y_min = coordinate.getY();
-		}
-		if (coordinate.getZ() > this.z_max) {
-		  this.z_max = coordinate.getZ();
-		}
-		if (coordinate.getZ() < this.z_min) {
-		  this.z_min = coordinate.getZ();
-		}
-	  }
 	}
 	moveKernel(cube_actual, kernel) {
-	  let difY = Math.abs((cube_actual.getCoordinates()[3].getY() - kernel.getCoordinates()[3].getY()));
-	  let difX = Math.abs((cube_actual.getCoordinates()[3].getX() - kernel.getCoordinates()[3].getX()));
-	  let x_random = -difX + (Math.random() * ((difX + difX)));
-	  let y_random = -difY + (Math.random() * ((difY + difY)));
-	  this.matrixController.move('x', kernel.getCoordinates(), x_random);
-	  this.matrixController.move('y', kernel.getCoordinates(), y_random);
+		let difY = Math.abs((cube_actual.getCoordinates()[3].getY() - kernel.getCoordinates()[3].getY()));
+		let difX = Math.abs((cube_actual.getCoordinates()[3].getX() - kernel.getCoordinates()[3].getX()));
+		let x_random = -difX + (Math.random() * ((difX + difX)));
+		let y_random = -difY + (Math.random() * ((difY + difY)));
+		this.matrixController.move('x', kernel.getCoordinates(), x_random);
+		this.matrixController.move('y', kernel.getCoordinates(), y_random);
 	}
 	calculateAverageZ(coordinates) {
-	  let total = coordinates.length;
-	  let sum = 0;
-	  for (let coordinate of coordinates) {
-		let coord = coordinate.getZ();
-		sum += coord;
-	  }
-	  return sum / total;
+		let total = coordinates.length;
+		let sum = 0;
+		for (let coordinate of coordinates) {
+			let coord = coordinate.getZ();
+			sum += coord;
+		}
+		return sum / total;
 	}
 	calculateImageCenter() {
-	  let center_x = ((this.x_max - this.x_min) / 2) + this.x_min;
-	  let center_y = ((this.y_max - this.y_min) / 2) + this.y_min;
-	  let center_z = ((this.z_max - this.z_min) / 2) + this.z_min;
-	  this.imageCenter = new Coordinate(center_x, center_y, center_z);
-	  this.x_max = -Number.MAX_VALUE;
-	  this.y_max = -Number.MAX_VALUE;
-	  this.x_min = Number.MAX_VALUE;
-	  this.y_min = Number.MAX_VALUE;
+		let center_x = ((this.x_max - this.x_min) / 2) + this.x_min;
+		let center_y = ((this.y_max - this.y_min) / 2) + this.y_min;
+		let center_z = ((this.z_max - this.z_min) / 2) + this.z_min;
+		this.imageCenter = new Coordinate(center_x, center_y, center_z);
+		this.x_max = -Number.MAX_VALUE;
+		this.y_max = -Number.MAX_VALUE;
+		this.x_min = Number.MAX_VALUE;
+		this.y_min = Number.MAX_VALUE;
 	}
 	lineTo(cube1, cube2) {
-	  cube1.getCoordinates().slice(0,4)
-	  let vertex1 = this.calculateCenter(cube1.getCoordinates().slice(0,4));
-	  let vertex2 = this.calculateCenter(cube2.getCoordinates().slice(4,8));
-	  this.drawArrow(new Arrow(vertex1, vertex2));
+		cube1.getCoordinates().slice(0, 4)
+		let vertex1 = this.calculateCenter(cube1.getCoordinates().slice(0, 4));
+		let vertex2 = this.calculateCenter(cube2.getCoordinates().slice(4, 8));
+		this.drawArrow(new Arrow(vertex1, vertex2));
 	}
-  }
+}
 
-  /*SORTNODE CLASS */
-  class SortNode {
+/*SORTNODE CLASS */
+class SortNode {
 	constructor(svgString, z) {
-	  this.svgString = svgString;
-	  this.z = z;
+		this.svgString = svgString;
+		this.z = z;
 	}
 	getSvgString() {
 		return this.svgString;
@@ -1345,4 +1355,4 @@ class Node {
 	getZ() {
 		return this.z;
 	}
-  }
+}
