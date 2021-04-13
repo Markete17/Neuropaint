@@ -117,7 +117,7 @@ var example = {
 	data: [
 		'<!-- Part 1: Nodes Definition -->\n\nvar n1 = new Node();\n\n<!-- Part 2: Neural Network -->\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
 		+ 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
-		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n' + 'n1.add(Dense(400));\n' + 'n1.add(Dense(500));\n\n<!-- Part 3: Model Definition-->\n\n' + 'model.add(n1);',
+		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n' +'\n\n<!-- Part 3: Model Definition-->\n\n' + 'model.add(n1);',
 
 		'<!-- Part 1: Nodes Definition -->\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '<!-- Part 2: Neural Network -->\n' + '\n' +
 		'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
