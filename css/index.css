@@ -734,6 +734,7 @@ a.button {
     padding: 5px 6px;
     position: relative;
     cursor: pointer;
+    border: 2px solid rgb(130, 189, 238);
 }
 
 .btnreset:active {

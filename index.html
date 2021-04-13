@@ -183,7 +183,7 @@
                     </div>
                     <br>
                     <div class="reset-div">
-                        <a onclick="reset(6)" class="btnreset blue">RESET</a>
+                        <a onclick="reset(13,'--fontColor','#000000')" class="btnreset blue">RESET</a>
                     </div>
                 </li>
             </ul>
@@ -196,27 +196,27 @@
                         <div>
                             <span class="axistitle">X-Axis</span>
                             <div class="color-opacity">
-                                <input class="range" type="range" value="30" min="-360" max="360" onchange="rangeSlide(this.value,4)"></Input>
+                                <input class="range" type="range" id="range4" value="30" min="-360" max="360" onchange="rangeSlide(this.value,4)"></Input>
                                 <span class="rangeValue" id="rangeValue4">30</span>
                             </div>
                         </div>
                         <div>
                             <span class="axistitle">Y-Axis</span>
                             <div class="color-opacity">
-                                <input class="range" type="range" value="60" min="-360" max="360" onchange="rangeSlide(this.value,5)"></Input>
+                                <input class="range" type="range" id="range5" value="60" min="-360" max="360" onchange="rangeSlide(this.value,5)"></Input>
                                 <span class="rangeValue" id="rangeValue5">60</span>
                             </div>
                         </div>
                         <div>
                             <span class="axistitle">Z-Axis</span>
                             <div class="color-opacity">
-                                <input class="range" type="range" value="0" min="-360" max="360" onchange="rangeSlide(this.value,6)"></Input>
+                                <input class="range" type="range" id="range6" value="0" min="-360" max="360" onchange="rangeSlide(this.value,6)"></Input>
                                 <span class="rangeValue" id="rangeValue6">0</span>
                             </div>
                         </div>
                         <br>
                         <div class="reset-div">
-                            <a onclick="reset(7)" class="btnreset blue">RESET</a>
+                            <a onclick="reset(4)" class="btnreset blue">RESET</a>
                         </div>
                     </li>
                 </ul>
@@ -229,27 +229,27 @@
                             <div>
                                 <span class="rangetitle">Nodes Distance</span>
                                 <div class="color-opacity">
-                                    <input class="range" type="range" value="100" min="0" max="250" onchange="rangeSlide(this.value,1)"></Input>
+                                    <input class="range" type="range" id="range1" value="100" min="0" max="250" onchange="rangeSlide(this.value,1)"></Input>
                                     <span class="rangeValue" id="rangeValue1">100</span>
                                 </div>
                             </div>
                             <div>
                                 <span class="rangetitle">Layers Distance</span>
                                 <div class="color-opacity">
-                                    <input class="range" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,2)"></Input>
+                                    <input class="range" type="range" id="range2" value="50" min="0" max="150" onchange="rangeSlide(this.value,2)"></Input>
                                     <span class="rangeValue" id="rangeValue2">50</span>
                                 </div>
                             </div>
                             <div>
                                 <span class="rangetitle">Parents Distance</span>
                                 <div class="color-opacity">
-                                    <input class="range" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,3)"></Input>
+                                    <input class="range" id="range3" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,3)"></Input>
                                     <span class="rangeValue" id="rangeValue3">50</span>
                                 </div>
                             </div>
                             <br>
                             <div class="reset-div">
-                                <a onclick="reset(8)" class="btnreset blue">RESET</a>
+                                <a onclick="reset(1)" class="btnreset blue">RESET</a>
                             </div>
                         </li>
                     </ul>

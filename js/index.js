@@ -222,7 +222,7 @@ function toggleButton(){
 }
 
 function rangeSlide(value,number) {
-    document.getElementById('rangeValue'+number).innerHTML = value;
+    $('#rangeValue'+number).html(value);
     updatePreview(cm.getValue());
 }
 
@@ -238,10 +238,49 @@ function zoomOut(){
     updatePreview(cm.getValue());
 }
 
-function reset(number,css,color){
-    $('body').css(css, color);
-    $('#input'+number).val(color);
-    $('#input'+ (number+1)).val(0.5);
+function reset(...args){
+    //Color or Font Settings
+    if(args.length>1){
+        
+        $('body').css(args[1], args[2]);
+        $('#input'+args[0]).val(args[2]);
+        if(args[0]==13){
+            //Font Settings
+             $('#input'+ (args[0]+1)).val(6);
+             $('#fontButton').text(fonts.list[0]);
+             $('#fontButton').css('font-family',fonts.list[0]);
+             fonts.index=0;
+        } else{
+            //Color Settings
+            $('#input'+ (args[0]+1)).val(0.5);
+        }
+
+    }
+    //Range Settings
+    else{
+        let a;
+        let b;
+        let c;
+        
+        if(args[0]==1){
+            //Distance Settings
+            a=100;
+            b=50;
+            c=50;
+        } else{
+            //Rotation Settings
+            a = 30;
+            b = 60;
+            c = 0;
+        }
+            $('#rangeValue'+(args[0])).html(a);
+            $('#rangeValue'+(args[0]+1)).html(b);
+            $('#rangeValue'+(args[0]+2)).html(c);
+
+            $('#range'+(args[0])).val(a);
+            $('#range'+(args[0]+1)).val(b);
+            $('#range'+(args[0]+2)).val(c);
+    }
     updatePreview(cm.getValue());
 }
 
