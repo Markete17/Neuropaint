@@ -725,6 +725,31 @@ a.button {
 .yellow:hover {
     background-color: #FFDE29;
 }
+.reset-div{
+    margin-left: 30%;
+    margin-right: 50%;
+}
+.btnreset {
+    border-radius: 5px;
+    padding: 5px 6px;
+    position: relative;
+    cursor: pointer;
+}
+
+.btnreset:active {
+    transform: translate(0px, 5px);
+    -webkit-transform: translate(0px, 5px);
+    box-shadow: 0px 1px 0px 0px;
+}
+.blue {
+    background-color: #7ed8e4;
+    box-shadow: 0px 5px 0px 0px #7aa9ee;
+}
+
+.blue:hover {
+    background-color: #aae7f1;
+}
+
 
 
 /**SETTINGS MENU**/

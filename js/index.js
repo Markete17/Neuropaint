@@ -238,6 +238,13 @@ function zoomOut(){
     updatePreview(cm.getValue());
 }
 
+function reset(number,css,color){
+    $('body').css(css, color);
+    $('#input'+number).val(color);
+    $('#input'+ (number+1)).val(0.5);
+    updatePreview(cm.getValue());
+}
+
 function saveAsFile(filename, data, type) {
     var blob = new Blob([data], { type});
 

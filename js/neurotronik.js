@@ -1,16 +1,10 @@
 var cm;
-var previewWrapper = document.getElementsByClassName('preview')[0];
-var editorWrapper = document.getElementsByClassName('editor')[0];
 var svg = "";
 var layers;
 $(function () {
-	var editor = document.getElementById('editor');
-	var preview = document.getElementById('preview');
-
 	cm = CodeMirror.fromTextArea(editor, {
 		lineNumbers: true,
 		styleActiveLine: true,
-		mode: 'text/html',
 	});
 	cm.setValue(example.data[0]);
 	updatePreview(cm.getValue());
