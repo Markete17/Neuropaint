@@ -54,6 +54,7 @@ a.button {
     text-align: center;
     height:100%;
     width:100%;
+    word-wrap: break-word;
 }
 
 #svgImage{
