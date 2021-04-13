@@ -98,6 +98,9 @@ function updatePreview(content) {
 		$('#svg').css('color', "");
 		$('#svg').css('font-size', "");
 		$('#preview').css('border', '2px solid #1b6181');
+		$('text').css("fill",layers.getDrawSettings().getFont().getFont_color());
+		$('text').css("font-size",layers.getDrawSettings().getFont().getFont_size());
+		$('text').css("font-family",layers.getDrawSettings().getFont().getFont_family());
 		$(function () {
 			$("#svgImage").draggable();
 			$("#svgImage").on("mouseover", function () {
@@ -1212,10 +1215,11 @@ class SvgController {
 	}
 	drawText(cube) {
 		let svg = '';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
+		svg += '\t\t<text x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
 		return svg;
+		
 	}
 	drawPyramid(pyramid) {
 		let svg = '';
