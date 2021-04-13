@@ -936,7 +936,7 @@ class NeuralNetworkTree {
 	}
 	root() {
 		if (this.root === null) {
-			throw new RuntimeException('The tree is empty');
+			throw 'The tree is empty';
 		}
 		return this.root;
 	}
@@ -944,7 +944,7 @@ class NeuralNetworkTree {
 		if (this.isEmpty) {
 			this.root = node;
 		} else {
-			throw new RuntimeException('Tree already has a root');
+			throw 'Tree already has a root';
 		}
 	}
 	add(child, parent) {
@@ -1026,7 +1026,7 @@ class NeuralNetworkTree {
 		for (let nodes of this.getNodes()) {
 			for (let node of nodes) {
 				if (node.getCubeList().length == 0 || node.getCubeList() === null) {
-					throw new RuntimeException('The neural network has been poorly defined.');
+					throw 'The neural network has been poorly defined.';
 				}
 			}
 		}
