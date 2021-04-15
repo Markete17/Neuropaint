@@ -435,6 +435,7 @@ class Layers {
 	Conv2D$5(filters, kernel_size, strides, input, padding) {
 		let cubeList = new Array();
 		this.cube_actual = input;
+		input.isInputLayer = true;
 		cubeList.push(input);
 		let CNNCube = this.createKernel(this.cube_actual.getZ(), kernel_size);
 		cubeList.push(CNNCube);
@@ -1144,7 +1145,7 @@ class SvgController {
 				let kernelCube = modelQueue[i - 1];
 				let vertex = cube.getCoordinates()[8];
 				let pyramid = new Pyramid(kernelCube.getCoordinates().slice(0, 4), new Coordinate(vertex.getX(), vertex.getY(), vertex.getZ()));
-				this.drawPyramid(pyramid);
+				this.drawPyramid(pyramid,kernelCube);
 				this.activate = false;
 			}
 			if (i !== modelQueue.length - 1) {
@@ -1206,9 +1207,6 @@ class SvgController {
 		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + ' L' + cube.getCoordinates()[1].getX() + ' ' + cube.getCoordinates()[1].getY() + ' L' + cube.getCoordinates()[5].getX() + ' ' + cube.getCoordinates()[5].getY() + ' L' + cube.getCoordinates()[4].getX() + ' ' + cube.getCoordinates()[4].getY() + ' L' + cube.getCoordinates()[0].getX() + ' ' + cube.getCoordinates()[0].getY() + '\'/>' + '\n';
 		svg += '\t\t<path opacity=\'' + opacity + '\' fill=\'' + color + '\' d=\'' + 'M' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + ' L' + cube.getCoordinates()[3].getX() + ' ' + cube.getCoordinates()[3].getY() + ' L' + cube.getCoordinates()[7].getX() + ' ' + cube.getCoordinates()[7].getY() + ' L' + cube.getCoordinates()[6].getX() + ' ' + cube.getCoordinates()[6].getY() + ' L' + cube.getCoordinates()[2].getX() + ' ' + cube.getCoordinates()[2].getY() + '\'/>' + '\n';
 		if (cube.isKernel) {
-			if (this.drawSettings.isActivateKernelDimensions()) {
-				svg += this.drawText(cube);
-			}
 			this.aux = svg + this.aux;
 			let sn = new SortNode(this.aux, this.z);
 			this.drawOrderList.push(sn);
@@ -1228,12 +1226,18 @@ class SvgController {
 		return svg;
 		
 	}
-	drawPyramid(pyramid) {
+	drawTextPyramid(pyramid,kernel) {
+		return "\t\t<text style=\"fill:" + this.drawSettings.getFont().getFont_color() + ";font-family:" + this.drawSettings.getFont().getFont_family() + ";font-size:" + this.drawSettings.getFont().getFont_size() + "\" " + "x=\"" + ((pyramid.getCoordinates()[0].getX()+pyramid.getCoordinates()[1].getX()+ pyramid.getVertex().getX()) / 3) + "\" y=\"" + (pyramid.getCoordinates()[0].getY() + (pyramid.getVertex().getY()-7)) / 2 + "\" " + ">" + "["+(kernel.getX())+","+(kernel.getY())+"]" + "</text>\n";	
+	}
+	drawPyramid(pyramid,kernel) {
 		let svg = '';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + '\'/>' + '\n';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + '\'/>' + '\n\n';
+		if (this.drawSettings.isActivateKernelDimensions()) {
+			svg += this.drawTextPyramid(pyramid,kernel);
+		}
 		let z = this.calculateAverageZ(pyramid.getCoordinates());
 		let sn = new SortNode(svg, z);
 		this.drawOrderList.push(sn);
