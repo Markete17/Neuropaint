@@ -16,7 +16,12 @@ function loadInputs(){
     }
     j=0;
     for (let i=2;i<17;i+=2){
-        loadInput(i,1,0)
+        if(i==14){
+            loadInput(i,20,0)
+        }
+        else{
+            loadInput(i,1,0)
+        }
     }
    
     for(let i=17;i<23;i++){
@@ -168,11 +173,11 @@ function increment(number){
     //Size
     if(number==14){
         let result = parseFloat(n1+1);
-        if(result<30){
+        if(result<20){
             $('#input'+number).val(result.toFixed(0));
         }
         else{
-            $('#input'+number).val(30);
+            $('#input'+number).val(20);
         }
     }
     else if(number==17 || number == 18 ||number ==19){
@@ -209,8 +214,8 @@ function checkInputNumber(number){
     let input = $('#input'+number);
     if(number==14){
         let n1=parseFloat(input.val());
-        if(n1>30){
-            $('#input'+number).val(30);
+        if(n1>20){
+            $('#input'+number).val(20);
         }
         if(n1<0){
             $('#input'+number).val(0);

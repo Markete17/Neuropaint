@@ -1222,9 +1222,9 @@ class SvgController {
 	}
 	drawText(cube) {
 		let svg = '';
-		svg += '\t\t<text x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
-		svg += '\t\t<text x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
-		svg += '\t\t<text x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
 		return svg;
 		
 	}
@@ -1298,7 +1298,7 @@ class SvgController {
 		return new Coordinate(x, y, z);
 	}
 	addHeader() {
-		this.svgString = '<svg id="svgImage" width=\'' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size()) + 'px\' height=\'' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size()) + 'px\' viewBox=\'' + (this.x_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.y_min - this.drawSettings.getFont().getFont_size()) + ' ' + (this.x_max - this.x_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + ' ' + (this.y_max - this.y_min + this.drawSettings.getFont().getFont_size() + this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
+		this.svgString = '<svg id="svgImage" viewBox=\'' + (this.x_min) + ' ' + (this.y_min-10) + ' ' + (this.x_max - this.x_min +this.drawSettings.getViewBox().getZoom()+20) + ' ' + (this.y_max - this.y_min +10+this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
 	}
 	addFooter() {
 		this.svgString += '\t </g>\n' + '</svg>';
