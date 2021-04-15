@@ -11,6 +11,7 @@
     var input9 = document.getElementById('input9');
     var input11 = document.getElementById('input11');
     var input13 = document.getElementById('input13');
+    var input15 = document.getElementById('input15');
 
     $("#zoomtext").text(zoom+'%');
     
@@ -47,6 +48,12 @@
     input13.addEventListener('change', function() {
         body.style.setProperty('--fontColor', input13.value);
         $('#input13').val(input13.value);
+        updatePreview(cm.getValue());
+    });
+
+    input15.addEventListener('change', function() {
+        body.style.setProperty('--inputColor', input15.value);
+        $('#input15').val(input15.value);
         updatePreview(cm.getValue());
     });
 
@@ -126,7 +133,7 @@ function decrement(number){
     let input = $('#input'+number);
     let n1=parseFloat(input.val());
     //Size
-    if(number==14||number==15 || number==16 || number==17){
+    if(number==14){
         let result = parseFloat(n1-1);
         if(result>0){
             $('#input'+number).val(result.toFixed(0));
@@ -158,15 +165,6 @@ function increment(number){
         }
         else{
             $('#input'+number).val(30);
-        }
-    }
-    else if(number==15 || number==16 || number==17){
-        let result = parseFloat(n1+1);
-        if(result<150){
-            $('#input'+number).val(result.toFixed(0));
-        }
-        else{
-            $('#input'+number).val(300);
         }
     }
     else{

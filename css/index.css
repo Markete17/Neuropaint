@@ -1064,6 +1064,7 @@ a.button {
 
 /**INPUT SETTINGS**/
 :root {
+    --inputColor: #FF645C;
     --cubeColor: #FFB433;
     --kernelColor: #51FB7B;
     --denseColor: #14D8FF;
@@ -1124,6 +1125,9 @@ a.button {
   }
   #custom-input-13 {
     background-color: var(--fontColor);
+  }
+  #custom-input-15 {
+    background-color: var(--inputColor);
   }
 
   /**RADIO BUTTONS*/

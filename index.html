@@ -35,7 +35,28 @@
             </li>
                 <ul class="menu-submenu accordion-content">
                     <li id="nav1" class="toggle accordion-toggle2">
-                        <a class="menu-link">Cube</a>
+                        <a class="menu-link">Input Layer</a>
+                    </li>
+                    <ul class="menu-submenu accordion-content2">
+                        <li>
+                            <div class="color-opacity">
+                                <input id="input15" type="color" value="#FF645C" name="input15" class="color-input"/>
+                                <div id="custom-input-15" class="custom"></div>
+                            </div>
+                            <div class="color-opacity">
+                                <div class="opacity">
+                                <span class="radiotitle">Opacity</span>
+                                <div class="input-number-decrement" onclick="decrement(16);">–</div><input onblur="checkInputNumber(16);" class="input-number" id="input16" name="input16" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(16);">+</div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="reset-div">
+                                <a onclick="reset(15,'--inputColor','#FF645C')" class="btnreset blue">RESET</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <li id="nav1" class="toggle accordion-toggle2">
+                        <a class="menu-link">Convolutional Layer</a>
                     </li>
                     <ul class="menu-submenu accordion-content2">
                         <li>
@@ -77,7 +98,7 @@
                         </li>
                     </ul>
                     <li id="nav3" class="toggle accordion-toggle2">
-                        <a class="menu-link">Dense</a>
+                        <a class="menu-link">Flattern Layer</a>
                     </li>
                     <ul class="menu-submenu accordion-content2">
                         <li>
@@ -98,7 +119,7 @@
                         </li>
                     </ul>
                     <li id="nav4" class="toggle accordion-toggle2">
-                        <a class="menu-link">Pyramid</a>
+                        <a class="menu-link">Convolution Connection</a>
                     </li>
                     <ul class="menu-submenu accordion-content2">
                         <li>
@@ -119,7 +140,7 @@
                         </li>
                     </ul>
                     <li id="nav5" class="toggle accordion-toggle2">
-                        <a class="menu-link">Arrow</a>
+                        <a class="menu-link">Dense Connection</a>
                     </li>
                     <ul class="menu-submenu accordion-content2">
                         <li>

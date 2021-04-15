@@ -17,6 +17,9 @@ $(function () {
 function initializeDrawSettings() {
 	let settings = "";
 
+	let inputColor = $('#input15').val();
+	let inputOpacity = $('#input16').val();
+
 	let cubeColor = $('#input1').val();
 	let cubeOpacity = $('#input2').val();
 
@@ -32,7 +35,7 @@ function initializeDrawSettings() {
 	let arrowColor = $('#input9').val();
 	let arrowOpacity = $('#input10').val();
 
-	settings += 'var color = new Color("' + cubeColor + '","' + kernelColor + '","' + denseColor + '","' + pyramidColor + '","' + arrowColor + '","' + cubeOpacity + '","' + kernelOpacity + '","' + pyramidOpacity + '","' + arrowOpacity + '","' + denseOpacity + '");\n';
+	settings += 'var color = new Color("' + inputColor + '","' + cubeColor + '","' + kernelColor + '","' + denseColor + '","' + pyramidColor + '","' + arrowColor + '","' + inputOpacity + '","'+ cubeOpacity + '","' + kernelOpacity + '","' + pyramidOpacity + '","' + arrowOpacity + '","' + denseOpacity + '");\n';
 	let strokeColor = $('#input11').val();
 	let strokeWidth = $('#input12').val();
 
@@ -64,7 +67,7 @@ function initializeDrawSettings() {
 	settings += 'var model = new Model();\n';
 	settings += 'var svgController = new SvgController(drawSettings)\n';
 	settings += 'var layers = new Layers(drawSettings);\n';
-	let color = new Color(cubeColor, kernelColor, denseColor, pyramidColor, arrowColor, cubeOpacity, kernelOpacity, pyramidOpacity, arrowOpacity, denseOpacity);
+	let color = new Color(inputColor,cubeColor, kernelColor, denseColor, pyramidColor, arrowColor,inputOpacity, cubeOpacity, kernelOpacity, pyramidOpacity, arrowOpacity, denseOpacity);
 	let alfa = new Alfa(xAxis, yAxis, zAxis);
 	let shift = new Shift(nodesDistance, layersDistance, parentsDistance);
 	let font = new Font(fontSize, fontFamily, fontColor);
@@ -119,7 +122,7 @@ var example = {
 		'<!-- Part 1: Nodes Definition -->\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '<!-- Part 2: Neural Network -->\n' + '\n' +
 		'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
 		'n2.add(Input(48,32,10));\n' + 'n2.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n2.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n2.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
-		'DenseLayer();\n' + 'n3.add(Concatenate(n3,[n1,n2]));\n' + 'n3.add(Dense(200));\n' + 'n3.add(Dense(200));\n' + '\n' + '\n' + '<!-- Part 3: Model Definition-->\n' + '\n' + 'model.add(n3);\n' +
+		'DenseLayer();\n' + 'n3.add(Concatenate([n1,n2]));\n' + 'n3.add(Dense(200));\n' + 'n3.add(Dense(200));\n' + '\n' + '\n' + '<!-- Part 3: Model Definition-->\n' + '\n' + 'model.add(n3);\n' +
 		'model.add(n1,n3);\n' +
 		'model.add(n2,n3);\n' +
 		'         \n',
@@ -131,7 +134,7 @@ var example = {
 		'n3.add(Input(48,32,10));\nn3.add(Conv2D(32, [10,10], [1,1], \"same\"));\nMaxPooling2D([2,2]);\nn3.add(Conv2D(64,[5,5],[1,1],\"same\"));\nMaxPooling2D([2,2]);\n'+
 		'n3.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nn4.add(Input(48,32,10));\nn4.add(Conv2D(32, [10,10],[1,1], \"same\"));\nMaxPooling2D([2,2]);\nn4.add(Conv2D(64,[5,5],[1,1],\"same\"));\n'+
 		'MaxPooling2D([2,2]);\nn4.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nn5.add(layers.Input(new Cube(new Coordinate(48,32,10),drawSettings)));\nn5.add(layers.Conv2D(32, new Tuple(10, 10), new Tuple(1, 1), \"same\"));\nlayers.MaxPooling2D(new Tuple(2,2));\nn5.add(layers.Conv2D(64,new Tuple(5,5),new Tuple(1,1),\"same\"));\n'+
-		'MaxPooling2D([2,2]);\nn5.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nDenseLayer();\nnp.add(Concatenate(np,[n1,n2,n3,n4,n5]));\nnp.add(Dense(200));\nnp.add(Dense(300));\n\n'+
+		'MaxPooling2D([2,2]);\nn5.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nDenseLayer();\nnp.add(Concatenate([n1,n2,n3,n4,n5]));\nnp.add(Dense(200));\nnp.add(Dense(300));\n\n'+
 		'<!-- Part 3: Model Definition-->\n\n' +
 		'model.add(np);\nmodel.add(n1,np);\nmodel.add(n2,np);\nmodel.add(n3,np);\nmodel.add(n4,np);\nmodel.add(n5,np);',
 		
@@ -141,9 +144,9 @@ var example = {
 		 'MaxPooling2D([2,2]);\nx1b.add(Conv2D(64, [5,5], [1,1], \"same\"));\n\nx2.add(Input(32,32,20));\nx2.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx2.add(Conv2D(64, [5,5], [1,1], \"same\"));\nMaxPooling2D([2,2]);\nx2.add(Conv2D(64, [5,5], [1,1], \"same\"));\n\n'+
 		 'x3a.add(Input(32,32,20));\nx3a.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx3a.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx3b.add(Input(32,32,20));\nx3b.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx3b.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\n'+
 		 'x5.add(Input(32,32,20));\nx5.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx5.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nlayers.MaxPooling2D(new Tuple(2, 2));\nx5.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx5.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nx6.add(Input(32,32,20));\nx6.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\n'+
-		 'MaxPooling2D([2,2]);\nx6.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nlayers.MaxPooling2D(new Tuple(2, 2));\nx6.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx6.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nx1.add(Concatenate(x1,[x1a, x1b]));\nMaxPooling2D([2,2]);\nx1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx3.add(Concatenate(x3,[x3a, x3b]));\n'+
-		 'MaxPooling2D([2,2]);\nx3.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx3.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx3.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nxp1.add(Concatenate(xp1,[x1, x2]));\nxp1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));;\nxp1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));;\nxp1.add(Conv2D(100, [5, 5], [1, 1], \"same\"));;\n\nxp2.add(Concatenate(xp2,[xp1, x3]));\n'+
-		 'xp2.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx7.add(Concatenate(x7,[x5,x6]));\nMaxPooling2D([2, 2]);\nx7.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nDenseLayer();\nxp3.add(Concatenate(xp3,[xp1,x3,x5]));\nxp3.add(Dense(200));\nxp3.add(Dense(300));\n\n'+
+		 'MaxPooling2D([2,2]);\nx6.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nlayers.MaxPooling2D(new Tuple(2, 2));\nx6.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx6.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nx1.add(Concatenate([x1a, x1b]));\nMaxPooling2D([2,2]);\nx1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx3.add(Concatenate([x3a, x3b]));\n'+
+		 'MaxPooling2D([2,2]);\nx3.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx3.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx3.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nxp1.add(Concatenate([x1, x2]));\nxp1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));;\nxp1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));;\nxp1.add(Conv2D(100, [5, 5], [1, 1], \"same\"));;\n\nxp2.add(Concatenate([xp1, x3]));\n'+
+		 'xp2.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx7.add(Concatenate([x5,x6]));\nMaxPooling2D([2, 2]);\nx7.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nDenseLayer();\nxp3.add(Concatenate([xp1,x3,x5]));\nxp3.add(Dense(200));\nxp3.add(Dense(300));\n\n'+
 		 '<!-- Part 3: Model Definition-->\n\n' +'model.add(xp3);\nmodel.add(x1a, x1);\nmodel.add(x1b, x1);\nmodel.add(x1, xp1);\nmodel.add(x2, xp1);\nmodel.add(x3a,x3);\nmodel.add(x3b,x3);\nmodel.add(x5,x7);\nmodel.add(x6,x7);\nmodel.add(xp1,xp2);\nmodel.add(x3,xp2);\n\nmodel.add(xp2,xp3);\nmodel.add(x7,xp3);'
 	],
 	init: function (number) {
@@ -235,17 +238,22 @@ class Alfa {
 
 /*COLOR CLASS*/
 class Color {
-	constructor(cube, kernel, dense, pyramid, arrow, layerOpacity, kernelOpacity, convOpacity, arrowOpacity, denseOpacity) {
+	constructor(input,cube, kernel, dense, pyramid, arrow, inputOpacity, layerOpacity, kernelOpacity, convOpacity, arrowOpacity, denseOpacity) {
+		this.inputColor = input;
 		this.cubeColor = cube;
 		this.kernelColor = kernel;
 		this.denseColor = dense;
 		this.pyramidColor = pyramid;
 		this.arrowColor = arrow;
+		this.inputOpacity = inputOpacity;
 		this.layerOpacity = layerOpacity;
 		this.kernelOpacity = kernelOpacity;
 		this.convOpacity = convOpacity;
 		this.arrowOpacity = arrowOpacity;
 		this.denseOpacity = denseOpacity;
+	}
+	getInputColor() {
+		return this.inputColor;
 	}
 	getCubeColor() {
 		return this.cubeColor;
@@ -261,6 +269,9 @@ class Color {
 	}
 	getArrowColor() {
 		return this.arrowColor;
+	}
+	getInputOpacity() {
+		return this.inputOpacity;
 	}
 	getLayerOpacity() {
 		return this.layerOpacity;
@@ -408,6 +419,7 @@ class Layers {
 	}
 	Input(input) {
 		let cubeList = new Array();
+		input.isInputLayer = true;
 		this.cube_actual = input;
 		cubeList.push(input);
 		return cubeList;
@@ -449,7 +461,7 @@ class Layers {
 		cubeList.push(cube);
 		return cubeList;
 	}
-	concatenate(node, nodes) {
+	concatenate(nodes) {
 		if (this.denseLayer) {
 			return new Array();
 		}
@@ -523,8 +535,8 @@ function Dense(vector) {
 	return layers.Dense(vector);
 }
 
-function Concatenate(n, nodes) {
-	return layers.concatenate(n, nodes);
+function Concatenate(nodes) {
+	return layers.concatenate(nodes);
 }
 
 function DenseLayer() {
@@ -811,6 +823,7 @@ class Cube {
 		this.z = coordinate.getZ();
 		this.isDenseLayer = false;
 		this.isKernel = false;
+		this.isInputLayer = false;
 		let x_aux = drawSettings.logWidth(this.x);
 		let y_aux = this.y;
 		let z_aux = drawSettings.logDepth(this.z);
@@ -1244,23 +1257,29 @@ class SvgController {
 	selectColor(cube) {
 		if (cube.isKernel) {
 			return this.drawSettings.getColor().getKernelColor();
-		} else {
-			if (!cube.isKernel && !cube.isDenseLayer) {
-				return this.drawSettings.getColor().getCubeColor();
-			} else {
-				return this.drawSettings.getColor().getDenseColor();
-			}
+		} 
+		else if (cube.isDenseLayer){
+			return this.drawSettings.getColor().getDenseColor();
+		}
+		else if (cube.isInputLayer){
+			return this.drawSettings.getColor().getInputColor();
+		}
+		else {
+			return this.drawSettings.getColor().getCubeColor();
 		}
 	}
 	selectOpacity(cube) {
 		if (cube.isKernel) {
 			return this.drawSettings.getColor().getKernelOpacity();
-		} else {
-			if (!cube.isKernel && !cube.isDenseLayer) {
-				return this.drawSettings.getColor().getLayerOpacity();
-			} else {
-				return this.drawSettings.getColor().getDenseOpacity();
-			}
+		} 
+		else if (cube.isDenseLayer){
+			return this.drawSettings.getColor().getDenseOpacity();
+		}
+		else if (cube.isInputLayer){
+			return this.drawSettings.getColor().getInputOpacity();
+		}
+		else {
+			return this.drawSettings.getColor().getLayerOpacity();
 		}
 	}
 	doTransformations(coordinates) {
