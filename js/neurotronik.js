@@ -41,9 +41,9 @@ function initializeDrawSettings() {
 
 	settings += 'var stroke = new Stroke("' + strokeColor + '","' + strokeWidth + '");\n';
 
-	let xAxis = $('#rangeValue4').text();
-	let yAxis = $('#rangeValue5').text();
-	let zAxis = $('#rangeValue6').text();
+	let xAxis = $('#input17').val();
+	let yAxis = $('#input18').val();
+	let zAxis = $('#input19').val();
 
 	settings += 'var alfa = new Alfa(' + xAxis + ',' + yAxis + ',' + zAxis + ');\n';
 
@@ -52,9 +52,9 @@ function initializeDrawSettings() {
 	let fontFamily = $('#fontButton').text();
 	settings += 'var font = new Font(' + fontSize + ',"' + fontFamily + '","' + fontColor + '");\n';
 
-	let nodesDistance = $('#rangeValue1').text();
-	let layersDistance = $('#rangeValue2').text();
-	let parentsDistance = $('#rangeValue3').text();
+	let nodesDistance = $('#input20').val();
+	let layersDistance = $('#input21').val();
+	let parentsDistance = $('#input22').val();
 	settings += 'var shift = new Shift(' + nodesDistance + ',' + layersDistance + ',' + parentsDistance + ');\n';
 	settings += 'var viewBox = new ViewBox(3000,2000,' + (zoom - 100) + ');\n';
 

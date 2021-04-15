@@ -2,95 +2,94 @@
     var zoom = 100;
     
     $(function() {
-    
-    var body = document.querySelector('body');
-    var input1 = document.getElementById('input1');
-    var input3 = document.getElementById('input3');
-    var input5 = document.getElementById('input5');
-    var input7 = document.getElementById('input7');
-    var input9 = document.getElementById('input9');
-    var input11 = document.getElementById('input11');
-    var input13 = document.getElementById('input13');
-    var input15 = document.getElementById('input15');
-
+        loadInputs();
+        loadMenu();
+    });
+function loadInputs(){
+    let inputsColor = ['--cubeColor','--kernelColor','--denseColor','--pyramidColor',
+                        '--arrowColor','--strokeColor','--fontColor','--inputColor',]
     $("#zoomtext").text(zoom+'%');
-    
-    input1.addEventListener('change', function() {
-        body.style.setProperty('--cubeColor', input1.value);
-        $('#input1').val(input1.value);
-        updatePreview(cm.getValue());
-    });
-    input3.addEventListener('change', function() {
-        body.style.setProperty('--kernelColor', input3.value);
-        $('#input3').val(input3.value);
-        updatePreview(cm.getValue());
-    });
-    input5.addEventListener('change', function() {
-        body.style.setProperty('--denseColor', input5.value);
-        $('#input5').val(input5.value);
-        updatePreview(cm.getValue());
-    });
-    input7.addEventListener('change', function() {
-        body.style.setProperty('--pyramidColor', input7.value);
-        $('#input7').val(input7.value);
-        updatePreview(cm.getValue());
-    });
-    input9.addEventListener('change', function() {
-        body.style.setProperty('--arrowColor', input9.value);
-        $('#input9').val(input9.value);
-        updatePreview(cm.getValue());
-    });
-    input11.addEventListener('change', function() {
-        body.style.setProperty('--strokeColor', input11.value);
-        $('#input11').val(input11.value);
-        updatePreview(cm.getValue());
-    });
-    input13.addEventListener('change', function() {
-        body.style.setProperty('--fontColor', input13.value);
-        $('#input13').val(input13.value);
-        updatePreview(cm.getValue());
-    });
-
-    input15.addEventListener('change', function() {
-        body.style.setProperty('--inputColor', input15.value);
-        $('#input15').val(input15.value);
-        updatePreview(cm.getValue());
-    });
-
+    let j=0;
+    for(let i=1;i<16;i+=2){
+        loadInputColor(i,inputsColor[j]);
+        j++;
+    }
+    j=0;
+    for (let i=2;i<17;i+=2){
+        loadInput(i,1,0)
+    }
+   
+    for(let i=17;i<23;i++){
+        if(i<20){
+            //Rotation Settings
+            loadInput(i,360,-360);
+        }
+        else{
+            //Distance Settings
+            loadInput(20,250,0);
+        }
+    }
+    //Radio Settings
     $('input[type=radio]').change(function() {
         updatePreview(cm.getValue());
     });
+}
 
-    /*SLIDER MENU*/
-    function slideMenu() {
-        var activeState = $("#menu-container .menu-list").hasClass("active");
-        $("#menu-container .menu-list").animate({ left: activeState ? "0%" : "-100%" }, 400);
-    }
-    $("#menu-wrapper").click(function(event) {
-        event.stopPropagation();
-        $("#hamburger-menu").toggleClass("open");
-        $("#menu-container .menu-list").toggleClass("active");
-        slideMenu();
-
-        $("body").toggleClass("overflow-hidden");
+function loadInput(number,max,min){
+    var input = document.getElementById('input'+number);
+    input.addEventListener('change', function() {
+        if(input.value<min){
+            input.value=min;
+        }
+        if(input.value>max){
+            input.value=max;
+        }
+        $('#input'+number).val(input.value);
+        updatePreview(cm.getValue());
     });
+}
 
-    $(".menu-list").find(".accordion-toggle").click(function() {
-        $(this).next().toggleClass("open").slideToggle("fast");
-        $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
-
-        $(".menu-list .accordion-content").not($(this).next()).slideUp("fast").removeClass("open");
-        $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
+function loadInputColor(number,css){
+    var body = document.querySelector('body');
+    var input = document.getElementById('input'+number);
+    input.addEventListener('change', function() {
+        body.style.setProperty(css, input.value);
+        $('#input'+number).val(input.value);
+        updatePreview(cm.getValue());
     });
+}
 
-    $(".menu-list").find(".accordion-toggle2").click(function() {
-        $(this).next().toggleClass("open").slideToggle("fast");
-        $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
-
-        $(".menu-list .accordion-content2").not($(this).next()).slideUp("fast").removeClass("open");
-        $(".menu-list .accordion-toggle2").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
-    });
-});
+function loadMenu(){
+        /*SLIDER MENU*/
+        function slideMenu() {
+            var activeState = $("#menu-container .menu-list").hasClass("active");
+            $("#menu-container .menu-list").animate({ left: activeState ? "0%" : "-100%" }, 400);
+        }
+        $("#menu-wrapper").click(function(event) {
+            event.stopPropagation();
+            $("#hamburger-menu").toggleClass("open");
+            $("#menu-container .menu-list").toggleClass("active");
+            slideMenu();
+    
+            $("body").toggleClass("overflow-hidden");
+        });
+    
+        $(".menu-list").find(".accordion-toggle").click(function() {
+            $(this).next().toggleClass("open").slideToggle("fast");
+            $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
+    
+            $(".menu-list .accordion-content").not($(this).next()).slideUp("fast").removeClass("open");
+            $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
+        });
+    
+        $(".menu-list").find(".accordion-toggle2").click(function() {
+            $(this).next().toggleClass("open").slideToggle("fast");
+            $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
+    
+            $(".menu-list .accordion-content2").not($(this).next()).slideUp("fast").removeClass("open");
+            $(".menu-list .accordion-toggle2").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
+        });
+}
 
 function save(){
     var fname1 = prompt('Code File', 'neurotronikCode');
@@ -133,13 +132,22 @@ function decrement(number){
     let input = $('#input'+number);
     let n1=parseFloat(input.val());
     //Size
-    if(number==14){
+    if(number==14 || number==20 || number == 21 ||number ==22){
         let result = parseFloat(n1-1);
         if(result>0){
             $('#input'+number).val(result.toFixed(0));
         }
         else{
             $('#input'+number).val(0);
+        }
+    }
+    else if(number==17 || number == 18 ||number ==19){
+        let result = parseFloat(n1-1);
+        if(result>-360){
+            $('#input'+number).val(result.toFixed(0));
+        }
+        else{
+            $('#input'+number).val(-360);
         }
     }
     else{
@@ -167,6 +175,24 @@ function increment(number){
             $('#input'+number).val(30);
         }
     }
+    else if(number==17 || number == 18 ||number ==19){
+        let result = parseFloat(n1+1);
+        if(result<360){
+            $('#input'+number).val(result.toFixed(0));
+        }
+        else{
+            $('#input'+number).val(360);
+        }
+    }
+    else if(number==20 || number == 21 ||number ==22){
+        let result = parseFloat(n1+1);
+        if(result<250){
+            $('#input'+number).val(result.toFixed(0));
+        }
+        else{
+            $('#input'+number).val(250);
+        }
+    }
     else{
         let result = parseFloat(n1+0.1);
         if(result<1){
@@ -190,6 +216,26 @@ function checkInputNumber(number){
             $('#input'+number).val(0);
         }
     }
+    else if(number==17 || number == 18 || number ==19){
+        let n1=parseFloat(input.val());
+        if(n1>360){
+            $('#input'+number).val(360);
+        }
+        if(n1<-360){
+            $('#input'+number).val(-360);
+        }
+    }
+
+    else if(number==20 || number == 21 || number ==22){
+        let n1=parseFloat(input.val());
+        if(n1>250){
+            $('#input'+number).val(250);
+        }
+        if(n1<0){
+            $('#input'+number).val(0);
+        }
+    }
+    
     else{
         let n1=parseFloat(input.val());
         if(n1>1){
@@ -219,11 +265,6 @@ function toggleButton(){
     updatePreview(cm.getValue());
 }
 
-function rangeSlide(value,number) {
-    $('#rangeValue'+number).html(value);
-    updatePreview(cm.getValue());
-}
-
 function zoomIn(){
         zoom +=25;
         $("#zoomtext").text(zoom+'%');
@@ -239,7 +280,6 @@ function zoomOut(){
 function reset(...args){
     //Color or Font Settings
     if(args.length>1){
-        
         $('body').css(args[1], args[2]);
         $('#input'+args[0]).val(args[2]);
         if(args[0]==13){
@@ -260,24 +300,21 @@ function reset(...args){
         let b;
         let c;
         
-        if(args[0]==1){
-            //Distance Settings
-            a=100;
-            b=50;
-            c=50;
-        } else{
-            //Rotation Settings
+        if(args[0]==17){
+        //Rotation Settings
             a = 30;
             b = 60;
             c = 0;
-        }
-            $('#rangeValue'+(args[0])).html(a);
-            $('#rangeValue'+(args[0]+1)).html(b);
-            $('#rangeValue'+(args[0]+2)).html(c);
 
-            $('#range'+(args[0])).val(a);
-            $('#range'+(args[0]+1)).val(b);
-            $('#range'+(args[0]+2)).val(c);
+        } else{
+        //Distance Settings
+            a=100;
+            b=50;
+            c=50;
+        }
+            $('#input'+ (args[0])).val(a);
+            $('#input'+ (args[0]+1)).val(b);
+            $('#input'+ (args[0]+2)).val(c);
     }
     updatePreview(cm.getValue());
 }

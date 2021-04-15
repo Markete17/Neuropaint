@@ -203,7 +203,7 @@
                         <button type="button" onclick="toggleButton();" class="btn btn-default btn-md btn3d" id="fontButton">Calibri</button>
                     </div>
                     <br>
-                    <div class="reset-div">
+                    <div class="reset-div2">
                         <a onclick="reset(13,'--fontColor','#000000')" class="btnreset blue">RESET</a>
                     </div>
                 </li>
@@ -213,32 +213,30 @@
                 <a class="menu-link">Rotations Settings</a>
             </li>
                 <ul class="menu-submenu accordion-content">
-                    <li class="rangediv">
-                        <div>
-                            <span class="axistitle">X-Axis</span>
-                            <div class="color-opacity">
-                                <input class="range" type="range" id="range4" value="30" min="-360" max="360" onchange="rangeSlide(this.value,4)"></Input>
-                                <span class="rangeValue" id="rangeValue4">30</span>
+                    <li>
+                            <div class="rangediv">
+                                <div>
+                                    <span class="radiotitle">X-Axis</span>
+                                    <div class="input-number-decrement" onclick="decrement(17);">–</div><input  onblur="checkInputNumber(17);" class="input-number" id="input17" name="input17" type="text" value="30" min="-360" max="360"><div class="input-number-increment" onclick="increment(17);">+</div>
+                                
+                                </div>
+                                <br>
+                                <div>
+                                    <span class="radiotitle">Y-Axis</span>
+                                    <div class="input-number-decrement" onclick="decrement(18);">–</div><input  onblur="checkInputNumber(18);" class="input-number" id="input18" name="input18" type="text" value="60" min="-360" max="360"><div class="input-number-increment" onclick="increment(18);">+</div>
+                                
+                                </div>
+                                <br>
+                                <div>
+                                    <span class="radiotitle">Z-Axis</span>
+                                    <div class="input-number-decrement" onclick="decrement(19);">–</div><input  onblur="checkInputNumber(19);" class="input-number" id="input19" name="input19" type="text" value="0" min="-360" max="360"><div class="input-number-increment" onclick="increment(19);">+</div>
+                                </div>
                             </div>
+                            <br>
+                        <div class="reset-div2">
+                            <a onclick="reset(17)" class="btnreset blue">RESET</a>
                         </div>
-                        <div>
-                            <span class="axistitle">Y-Axis</span>
-                            <div class="color-opacity">
-                                <input class="range" type="range" id="range5" value="60" min="-360" max="360" onchange="rangeSlide(this.value,5)"></Input>
-                                <span class="rangeValue" id="rangeValue5">60</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="axistitle">Z-Axis</span>
-                            <div class="color-opacity">
-                                <input class="range" type="range" id="range6" value="0" min="-360" max="360" onchange="rangeSlide(this.value,6)"></Input>
-                                <span class="rangeValue" id="rangeValue6">0</span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="reset-div">
-                            <a onclick="reset(4)" class="btnreset blue">RESET</a>
-                        </div>
+                    
                     </li>
                 </ul>
                 <li id="nav3" class="toggle accordion-toggle">
@@ -246,32 +244,29 @@
                     <a class="menu-link">Distance Settings</a>
                 </li>
                     <ul class="menu-submenu accordion-content">
-                        <li class="rangediv">
-                            <div>
-                                <span class="rangetitle">Nodes Distance</span>
-                                <div class="color-opacity">
-                                    <input class="range" type="range" id="range1" value="100" min="0" max="250" onchange="rangeSlide(this.value,1)"></Input>
-                                    <span class="rangeValue" id="rangeValue1">100</span>
+                        <li>
+                            <div class="rangediv">
+                                <div>
+                                    <span class="radiotitle">Nodes</span>
+                                    <div class="input-number-decrement" onclick="decrement(20);">–</div><input  onblur="checkInputNumber(20);" class="input-number" id="input20" name="input20" type="text" value="100" min="0" max="250"><div class="input-number-increment" onclick="increment(20);">+</div>
+                                
                                 </div>
-                            </div>
-                            <div>
-                                <span class="rangetitle">Layers Distance</span>
-                                <div class="color-opacity">
-                                    <input class="range" type="range" id="range2" value="50" min="0" max="150" onchange="rangeSlide(this.value,2)"></Input>
-                                    <span class="rangeValue" id="rangeValue2">50</span>
+                                <br>
+                                <div>
+                                    <span class="radiotitle">Layers</span>
+                                    <div class="input-number-decrement" onclick="decrement(21);">–</div><input  onblur="checkInputNumber(21);" class="input-number" id="input21" name="input21" type="text" value="50" min="0" max="250"><div class="input-number-increment" onclick="increment(21);">+</div>
+                                
                                 </div>
-                            </div>
-                            <div>
-                                <span class="rangetitle">Parents Distance</span>
-                                <div class="color-opacity">
-                                    <input class="range" id="range3" type="range" value="50" min="0" max="150" onchange="rangeSlide(this.value,3)"></Input>
-                                    <span class="rangeValue" id="rangeValue3">50</span>
+                                <br>
+                                <div>
+                                    <span class="radiotitle">Parent</span>
+                                    <div class="input-number-decrement" onclick="decrement(22);">–</div><input  onblur="checkInputNumber(22);" class="input-number" id="input22" name="input22" type="text" value="50" min="0" max="250"><div class="input-number-increment" onclick="increment(22);">+</div>
                                 </div>
                             </div>
                             <br>
-                            <div class="reset-div">
-                                <a onclick="reset(1)" class="btnreset blue">RESET</a>
-                            </div>
+                        <div class="reset-div2">
+                            <a onclick="reset(20)" class="btnreset blue">RESET</a>
+                        </div>
                         </li>
                     </ul>
             <li id="nav4" class="toggle accordion-toggle">
