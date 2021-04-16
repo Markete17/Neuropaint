@@ -31,7 +31,7 @@ function loadInputs(){
         }
         else{
             //Distance Settings
-            loadInput(20,250,0);
+            loadInput(i,250,0);
         }
     }
     //Radio Settings
