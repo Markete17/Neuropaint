@@ -1,131 +1,142 @@
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-    var zoom = 100;
-    
-    $(function() {
-        loadInputs();
-        loadMenu();
-    });
-function loadInputs(){
-    let inputsColor = ['--cubeColor','--kernelColor','--denseColor','--pyramidColor',
-                        '--arrowColor','--strokeColor','--fontColor','--inputColor',]
-    $("#zoomtext").text(zoom+'%');
-    let j=0;
-    for(let i=1;i<16;i+=2){
-        loadInputColor(i,inputsColor[j]);
+$("html, body").animate({ scrollTop: 0 }, "slow");
+var zoom = 100;
+var svg;
+
+$(function () {
+    loadInputs();
+    loadMenu();
+});
+function loadInputs() {
+    let inputsColor = ['--cubeColor', '--kernelColor', '--denseColor', '--pyramidColor',
+        '--arrowColor', '--strokeColor', '--fontColor', '--inputColor',]
+    let j = 0;
+    for (let i = 1; i < 16; i += 2) {
+        loadInputColor(i, inputsColor[j]);
         j++;
     }
-    j=0;
-    for (let i=2;i<17;i+=2){
-        if(i==14){
-            loadInput(i,20,0)
+    j = 0;
+    for (let i = 2; i < 17; i += 2) {
+        if (i == 14) {
+            loadInput(i, 15, 0)
         }
-        else{
-            loadInput(i,1,0)
+        else {
+            loadInput(i, 1, 0)
         }
     }
-   
-    for(let i=17;i<23;i++){
-        if(i<20){
+
+    for (let i = 17; i < 23; i++) {
+        if (i < 20) {
             //Rotation Settings
-            loadInput(i,360,-360);
+            loadInput(i, 360, -360);
         }
-        else{
+        else {
             //Distance Settings
-            loadInput(i,250,0);
+            loadInput(i, 250, 0);
         }
     }
-    //Radio Settings
-    $('input[type=radio]').change(function() {
+    $('input:radio[name=test]').change(function () {
+        let example = ($('input:radio[name=test]:checked').val());
+        init(example);
+    });
+    $('input:radio[name=cubedimensions]').change(function () {
+        updatePreview(cm.getValue());
+    });
+    $('input:radio[name=kerneldimensions]').change(function () {
+        updatePreview(cm.getValue());
+    });
+
+
+}
+
+function loadInput(number, max, min) {
+    var input = document.getElementById('input' + number);
+    input.addEventListener('change', function () {
+        if (input.value < min) {
+            input.value = min;
+        }
+        if (input.value > max) {
+            input.value = max;
+        }
+        $('#input' + number).val(input.value);
         updatePreview(cm.getValue());
     });
 }
 
-function loadInput(number,max,min){
-    var input = document.getElementById('input'+number);
-    input.addEventListener('change', function() {
-        if(input.value<min){
-            input.value=min;
-        }
-        if(input.value>max){
-            input.value=max;
-        }
-        $('#input'+number).val(input.value);
-        updatePreview(cm.getValue());
-    });
-}
-
-function loadInputColor(number,css){
+function loadInputColor(number, css) {
     var body = document.querySelector('body');
-    var input = document.getElementById('input'+number);
-    input.addEventListener('change', function() {
+    var input = document.getElementById('input' + number);
+    input.addEventListener('change', function () {
         body.style.setProperty(css, input.value);
-        $('#input'+number).val(input.value);
+        $('#input' + number).val(input.value);
         updatePreview(cm.getValue());
     });
 }
 
-function loadMenu(){
-        /*SLIDER MENU*/
-        function slideMenu() {
-            var activeState = $("#menu-container .menu-list").hasClass("active");
-            $("#menu-container .menu-list").animate({ left: activeState ? "0%" : "-100%" }, 400);
-        }
-        $("#menu-wrapper").click(function(event) {
-            event.stopPropagation();
-            $("#hamburger-menu").toggleClass("open");
-            $("#menu-container .menu-list").toggleClass("active");
-            slideMenu();
-    
-            $("body").toggleClass("overflow-hidden");
-        });
-    
-        $(".menu-list").find(".accordion-toggle").click(function() {
-            $(this).next().toggleClass("open").slideToggle("fast");
-            $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
-    
-            $(".menu-list .accordion-content").not($(this).next()).slideUp("fast").removeClass("open");
-            $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
-        });
-    
-        $(".menu-list").find(".accordion-toggle2").click(function() {
-            $(this).next().toggleClass("open").slideToggle("fast");
-            $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
-    
-            $(".menu-list .accordion-content2").not($(this).next()).slideUp("fast").removeClass("open");
-            $(".menu-list .accordion-toggle2").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
-        });
+function loadMenu() {
+    /*SLIDER MENU*/
+    function slideMenu() {
+        var activeState = $("#menu-container .menu-list").hasClass("active");
+        $("#menu-container .menu-list").animate({ left: activeState ? "0%" : "-100%" }, 400);
+    }
+    $("#menu-wrapper").click(function (event) {
+        event.stopPropagation();
+        $("#hamburger-menu").toggleClass("open");
+        $("#menu-container .menu-list").toggleClass("active");
+        slideMenu();
+
+        $("body").toggleClass("overflow-hidden");
+    });
+
+    $(".menu-list").find(".accordion-toggle").click(function () {
+        $(this).next().toggleClass("open").slideToggle("fast");
+        $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
+
+        $(".menu-list .accordion-content").not($(this).next()).slideUp("fast").removeClass("open");
+        $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
+    });
+
+    $(".menu-list").find(".accordion-toggle2").click(function () {
+        $(this).next().toggleClass("open").slideToggle("fast");
+        $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
+
+        $(".menu-list .accordion-content2").not($(this).next()).slideUp("fast").removeClass("open");
+        $(".menu-list .accordion-toggle2").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
+    });
 }
 
-function save(){
-    var fname1 = prompt('Code File', 'neurotronikCode');
-    var fname2 = prompt('Svg File', 'neurotronikSVG');
-    if (fname1) {
-        saveAsFile(fname1, cm.getValue(),'text/plain');
-    }
-    if (fname2) {
-        saveAsFile(fname2, svg,'image/svg+xml');
+function saveCode() {
+    var fname = prompt('Code File', 'neurotronikCode');
+    if (fname) {
+        saveAsFile(fname, cm.getValue(), 'text/plain');
     }
 }
 
-function openFile(){
+function saveSVG() {
+    var fname = prompt('Svg File', 'neurotronikSVG');
+    if (fname) {
+        saveAsFile(fname, svgCode, 'image/svg+xml');
+    }
+}
+
+function openFile() {
     $('#openFile').click();
-    
-    document.getElementById("openFile").addEventListener('change',function(){
-        var fr=new FileReader();
-        fr.onload = function(){
-            if(fileValidation()){
-            cm.setValue(this.result);
-            
+
+    document.getElementById("openFile").addEventListener('change', function () {
+        var fr = new FileReader();
+        fr.onload = function () {
+            if (fileValidation()) {
+                cm.setValue(this.result);
+
             }
         }
         fr.readAsText(this.files[0]);
     })
 }
 
-function fileValidation(){
+function fileValidation() {
     var fileInput = document.getElementById('openFile');
     var filePath = fileInput.value;
-    if(!filePath.includes(".txt")){
+    if (!filePath.includes(".txt")) {
         alert('Please upload file having extensions .txt only.');
         fileInput.value = '';
         return false;
@@ -133,199 +144,199 @@ function fileValidation(){
     return true;
 }
 
-function decrement(number){
-    let input = $('#input'+number);
-    let n1=parseFloat(input.val());
+function decrement(number) {
+    let input = $('#input' + number);
+    let n1 = parseFloat(input.val());
     //Size
-    if(number==14 || number==20 || number == 21 ||number ==22){
-        let result = parseFloat(n1-1);
-        if(result>0){
-            $('#input'+number).val(result.toFixed(0));
+    if (number == 14 || number == 20 || number == 21 || number == 22) {
+        let result = parseFloat(n1 - 1);
+        if (result > 0) {
+            $('#input' + number).val(result.toFixed(0));
         }
-        else{
-            $('#input'+number).val(0);
-        }
-    }
-    else if(number==17 || number == 18 ||number ==19){
-        let result = parseFloat(n1-1);
-        if(result>-360){
-            $('#input'+number).val(result.toFixed(0));
-        }
-        else{
-            $('#input'+number).val(-360);
+        else {
+            $('#input' + number).val(0);
         }
     }
-    else{
-        let result = parseFloat(n1-0.1);
-        if(result>0){
-            $('#input'+number).val(result.toFixed(1));
+    else if (number == 17 || number == 18 || number == 19) {
+        let result = parseFloat(n1 - 1);
+        if (result > -360) {
+            $('#input' + number).val(result.toFixed(0));
         }
-        else{
-            $('#input'+number).val(0);
+        else {
+            $('#input' + number).val(-360);
+        }
+    }
+    else {
+        let result = parseFloat(n1 - 0.1);
+        if (result > 0) {
+            $('#input' + number).val(result.toFixed(1));
+        }
+        else {
+            $('#input' + number).val(0);
         }
     }
     updatePreview(cm.getValue());
 }
 
-function increment(number){
-    let input = $('#input'+number);
-    let n1=parseFloat(input.val());
+function increment(number) {
+    let input = $('#input' + number);
+    let n1 = parseFloat(input.val());
     //Size
-    if(number==14){
-        let result = parseFloat(n1+1);
-        if(result<20){
-            $('#input'+number).val(result.toFixed(0));
+    if (number == 14) {
+        let result = parseFloat(n1 + 1);
+        if (result < 15) {
+            $('#input' + number).val(result.toFixed(0));
         }
-        else{
-            $('#input'+number).val(20);
-        }
-    }
-    else if(number==17 || number == 18 ||number ==19){
-        let result = parseFloat(n1+1);
-        if(result<360){
-            $('#input'+number).val(result.toFixed(0));
-        }
-        else{
-            $('#input'+number).val(360);
+        else {
+            $('#input' + number).val(15);
         }
     }
-    else if(number==20 || number == 21 ||number ==22){
-        let result = parseFloat(n1+1);
-        if(result<250){
-            $('#input'+number).val(result.toFixed(0));
+    else if (number == 17 || number == 18 || number == 19) {
+        let result = parseFloat(n1 + 1);
+        if (result < 360) {
+            $('#input' + number).val(result.toFixed(0));
         }
-        else{
-            $('#input'+number).val(250);
+        else {
+            $('#input' + number).val(360);
         }
     }
-    else{
-        let result = parseFloat(n1+0.1);
-        if(result<1){
-            $('#input'+number).val(result.toFixed(1));
+    else if (number == 20 || number == 21 || number == 22) {
+        let result = parseFloat(n1 + 1);
+        if (result < 250) {
+            $('#input' + number).val(result.toFixed(0));
         }
-        else{
-            $('#input'+number).val(1);
+        else {
+            $('#input' + number).val(250);
+        }
+    }
+    else {
+        let result = parseFloat(n1 + 0.1);
+        if (result < 1) {
+            $('#input' + number).val(result.toFixed(1));
+        }
+        else {
+            $('#input' + number).val(1);
         }
     }
     updatePreview(cm.getValue());
 }
 
-function checkInputNumber(number){
-    let input = $('#input'+number);
-    if(number==14){
-        let n1=parseFloat(input.val());
-        if(n1>20){
-            $('#input'+number).val(20);
+function checkInputNumber(number) {
+    let input = $('#input' + number);
+    if (number == 14) {
+        let n1 = parseFloat(input.val());
+        if (n1 > 15) {
+            $('#input' + number).val(15);
         }
-        if(n1<0){
-            $('#input'+number).val(0);
+        if (n1 < 0) {
+            $('#input' + number).val(0);
         }
     }
-    else if(number==17 || number == 18 || number ==19){
-        let n1=parseFloat(input.val());
-        if(n1>360){
-            $('#input'+number).val(360);
+    else if (number == 17 || number == 18 || number == 19) {
+        let n1 = parseFloat(input.val());
+        if (n1 > 360) {
+            $('#input' + number).val(360);
         }
-        if(n1<-360){
-            $('#input'+number).val(-360);
+        if (n1 < -360) {
+            $('#input' + number).val(-360);
         }
     }
 
-    else if(number==20 || number == 21 || number ==22){
-        let n1=parseFloat(input.val());
-        if(n1>250){
-            $('#input'+number).val(250);
+    else if (number == 20 || number == 21 || number == 22) {
+        let n1 = parseFloat(input.val());
+        if (n1 > 250) {
+            $('#input' + number).val(250);
         }
-        if(n1<0){
-            $('#input'+number).val(0);
+        if (n1 < 0) {
+            $('#input' + number).val(0);
         }
     }
-    
-    else{
-        let n1=parseFloat(input.val());
-        if(n1>1){
-            $('#input'+number).val(1);
+
+    else {
+        let n1 = parseFloat(input.val());
+        if (n1 > 1) {
+            $('#input' + number).val(1);
         }
-        if(n1<0){
-            $('#input'+number).val(0);
+        if (n1 < 0) {
+            $('#input' + number).val(0);
         }
     }
 
 }
 var fonts = {
-    list:[
-    'Calibri',
-    'Arial',
-    'Consolas',
-    'Georgia',
-    'Courier',
+    list: [
+        'Calibri',
+        'Arial',
+        'Consolas',
+        'Georgia',
+        'Courier',
     ],
-    index:0
+    index: 0
 }
-function toggleButton(){
-    fonts.index = fonts.index+1;
+function toggleButton() {
+    fonts.index = fonts.index + 1;
     let i = (fonts.index) % fonts.list.length;
     $('#fontButton').text(fonts.list[i]);
-    $('#fontButton').css('font-family',fonts.list[i]);
+    $('#fontButton').css('font-family', fonts.list[i]);
     updatePreview(cm.getValue());
 }
 
-function zoomIn(){
-        zoom +=25;
-        $("#zoomtext").text(zoom+'%');
-    updatePreview(cm.getValue());
+function zoomIn() {
+    svg.zoomIn();
 }
 
-function zoomOut(){
-        zoom -=25;
-        $("#zoomtext").text(zoom+'%');
-    updatePreview(cm.getValue());
+function zoomOut() {
+    svg.zoomOut();
 }
 
-function reset(...args){
+function undo() {
+    svg.reset();
+}
+
+function reset(...args) {
     //Color or Font Settings
-    if(args.length>1){
+    if (args.length > 1) {
         $('body').css(args[1], args[2]);
-        $('#input'+args[0]).val(args[2]);
-        if(args[0]==13){
+        $('#input' + args[0]).val(args[2]);
+        if (args[0] == 13) {
             //Font Settings
-             $('#input'+ (args[0]+1)).val(6);
-             $('#fontButton').text(fonts.list[0]);
-             $('#fontButton').css('font-family',fonts.list[0]);
-             fonts.index=0;
-        } else{
+            $('#input' + (args[0] + 1)).val(6);
+            $('#fontButton').text(fonts.list[0]);
+            $('#fontButton').css('font-family', fonts.list[0]);
+            fonts.index = 0;
+        } else {
             //Color Settings
-            $('#input'+ (args[0]+1)).val(0.5);
+            $('#input' + (args[0] + 1)).val(0.5);
         }
 
     }
     //Range Settings
-    else{
+    else {
         let a;
         let b;
         let c;
-        
-        if(args[0]==17){
-        //Rotation Settings
+
+        if (args[0] == 17) {
+            //Rotation Settings
             a = 30;
             b = 60;
             c = 0;
 
-        } else{
-        //Distance Settings
-            a=100;
-            b=50;
-            c=50;
+        } else {
+            //Distance Settings
+            a = 100;
+            b = 50;
+            c = 50;
         }
-            $('#input'+ (args[0])).val(a);
-            $('#input'+ (args[0]+1)).val(b);
-            $('#input'+ (args[0]+2)).val(c);
+        $('#input' + (args[0])).val(a);
+        $('#input' + (args[0] + 1)).val(b);
+        $('#input' + (args[0] + 2)).val(c);
     }
     updatePreview(cm.getValue());
 }
 
 function saveAsFile(filename, data, type) {
-    var blob = new Blob([data], { type});
+    var blob = new Blob([data], { type });
 
     if (window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveBlob(blob, filename);
@@ -351,52 +362,59 @@ function saveAsFile(filename, data, type) {
  * CTRL+Shift+B = Word wrap
  * CTRL+Shift+E = Hide/Show Editor
  */
- document.onkeyup = function(e)
- {
-     e.preventDefault();
- 
-     var theChar = null;
-     if (e.key !== undefined) {
-         theChar = e.key.toUpperCase();
-     }
-     if (!theChar) {
-         // Fallback to old standard
-         theChar = String.fromCharCode(e.key).toUpperCase();
-     }
- 
-     if (e.ctrlKey && e.shiftKey && theChar == 'O') {
-         openFile();
-     }
- 
-     if (e.ctrlKey && e.shiftKey && theChar == 'S') {
-         save();
-     }
- 
-     if (e.ctrlKey && e.shiftKey && theChar == 'E') {
+document.onkeyup = function (e) {
+    e.preventDefault();
+
+    var theChar = null;
+    if (e.key !== undefined) {
+        theChar = e.key.toUpperCase();
+    }
+    if (!theChar) {
+        // Fallback to old standard
+        theChar = String.fromCharCode(e.key).toUpperCase();
+    }
+
+    if (e.ctrlKey && e.shiftKey && theChar == 'O') {
+        openFile();
+    }
+
+    if (e.ctrlKey && e.shiftKey && theChar == 'S') {
+        save();
+    }
+
+    if (e.ctrlKey && e.shiftKey && theChar == 'E') {
         expandPreview();
-     }
+    }
 
- }
+}
 
- function expandPreview(){
+function expandPreview() {
     var isVisible = $(".editor").is(":visible");
-    if(isVisible){
-        $(".editor" ).hide( "slow" );
+    if (isVisible) {
+        $(".editor").hide("slow");
+        $(".editorbuttons").hide("slow");
+        $(".dropdown").hide("slow");
         $(".preview").css("width", "100%");
-        $(".preview").css("height", "200%");
         $("#btnexp").removeClass("fa fa-expand");
         $("#btnexp").addClass("fa fa-window-maximize");
+        $(".zoombuttons").css("-webkit-transition", "all 0.75s ease-in-out");
+        $(".zoombuttons").css("-moz-transition", "all 0.75s ease-in-out");
+        $(".zoombuttons").css("-moz-transition", "all 0.75s ease-in-out");
+        $(".zoombuttons").css("-o-transition", "all 0.75s ease-in-out");
+        $(".zoombuttons").css("transition", "all 0.75s ease-in-out");
+        $(".zoombuttons").css("margin-left", "3%");
     }
-    else{
-        $(".editor" ).show( "slow" );
-        $(".preview").css("width", "60%");
-        $(".preview").css("height", "100%");
+    else {
+        $(".editor").show("slow");
+        $(".editorbuttons").show("slow");
+        $(".dropdown").show("slow");
+        $(".preview").css("width", "70%");
         $("#btnexp").removeClass("fa fa-window-maximize");
         $("#btnexp").addClass("fa fa-expand");
-        
+        $(".zoombuttons").css("margin-left", "30.5%");
     }
- }
-window.onbeforeunload = function(e) {
+}
+window.onbeforeunload = function (e) {
     if (e) {
         // Cancel the event
         e.preventDefault();

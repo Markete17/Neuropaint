@@ -11,19 +11,16 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/neurotronik.js"></script>
-    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.svg.pan.zoom.js"></script>
     <link rel="stylesheet" href="css/00-codemirror.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" type="image/png" href="images/favicon.PNG"/>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.PNG" />
 </head>
 
-<header>
-    <a href="https://github.com/Markete17/Neurotronik-Web" target="_blank"><img src="images/title.PNG"></a>
-</header>
 <body>
     <div id="menu-container">
-        <div id="menu-wrapper">
+        <div class="banner" id="menu-wrapper">
             <div id="hamburger-menu"><span></span><span></span><span></span></div>
             <!-- hamburger-menu -->
         </div>
@@ -33,174 +30,199 @@
                 <span class="icon-plus"></span>
                 <a class="menu-link">Color Settings</a>
             </li>
-                <ul class="menu-submenu accordion-content">
-                    <li id="nav1" class="toggle accordion-toggle2">
-                        <a class="menu-link">Input Layer</a>
-                    </li>
-                    <ul class="menu-submenu accordion-content2">
-                        <li>
-                            <div class="color-opacity">
-                                <input id="input15" type="color" value="#FF645C" name="input15" class="color-input"/>
-                                <div id="custom-input-15" class="custom"></div>
-                            </div>
-                            <div class="color-opacity">
-                                <div class="opacity">
+            <ul class="menu-submenu accordion-content">
+                <li id="nav1" class="toggle accordion-toggle2">
+                    <a class="menu-link">Input Layer</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <div class="color-opacity">
+                            <input id="input15" type="color" value="#FF645C" name="input15" class="color-input" />
+                            <div id="custom-input-15" class="custom"></div>
+                        </div>
+                        <div class="color-opacity">
+                            <div class="opacity">
                                 <span class="radiotitle">Opacity</span>
-                                <div class="input-number-decrement" onclick="decrement(16);">–</div><input onblur="checkInputNumber(16);" class="input-number" id="input16" name="input16" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(16);">+</div>
-                                </div>
+                                <div class="input-number-decrement" onclick="decrement(16);">–</div><input
+                                    onblur="checkInputNumber(16);" class="input-number" id="input16" name="input16"
+                                    type="text" value="0.5" min="0" max="1">
+                                <div class="input-number-increment" onclick="increment(16);">+</div>
                             </div>
-                            <br>
-                            <div class="reset-div">
-                                <a onclick="reset(15,'--inputColor','#FF645C')" class="btnreset blue">RESET</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <li id="nav1" class="toggle accordion-toggle2">
-                        <a class="menu-link">Convolutional Layer</a>
+                        </div>
+                        <br>
+                        <div class="reset-div">
+                            <a onclick="reset(15,'--inputColor','#FF645C')" class="btnreset blue">RESET</a>
+                        </div>
                     </li>
-                    <ul class="menu-submenu accordion-content2">
-                        <li>
-                            <div class="color-opacity">
-                                <input id="input1" type="color" value="#FFB433" name="input1" class="color-input"/>
-                                <div id="custom-input-1" class="custom"></div>
-                            </div>
-                            <div class="color-opacity">
-                                <div class="opacity">
-                                <span class="radiotitle">Opacity</span>
-                                <div class="input-number-decrement" onclick="decrement(2);">–</div><input onblur="checkInputNumber(2);" class="input-number" id="input2" name="input2" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(2);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="reset-div">
-                                <a onclick="reset(1,'--cubeColor','#FFB433')" class="btnreset blue">RESET</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <li id="nav2" class="toggle accordion-toggle2">
-                        <a class="menu-link">Kernel</a>
-                    </li>
-                    <ul class="menu-submenu accordion-content2">
-                        <li>
-                            <div class="color-opacity">
-                                <input id="input3" type="color" value="#51FB7B" name="input3" class="color-input"/>
-                                <div id="custom-input-3" class="custom"></div>
-                            </div>
-                            <div class="color-opacity">
-                                <div class="opacity">
-                                <span class="radiotitle">Opacity</span>
-                                <div class="input-number-decrement" onclick="decrement(4);">–</div><input onblur="checkInputNumber(4);" class="input-number" id="input4" name="input4" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(4);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="reset-div">
-                                <a onclick="reset(3,'--kernelColor','#51FB7B')" class="btnreset blue">RESET</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <li id="nav3" class="toggle accordion-toggle2">
-                        <a class="menu-link">Flattern Layer</a>
-                    </li>
-                    <ul class="menu-submenu accordion-content2">
-                        <li>
-                            <div class="color-opacity">   
-                                <input id="input5" type="color" value="#14D8FF" name="input5" class="color-input"/>
-                                <div id="custom-input-5" class="custom"></div>
-                            </div>
-                            <div class="color-opacity">
-                                <div class="opacity">
-                                <span class="radiotitle">Opacity</span>
-                                <div class="input-number-decrement" onclick="decrement(6);">–</div><input  onblur="checkInputNumber(6);"class="input-number" id="input6" name="input6" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(6);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="reset-div">
-                                <a onclick="reset(5,'--denseColor','#14D8FF')" class="btnreset blue">RESET</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <li id="nav4" class="toggle accordion-toggle2">
-                        <a class="menu-link">Convolution Connection</a>
-                    </li>
-                    <ul class="menu-submenu accordion-content2">
-                        <li>
-                            <div class="color-opacity">
-                                <input id="input7" type="color" value="#FFB3D1" name="input7" class="color-input"/>
-                                <div id="custom-input-7" class="custom"></div>
-                            </div>
-                            <div class="color-opacity">
-                                <div class="opacity">
-                                <span class="radiotitle">Opacity</span>
-                                <div class="input-number-decrement" onclick="decrement(8);">–</div><input  onblur="checkInputNumber(8);"class="input-number" id="input8" name="input8" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(8);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="reset-div">
-                                <a onclick="reset(7,'--pyramidColor','#FFB3D1')" class="btnreset blue">RESET</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <li id="nav5" class="toggle accordion-toggle2">
-                        <a class="menu-link">Dense Connection</a>
-                    </li>
-                    <ul class="menu-submenu accordion-content2">
-                        <li>
-                            <div class="color-opacity">
-                                <input id="input9" type="color" value="#000000" name="input9" class="color-input"/>
-                                <div id="custom-input-9" class="custom"></div>
-                            </div>
-                            <div class="color-opacity">
-                                <div class="opacity">
-                                <span class="radiotitle">Opacity</span>
-                                <div class="input-number-decrement" onclick="decrement(10);">–</div><input  onblur="checkInputNumber(10);"class="input-number" id="input10" name="input10" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(10);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="reset-div">
-                                <a onclick="reset(9,'--arrowColor','#000000')" class="btnreset blue">RESET</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <li id="nav6" class="toggle accordion-toggle2">
-                        <a class="menu-link">Stroke</a>
-                    </li>
-                    <ul class="menu-submenu accordion-content2">
-                        <li>
-                            <div class="color-opacity">
-                                <input id="input11" type="color" value="#000000" name="input11" class="color-input"/>
-                                <div id="custom-input-11" class="custom"></div>
-                            </div>
-                            <div class="color-opacity">
-                                <div class="opacity">
-                                <span class="radiotitle">Width</span>
-                                <div class="input-number-decrement" onclick="decrement(12);">–</div><input  onblur="checkInputNumber(12);"class="input-number" id="input12" name="input12" type="text" value="0.5" min="0" max="1"><div class="input-number-increment" onclick="increment(12);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="reset-div">
-                                <a onclick="reset(11,'--strokeColor','#000000')" class="btnreset blue">RESET</a>
-                            </div>
-                        </li>
-                    </ul>
                 </ul>
+                <li id="nav1" class="toggle accordion-toggle2">
+                    <a class="menu-link">Convolutional Layer</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <div class="color-opacity">
+                            <input id="input1" type="color" value="#FFB433" name="input1" class="color-input" />
+                            <div id="custom-input-1" class="custom"></div>
+                        </div>
+                        <div class="color-opacity">
+                            <div class="opacity">
+                                <span class="radiotitle">Opacity</span>
+                                <div class="input-number-decrement" onclick="decrement(2);">–</div><input
+                                    onblur="checkInputNumber(2);" class="input-number" id="input2" name="input2"
+                                    type="text" value="0.5" min="0" max="1">
+                                <div class="input-number-increment" onclick="increment(2);">+</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="reset-div">
+                            <a onclick="reset(1,'--cubeColor','#FFB433')" class="btnreset blue">RESET</a>
+                        </div>
+                    </li>
+                </ul>
+                <li id="nav2" class="toggle accordion-toggle2">
+                    <a class="menu-link">Kernel</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <div class="color-opacity">
+                            <input id="input3" type="color" value="#51FB7B" name="input3" class="color-input" />
+                            <div id="custom-input-3" class="custom"></div>
+                        </div>
+                        <div class="color-opacity">
+                            <div class="opacity">
+                                <span class="radiotitle">Opacity</span>
+                                <div class="input-number-decrement" onclick="decrement(4);">–</div><input
+                                    onblur="checkInputNumber(4);" class="input-number" id="input4" name="input4"
+                                    type="text" value="0.5" min="0" max="1">
+                                <div class="input-number-increment" onclick="increment(4);">+</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="reset-div">
+                            <a onclick="reset(3,'--kernelColor','#51FB7B')" class="btnreset blue">RESET</a>
+                        </div>
+                    </li>
+                </ul>
+                <li id="nav3" class="toggle accordion-toggle2">
+                    <a class="menu-link">Flattern Layer</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <div class="color-opacity">
+                            <input id="input5" type="color" value="#14D8FF" name="input5" class="color-input" />
+                            <div id="custom-input-5" class="custom"></div>
+                        </div>
+                        <div class="color-opacity">
+                            <div class="opacity">
+                                <span class="radiotitle">Opacity</span>
+                                <div class="input-number-decrement" onclick="decrement(6);">–</div><input
+                                    onblur="checkInputNumber(6);" class="input-number" id="input6" name="input6"
+                                    type="text" value="0.5" min="0" max="1">
+                                <div class="input-number-increment" onclick="increment(6);">+</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="reset-div">
+                            <a onclick="reset(5,'--denseColor','#14D8FF')" class="btnreset blue">RESET</a>
+                        </div>
+                    </li>
+                </ul>
+                <li id="nav4" class="toggle accordion-toggle2">
+                    <a class="menu-link">Convolution Connection</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <div class="color-opacity">
+                            <input id="input7" type="color" value="#FFB3D1" name="input7" class="color-input" />
+                            <div id="custom-input-7" class="custom"></div>
+                        </div>
+                        <div class="color-opacity">
+                            <div class="opacity">
+                                <span class="radiotitle">Opacity</span>
+                                <div class="input-number-decrement" onclick="decrement(8);">–</div><input
+                                    onblur="checkInputNumber(8);" class="input-number" id="input8" name="input8"
+                                    type="text" value="0.5" min="0" max="1">
+                                <div class="input-number-increment" onclick="increment(8);">+</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="reset-div">
+                            <a onclick="reset(7,'--pyramidColor','#FFB3D1')" class="btnreset blue">RESET</a>
+                        </div>
+                    </li>
+                </ul>
+                <li id="nav5" class="toggle accordion-toggle2">
+                    <a class="menu-link">Dense Connection</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <div class="color-opacity">
+                            <input id="input9" type="color" value="#000000" name="input9" class="color-input" />
+                            <div id="custom-input-9" class="custom"></div>
+                        </div>
+                        <div class="color-opacity">
+                            <div class="opacity">
+                                <span class="radiotitle">Opacity</span>
+                                <div class="input-number-decrement" onclick="decrement(10);">–</div><input
+                                    onblur="checkInputNumber(10);" class="input-number" id="input10" name="input10"
+                                    type="text" value="0.5" min="0" max="1">
+                                <div class="input-number-increment" onclick="increment(10);">+</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="reset-div">
+                            <a onclick="reset(9,'--arrowColor','#000000')" class="btnreset blue">RESET</a>
+                        </div>
+                    </li>
+                </ul>
+                <li id="nav6" class="toggle accordion-toggle2">
+                    <a class="menu-link">Stroke</a>
+                </li>
+                <ul class="menu-submenu accordion-content2">
+                    <li>
+                        <div class="color-opacity">
+                            <input id="input11" type="color" value="#000000" name="input11" class="color-input" />
+                            <div id="custom-input-11" class="custom"></div>
+                        </div>
+                        <div class="color-opacity">
+                            <div class="opacity">
+                                <span class="radiotitle">Width</span>
+                                <div class="input-number-decrement" onclick="decrement(12);">–</div><input
+                                    onblur="checkInputNumber(12);" class="input-number" id="input12" name="input12"
+                                    type="text" value="0.5" min="0" max="1">
+                                <div class="input-number-increment" onclick="increment(12);">+</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="reset-div">
+                            <a onclick="reset(11,'--strokeColor','#000000')" class="btnreset blue">RESET</a>
+                        </div>
+                    </li>
+                </ul>
+            </ul>
             <li id="nav2" class="toggle accordion-toggle">
-                    <span class="icon-plus"></span>
-                    <a class="menu-link">Font Settings</a>
+                <span class="icon-plus"></span>
+                <a class="menu-link">Font Settings</a>
             </li>
             <ul class="menu-submenu accordion-content">
                 <li>
                     <div class="color-opacity">
-                        <input id="input13" type="color" value="#000000" name="input13" class="color-input"/>
+                        <input id="input13" type="color" value="#000000" name="input13" class="color-input" />
                         <div id="custom-input-13" class="custom"></div>
                     </div>
                     <div class="color-opacity">
                         <div class="opacity">
-                        <span class="radiotitle">Size</span>
-                        <div class="input-number-decrement" onclick="decrement(14);">–</div><input  onblur="checkInputNumber(14);" class="input-number" id="input14" name="input14" type="text" value="6" min="0" max="20"><div class="input-number-increment" onclick="increment(14);">+</div>
+                            <span class="radiotitle">Size</span>
+                            <div class="input-number-decrement" onclick="decrement(14);">–</div><input
+                                onblur="checkInputNumber(14);" class="input-number" id="input14" name="input14"
+                                type="text" value="6" min="0" max="15">
+                            <div class="input-number-increment" onclick="increment(14);">+</div>
                         </div>
                     </div>
                     <div class="button-distance">
                         <span class="radiotitle">Font Family</span>
-                        <button type="button" onclick="toggleButton();" class="btn btn-default btn-md btn3d" id="fontButton">Calibri</button>
+                        <button type="button" onclick="toggleButton();" class="btn btn-default btn-md btn3d"
+                            id="fontButton">Calibri</button>
                     </div>
                     <br>
                     <div class="reset-div2">
@@ -212,63 +234,81 @@
                 <span class="icon-plus"></span>
                 <a class="menu-link">Rotations Settings</a>
             </li>
-                <ul class="menu-submenu accordion-content">
-                    <li>
-                            <div class="rangediv">
-                                <div>
-                                    <span class="radiotitle">X-Axis</span>
-                                    <div class="input-number-decrement" onclick="decrement(17);">–</div><input  onblur="checkInputNumber(17);" class="input-number" id="input17" name="input17" type="text" value="30" min="-360" max="360"><div class="input-number-increment" onclick="increment(17);">+</div>
-                                
-                                </div>
-                                <br>
-                                <div>
-                                    <span class="radiotitle">Y-Axis</span>
-                                    <div class="input-number-decrement" onclick="decrement(18);">–</div><input  onblur="checkInputNumber(18);" class="input-number" id="input18" name="input18" type="text" value="60" min="-360" max="360"><div class="input-number-increment" onclick="increment(18);">+</div>
-                                
-                                </div>
-                                <br>
-                                <div>
-                                    <span class="radiotitle">Z-Axis</span>
-                                    <div class="input-number-decrement" onclick="decrement(19);">–</div><input  onblur="checkInputNumber(19);" class="input-number" id="input19" name="input19" type="text" value="0" min="-360" max="360"><div class="input-number-increment" onclick="increment(19);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                        <div class="reset-div2">
-                            <a onclick="reset(17)" class="btnreset blue">RESET</a>
+            <ul class="menu-submenu accordion-content">
+                <li>
+                    <div class="rangediv">
+                        <div>
+                            <span class="radiotitle">X-Axis</span>
+                            <div class="input-number-decrement" onclick="decrement(17);">–</div><input
+                                onblur="checkInputNumber(17);" class="input-number" id="input17" name="input17"
+                                type="text" value="30" min="-360" max="360">
+                            <div class="input-number-increment" onclick="increment(17);">+</div>
+
                         </div>
-                    
-                    </li>
-                </ul>
-                <li id="nav3" class="toggle accordion-toggle">
-                    <span class="icon-plus"></span>
-                    <a class="menu-link">Distance Settings</a>
+                        <br>
+                        <div>
+                            <span class="radiotitle">Y-Axis</span>
+                            <div class="input-number-decrement" onclick="decrement(18);">–</div><input
+                                onblur="checkInputNumber(18);" class="input-number" id="input18" name="input18"
+                                type="text" value="60" min="-360" max="360">
+                            <div class="input-number-increment" onclick="increment(18);">+</div>
+
+                        </div>
+                        <br>
+                        <div>
+                            <span class="radiotitle">Z-Axis</span>
+                            <div class="input-number-decrement" onclick="decrement(19);">–</div><input
+                                onblur="checkInputNumber(19);" class="input-number" id="input19" name="input19"
+                                type="text" value="0" min="-360" max="360">
+                            <div class="input-number-increment" onclick="increment(19);">+</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="reset-div2">
+                        <a onclick="reset(17)" class="btnreset blue">RESET</a>
+                    </div>
+
                 </li>
-                    <ul class="menu-submenu accordion-content">
-                        <li>
-                            <div class="rangediv">
-                                <div>
-                                    <span class="radiotitle">Nodes</span>
-                                    <div class="input-number-decrement" onclick="decrement(20);">–</div><input  onblur="checkInputNumber(20);" class="input-number" id="input20" name="input20" type="text" value="100" min="0" max="250"><div class="input-number-increment" onclick="increment(20);">+</div>
-                                
-                                </div>
-                                <br>
-                                <div>
-                                    <span class="radiotitle">Layers</span>
-                                    <div class="input-number-decrement" onclick="decrement(21);">–</div><input  onblur="checkInputNumber(21);" class="input-number" id="input21" name="input21" type="text" value="50" min="0" max="250"><div class="input-number-increment" onclick="increment(21);">+</div>
-                                
-                                </div>
-                                <br>
-                                <div>
-                                    <span class="radiotitle">Parent</span>
-                                    <div class="input-number-decrement" onclick="decrement(22);">–</div><input  onblur="checkInputNumber(22);" class="input-number" id="input22" name="input22" type="text" value="50" min="0" max="250"><div class="input-number-increment" onclick="increment(22);">+</div>
-                                </div>
-                            </div>
-                            <br>
-                        <div class="reset-div2">
-                            <a onclick="reset(20)" class="btnreset blue">RESET</a>
+            </ul>
+            <li id="nav3" class="toggle accordion-toggle">
+                <span class="icon-plus"></span>
+                <a class="menu-link">Distance Settings</a>
+            </li>
+            <ul class="menu-submenu accordion-content">
+                <li>
+                    <div class="rangediv">
+                        <div>
+                            <span class="radiotitle">Nodes</span>
+                            <div class="input-number-decrement" onclick="decrement(20);">–</div><input
+                                onblur="checkInputNumber(20);" class="input-number" id="input20" name="input20"
+                                type="text" value="100" min="0" max="250">
+                            <div class="input-number-increment" onclick="increment(20);">+</div>
+
                         </div>
-                        </li>
-                    </ul>
+                        <br>
+                        <div>
+                            <span class="radiotitle">Layers</span>
+                            <div class="input-number-decrement" onclick="decrement(21);">–</div><input
+                                onblur="checkInputNumber(21);" class="input-number" id="input21" name="input21"
+                                type="text" value="50" min="0" max="250">
+                            <div class="input-number-increment" onclick="increment(21);">+</div>
+
+                        </div>
+                        <br>
+                        <div>
+                            <span class="radiotitle">Parent</span>
+                            <div class="input-number-decrement" onclick="decrement(22);">–</div><input
+                                onblur="checkInputNumber(22);" class="input-number" id="input22" name="input22"
+                                type="text" value="50" min="0" max="250">
+                            <div class="input-number-increment" onclick="increment(22);">+</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="reset-div2">
+                        <a onclick="reset(20)" class="btnreset blue">RESET</a>
+                    </div>
+                </li>
+            </ul>
             <li id="nav4" class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">Dimension Settings</a>
@@ -279,18 +319,19 @@
                 </li>
                 <ul class="menu-submenu accordion-content2">
                     <li>
-                        <p class="radiotitle">Cube Dimensions</p>  
+                        <p class="radiotitle">Cube Dimensions</p>
                         <label>
-                            <input type="radio" class="option-input radio" name="cubedimensions" value="true" checked/>
+                            <input type="radio" class="option-input radio" name="cubedimensions" value="true" checked />
                             Activate
                         </label>
                         <label>
-                            <input type="radio" class="option-input radio" name="cubedimensions" value="false"/>
+                            <input type="radio" class="option-input radio" name="cubedimensions" value="false" />
                             Desactivate
                         </label>
                         <p class="radiotitle">Kernel Dimensions</p>
                         <label>
-                            <input type="radio" class="option-input radio" name="kerneldimensions" value="true" checked/>
+                            <input type="radio" class="option-input radio" name="kerneldimensions" value="true"
+                                checked />
                             Activate
                         </label>
                         <label>
@@ -301,26 +342,26 @@
                 </ul>
                 <li id="nav5" class="toggle accordion-toggle2">
                     <a class="menu-link">Logarithms</a>
-                    
+
                 </li>
                 <ul class="menu-submenu accordion-content2">
                     <li>
-                        <p class="radiotitle">Width Logs</p>  
+                        <p class="radiotitle">Width Logs</p>
                         <label>
-                            <input type="radio" class="option-input radio" name="widthlogs" value="true"/>
+                            <input type="radio" class="option-input radio" name="widthlogs" value="true" />
                             Activate
                         </label>
                         <label>
-                            <input type="radio" class="option-input radio" name="widthlogs" value="false" checked/>
+                            <input type="radio" class="option-input radio" name="widthlogs" value="false" checked />
                             Desactivate
                         </label>
                         <p class="radiotitle">Depth Logs</p>
                         <label>
-                            <input type="radio" class="option-input radio" name="depthlogs" value="true"/>
+                            <input type="radio" class="option-input radio" name="depthlogs" value="true" />
                             Activate
                         </label>
                         <label>
-                            <input type="radio" class="option-input radio" name="depthlogs" value="false" checked/>
+                            <input type="radio" class="option-input radio" name="depthlogs" value="false" checked />
                             Desactivate
                         </label>
                     </li>
@@ -331,55 +372,73 @@
                 <a class="menu-link">About</a>
             </li>
             <ul class="menu-submenu accordion-content">
-                    <div class="social-media-container">
-                        <a href="https://github.com/Markete17" target="_blank" class="icon-button github"><i class="fa fa-github"></i><span></span></a>
-                        <a href="https://twitter.com/markete17" target="_blank" class="icon-button twitter"><i class="fa fa-twitter"></i><span></span></a>
-                        <a href="https://www.instagram.com/markete_17/" target="_blank" class="icon-button instagram"><i class="fa fa-instagram"></i><span></span></a>
-                        <a href="https://www.facebook.com/profile.php?id=100009550702601" target="_blank" class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
-                    </div>
-                </ul>
+                <div class="social-media-container">
+                    <a href="https://github.com/Markete17" target="_blank" class="icon-button github"><i
+                            class="fa fa-github"></i><span></span></a>
+                    <a href="https://twitter.com/markete17" target="_blank" class="icon-button twitter"><i
+                            class="fa fa-twitter"></i><span></span></a>
+                    <a href="https://www.instagram.com/markete_17/" target="_blank" class="icon-button instagram"><i
+                            class="fa fa-instagram"></i><span></span></a>
+                    <a href="https://www.facebook.com/profile.php?id=100009550702601" target="_blank"
+                        class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
+                </div>
+            </ul>
             <!-- menu-submenu accordon-content-->
         </ul>
         <!-- menu-list accordion-->
+        <div class="editorbuttons">
+            <div><a onclick="saveCode();" class="icon-button save"><i id="btnsave"
+                        class="fa fa-save"></i><span></span></a></div>
+        </div>
+
+        <div class="dropdown">
+            <div class="select" tabindex="1">
+                <input class="selectopt" name="test" type="radio" id="opt1" value="0" checked>
+                <label for="opt1" class="option">Basic CNN</label>
+                <input class="selectopt" name="test" type="radio" id="opt2" value="1">
+                <label for="opt2" class="option">Basic Siamese</label>
+                <input class="selectopt" name="test" type="radio" id="opt3" value="2">
+                <label for="opt3" class="option">Complex Siamese</label>
+            </div>
+        </div>
+        <div class="zoombuttons">
+
+            <a onclick="zoomIn();" class="icon-button zoom1"><i class="fa fa-search-plus"></i><span></span></a>
+
+            <a onclick="zoomOut();" class="icon-button zoom2"><i class="fa fa-search-minus"></i><span></span></a>
+
+            <a onclick="undo();" class="icon-button undo"><i class="fa fa-undo"></i><span></span></a>
+        </div>
+
+        <div class="viewbuttons">
+            <a onclick="saveSVG();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
+            <a onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen"
+                    class="fa fa-folder-open"></i><span></span></a>
+            <input type="file" name="open" id="openFile">
+            <a onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"
+                    class="fa fa-expand"></i><span></span></a>
+        </div>
+
     </div>
     <!-- menu-container -->
 
     <!-- EDITOR WINDOW -->
     <div class="editor">
         <div class="editor-container">
-            <h2 class="text-center">Your Code</h2>
             <div class="paper">
                 <div class="paper-content">
                     <textarea id="editor" autofocus></textarea>
                 </div>
             </div>
-            <div class="text-center">
-                <a id="target" onclick="example.init(0)" class="btn purple">Example 1</a>
-                <a id="target" onclick="example.init(1)" class="btn red">Example 2</a>
-                <a id="target" onclick="example.init(2)" class="btn green">Example 3</a>
-                <a id="target" onclick="example.init(3)" class="btn orange">Example 4</a>
-            </div>
         </div>
     </div>
     <!-- PREVIEW WINDOW -->
     <div class="preview">
-        <div class="zoombuttons">
-            <p id="zoomtext"></p>
-            <a id="#zoom-plus" onclick="zoomIn();" class="icon-button zoom1"><i class="fa fa-search-plus"></i><span></span></a>
-            
-            <a id="#zoom-minus" onclick="zoomOut();"class="icon-button zoom2"><i class="fa fa-search-minus"></i><span></span></a>
-        </div>
-        <div class="viewbuttons">
-            <a onclick="save();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
-            <a onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen" class="fa fa-folder-open"></i><span></span></a>
-            <input type="file" name="open" id="openFile">
-            <a onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"class="fa fa-expand"></i><span></span></a>
-        </div>
+
         <div class="preview-container">
-            <h2 class="text-center">Preview</h2>
-            
+
             <div id="preview">
-                <div class="svg-class" id="svg">
+                <div id="svg">
 
                 </div>
             </div>

@@ -1,6 +1,7 @@
 var cm;
-var svg = "";
+var svgCode = "";
 var layers;
+
 $(function () {
 	cm = CodeMirror.fromTextArea(editor, {
 		lineNumbers: true,
@@ -35,7 +36,7 @@ function initializeDrawSettings() {
 	let arrowColor = $('#input9').val();
 	let arrowOpacity = $('#input10').val();
 
-	settings += 'var color = new Color("' + inputColor + '","' + cubeColor + '","' + kernelColor + '","' + denseColor + '","' + pyramidColor + '","' + arrowColor + '","' + inputOpacity + '","'+ cubeOpacity + '","' + kernelOpacity + '","' + pyramidOpacity + '","' + arrowOpacity + '","' + denseOpacity + '");\n';
+	settings += 'var color = new Color("' + inputColor + '","' + cubeColor + '","' + kernelColor + '","' + denseColor + '","' + pyramidColor + '","' + arrowColor + '","' + inputOpacity + '","' + cubeOpacity + '","' + kernelOpacity + '","' + pyramidOpacity + '","' + arrowOpacity + '","' + denseOpacity + '");\n';
 	let strokeColor = $('#input11').val();
 	let strokeWidth = $('#input12').val();
 
@@ -67,7 +68,7 @@ function initializeDrawSettings() {
 	settings += 'var model = new Model();\n';
 	settings += 'var svgController = new SvgController(drawSettings)\n';
 	settings += 'var layers = new Layers(drawSettings);\n';
-	let color = new Color(inputColor,cubeColor, kernelColor, denseColor, pyramidColor, arrowColor,inputOpacity, cubeOpacity, kernelOpacity, pyramidOpacity, arrowOpacity, denseOpacity);
+	let color = new Color(inputColor, cubeColor, kernelColor, denseColor, pyramidColor, arrowColor, inputOpacity, cubeOpacity, kernelOpacity, pyramidOpacity, arrowOpacity, denseOpacity);
 	let alfa = new Alfa(xAxis, yAxis, zAxis);
 	let shift = new Shift(nodesDistance, layersDistance, parentsDistance);
 	let font = new Font(fontSize, fontFamily, fontColor);
@@ -84,8 +85,8 @@ function updatePreview(content) {
 		if (content.includes('model')) {
 			let code = settings + content;
 			eval(code);
-			svg = svgController.draw(model.getModelTree());
-			svgID.innerHTML = svg;
+			svgCode = svgController.draw(model.getModelTree());
+			svgID.innerHTML = svgCode;
 
 		}
 		else {
@@ -95,15 +96,10 @@ function updatePreview(content) {
 		$('#svg').css('color', "");
 		$('#svg').css('font-size', "");
 		$('#preview').css('border', '2px solid #1b6181');
-		$('text').css("fill",layers.getDrawSettings().getFont().getFont_color());
-		$('text').css("font-size",layers.getDrawSettings().getFont().getFont_size());
-		$('text').css("font-family",layers.getDrawSettings().getFont().getFont_family());
-		$(function () {
-			$("#svgImage").draggable();
-			$("#svgImage").on("mouseover", function () {
-				$('#svgImage').css('cursor', "all-scroll");
-			});
-		});
+		$('text').css("fill", layers.getDrawSettings().getFont().getFont_color());
+		$('text').css("font-size", layers.getDrawSettings().getFont().getFont_size());
+		$('text').css("font-family", layers.getDrawSettings().getFont().getFont_family());
+		svg = $("svg").svgPanZoom();
 	} catch (e) {
 		svgID.innerHTML = e;
 		$('#svg').css('background-color', "rgba(228, 122, 36, 0.2)");
@@ -117,7 +113,7 @@ var example = {
 	data: [
 		'<!-- Part 1: Nodes Definition -->\n\nvar n1 = new Node();\n\n<!-- Part 2: Neural Network -->\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
 		+ 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
-		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n' +'\n\n<!-- Part 3: Model Definition-->\n\n' + 'model.add(n1);',
+		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n' + '\n\n<!-- Part 3: Model Definition-->\n\n' + 'model.add(n1);',
 
 		'<!-- Part 1: Nodes Definition -->\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '<!-- Part 2: Neural Network -->\n' + '\n' +
 		'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
@@ -127,35 +123,68 @@ var example = {
 		'model.add(n2,n3);\n' +
 		'         \n',
 
-		'<!-- Part 1: Nodes Definition -->\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + 'var n4 = new Node();\n' + 'var n5 = new Node();\n' + 'var np = new Node();\n' +'\n' + '\n' + 
-		'<!-- Part 2: Neural Network -->\n' + '\n' + 'n1.add(Input(48,32,10));\nn1.add(Conv2D(32, [10,10], [1,1], \"same\"));\nMaxPooling2D([2,2]);\n'+
-		'n1.add(Conv2D(64,[5,5],[1,1],\"same\"));\nMaxPooling2D([2,2]);\nn1.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nn2.add(Input(48,32,10));\n'+
-		'n2.add(Conv2D(32, [10,10], [1,1], \"same\"));\nMaxPooling2D([2,2]);\nn2.add(Conv2D(64,[5,5],[1,1],\"same\"));\nMaxPooling2D([2,2]);\nn2.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\n'+
-		'n3.add(Input(48,32,10));\nn3.add(Conv2D(32, [10,10], [1,1], \"same\"));\nMaxPooling2D([2,2]);\nn3.add(Conv2D(64,[5,5],[1,1],\"same\"));\nMaxPooling2D([2,2]);\n'+
-		'n3.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nn4.add(Input(48,32,10));\nn4.add(Conv2D(32, [10,10],[1,1], \"same\"));\nMaxPooling2D([2,2]);\nn4.add(Conv2D(64,[5,5],[1,1],\"same\"));\n'+
-		'MaxPooling2D([2,2]);\nn4.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nn5.add(layers.Input(new Cube(new Coordinate(48,32,10),drawSettings)));\nn5.add(layers.Conv2D(32, new Tuple(10, 10), new Tuple(1, 1), \"same\"));\nlayers.MaxPooling2D(new Tuple(2,2));\nn5.add(layers.Conv2D(64,new Tuple(5,5),new Tuple(1,1),\"same\"));\n'+
-		'MaxPooling2D([2,2]);\nn5.add(Conv2D(72,[10,10],[1,1],\"same\"));\n\nDenseLayer();\nnp.add(Concatenate([n1,n2,n3,n4,n5]));\nnp.add(Dense(200));\nnp.add(Dense(300));\n\n'+
+		'<!-- Part 1: Nodes Definition -->\n\n' +
+		'            var x1a = new Node();\n' +
+		'            var x1b = new Node();\n' +
+		'            var x1 = new Node();\n' +
+		'            var x2 = new Node();\n' +
+		'            var x3 = new Node();\n' +
+		'            var xp1 = new Node();\n' +
+		'            var xp3 = new Node();\n' +
+		'\n' +
+		'<!-- Part 2: Neural Network -->\n\n' +
+		'            x1a.add(Input(32,32,20));\n' +
+		'            x1a.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'            MaxPooling2D([2,2]);\n' +
+		'            x1a.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'\n' +
+		'            x1b.add(Input(32,32,20));\n' +
+		'            x1b.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'            MaxPooling2D([2,2]);\n' +
+		'            x1b.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'\n' +
+		'            x2.add(Input(32,32,20));\n' +
+		'            x2.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'            MaxPooling2D([2,2]);\n' +
+		'            x2.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'            MaxPooling2D(([2,2]));\n' +
+		'            x2.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'\n' +
+		'            x3.add(Input(32,32,20));\n' +
+		'            x3.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'            MaxPooling2D([2,2]);\n' +
+		'            x3.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'            MaxPooling2D([2,2]);\n' +
+		'            x3.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'\n' +
+		'            x1.add(Concatenate([x1a, x1b]));\n' +
+		'            MaxPooling2D([2,2]);\n' +
+		'            x1.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'\n' +
+		'            xp1.add(Concatenate([x1, x2]));\n' +
+		'            xp1.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'\n' +
+		'            DenseLayer();\n' +
+		'            xp3.add(Concatenate([xp1, x1]));\n' +
+		'            xp3.add(Dense(100));\n' +
+		'            xp3.add(Dense(200));\n' +
+		'            xp3.add(Dense(300));\n' +
+		'\n' +
 		'<!-- Part 3: Model Definition-->\n\n' +
-		'model.add(np);\nmodel.add(n1,np);\nmodel.add(n2,np);\nmodel.add(n3,np);\nmodel.add(n4,np);\nmodel.add(n5,np);',
-		
-		'<!-- Part 1: Nodes Definition -->\n' + '\n' + 'var x1a = new Node();\n' + 'var x1b = new Node();\n' + 'var x3a = new Node();\n' + 'var x3b = new Node();\n' + 'var x1 = new Node();\n' + 'var x2 = new Node();\n' + 'var x3 = new Node();\n'+ 'var xp1 = new Node();\n' 
-		+ 'var xp2 = new Node();\n'+ 'var xp3 = new Node();\n'+ 'var x5 = new Node();\n'+ 'var x6 = new Node();\n'+ 'var x7 = new Node();\n'+'\n' + '\n' + 
- 		'<!-- Part 2: Neural Network -->\n\n' + 'x1a.add(Input(32,32,20));\nx1a.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx1a.add(Conv2D(64, [5,5], [1,1], \"same\"));\n\nx1b.add(Input(32,32,20));\nx1b.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\n'+
-		 'MaxPooling2D([2,2]);\nx1b.add(Conv2D(64, [5,5], [1,1], \"same\"));\n\nx2.add(Input(32,32,20));\nx2.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx2.add(Conv2D(64, [5,5], [1,1], \"same\"));\nMaxPooling2D([2,2]);\nx2.add(Conv2D(64, [5,5], [1,1], \"same\"));\n\n'+
-		 'x3a.add(Input(32,32,20));\nx3a.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx3a.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx3b.add(Input(32,32,20));\nx3b.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx3b.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\n'+
-		 'x5.add(Input(32,32,20));\nx5.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\nMaxPooling2D([2,2]);\nx5.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nlayers.MaxPooling2D(new Tuple(2, 2));\nx5.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx5.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nx6.add(Input(32,32,20));\nx6.add(Conv2D(32, [10, 10], [1, 1], \"same\"));\n'+
-		 'MaxPooling2D([2,2]);\nx6.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nlayers.MaxPooling2D(new Tuple(2, 2));\nx6.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx6.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nx1.add(Concatenate([x1a, x1b]));\nMaxPooling2D([2,2]);\nx1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx3.add(Concatenate([x3a, x3b]));\n'+
-		 'MaxPooling2D([2,2]);\nx3.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx3.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\nx3.add(Conv2D(100, [5, 5], [1, 1], \"same\"));\n\nxp1.add(Concatenate([x1, x2]));\nxp1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));;\nxp1.add(Conv2D(64, [5, 5], [1, 1], \"same\"));;\nxp1.add(Conv2D(100, [5, 5], [1, 1], \"same\"));;\n\nxp2.add(Concatenate([xp1, x3]));\n'+
-		 'xp2.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nx7.add(Concatenate([x5,x6]));\nMaxPooling2D([2, 2]);\nx7.add(Conv2D(64, [5, 5], [1, 1], \"same\"));\n\nDenseLayer();\nxp3.add(Concatenate([xp1,x3,x5]));\nxp3.add(Dense(200));\nxp3.add(Dense(300));\n\n'+
-		 '<!-- Part 3: Model Definition-->\n\n' +'model.add(xp3);\nmodel.add(x1a, x1);\nmodel.add(x1b, x1);\nmodel.add(x1, xp1);\nmodel.add(x2, xp1);\nmodel.add(x3a,x3);\nmodel.add(x3b,x3);\nmodel.add(x5,x7);\nmodel.add(x6,x7);\nmodel.add(xp1,xp2);\nmodel.add(x3,xp2);\n\nmodel.add(xp2,xp3);\nmodel.add(x7,xp3);'
+		'            model.add(xp3);\n' +
+		'            model.add(x1a, x1);\n' +
+		'            model.add(x1b, x1);\n' +
+		'            model.add(x1, xp1);\n' +
+		'            model.add(x2, xp1);\n' +
+		'            model.add(xp1, xp3);\n' +
+		'            model.add(x3, xp3);\n\n'
 	],
-	init: function (number) {
-		cm.setValue(example.data[number]);
-	},
+
 }
 
-function doText(number) {
-	return example.data[number];
+function init(number) {
+	cm.setValue(example.data[number]);
+	updatePreview(cm.getValue());
 }
 
 /*COORDINATE CLASS*/
@@ -238,7 +267,7 @@ class Alfa {
 
 /*COLOR CLASS*/
 class Color {
-	constructor(input,cube, kernel, dense, pyramid, arrow, inputOpacity, layerOpacity, kernelOpacity, convOpacity, arrowOpacity, denseOpacity) {
+	constructor(input, cube, kernel, dense, pyramid, arrow, inputOpacity, layerOpacity, kernelOpacity, convOpacity, arrowOpacity, denseOpacity) {
 		this.inputColor = input;
 		this.cubeColor = cube;
 		this.kernelColor = kernel;
@@ -1145,7 +1174,7 @@ class SvgController {
 				let kernelCube = modelQueue[i - 1];
 				let vertex = cube.getCoordinates()[8];
 				let pyramid = new Pyramid(kernelCube.getCoordinates().slice(0, 4), new Coordinate(vertex.getX(), vertex.getY(), vertex.getZ()));
-				this.drawPyramid(pyramid,kernelCube);
+				this.drawPyramid(pyramid, kernelCube);
 				this.activate = false;
 			}
 			if (i !== modelQueue.length - 1) {
@@ -1220,23 +1249,23 @@ class SvgController {
 	}
 	drawText(cube) {
 		let svg = '';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:'+this.drawSettings.getFont().getFont_family()+';font-size:'+this.drawSettings.getFont().getFont_size()+'\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
+		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
 		return svg;
-		
+
 	}
-	drawTextPyramid(pyramid,kernel) {
-		return "\t\t<text style=\"fill:" + this.drawSettings.getFont().getFont_color() + ";font-family:" + this.drawSettings.getFont().getFont_family() + ";font-size:" + this.drawSettings.getFont().getFont_size() + "\" " + "x=\"" + ((pyramid.getCoordinates()[0].getX()+pyramid.getCoordinates()[1].getX()+ pyramid.getVertex().getX()) / 3) + "\" y=\"" + (pyramid.getCoordinates()[0].getY() + (pyramid.getVertex().getY()-7)) / 2 + "\" " + ">" + "["+(kernel.getX())+","+(kernel.getY())+"]" + "</text>\n";	
+	drawTextPyramid(pyramid, kernel) {
+		return "\t\t<text style=\"fill:" + this.drawSettings.getFont().getFont_color() + ";font-family:" + this.drawSettings.getFont().getFont_family() + ";font-size:" + this.drawSettings.getFont().getFont_size() + "\" " + "x=\"" + ((pyramid.getCoordinates()[0].getX() + pyramid.getCoordinates()[1].getX() + pyramid.getVertex().getX()) / 3) + "\" y=\"" + (pyramid.getCoordinates()[0].getY() + (pyramid.getVertex().getY() - 7)) / 2 + "\" " + ">" + "[" + (kernel.getX()) + "," + (kernel.getY()) + "]" + "</text>\n";
 	}
-	drawPyramid(pyramid,kernel) {
+	drawPyramid(pyramid, kernel) {
 		let svg = '';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[0].getX() + ' ' + pyramid.getCoordinates()[0].getY() + '\'/>' + '\n';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[1].getX() + ' ' + pyramid.getCoordinates()[1].getY() + '\'/>' + '\n';
 		svg += '\t\t<path opacity=\'' + this.drawSettings.getColor().getConvOpacity() + '\' fill=\'' + this.drawSettings.getColor().getPyramidColor() + '\' d=\'' + 'M' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + ' L' + pyramid.getCoordinates()[3].getX() + ' ' + pyramid.getCoordinates()[3].getY() + ' L' + pyramid.getVertex().getX() + ' ' + pyramid.getVertex().getY() + ' L' + pyramid.getCoordinates()[2].getX() + ' ' + pyramid.getCoordinates()[2].getY() + '\'/>' + '\n\n';
 		if (this.drawSettings.isActivateKernelDimensions()) {
-			svg += this.drawTextPyramid(pyramid,kernel);
+			svg += this.drawTextPyramid(pyramid, kernel);
 		}
 		let z = this.calculateAverageZ(pyramid.getCoordinates());
 		let sn = new SortNode(svg, z);
@@ -1261,11 +1290,11 @@ class SvgController {
 	selectColor(cube) {
 		if (cube.isKernel) {
 			return this.drawSettings.getColor().getKernelColor();
-		} 
-		else if (cube.isDenseLayer){
+		}
+		else if (cube.isDenseLayer) {
 			return this.drawSettings.getColor().getDenseColor();
 		}
-		else if (cube.isInputLayer){
+		else if (cube.isInputLayer) {
 			return this.drawSettings.getColor().getInputColor();
 		}
 		else {
@@ -1275,11 +1304,11 @@ class SvgController {
 	selectOpacity(cube) {
 		if (cube.isKernel) {
 			return this.drawSettings.getColor().getKernelOpacity();
-		} 
-		else if (cube.isDenseLayer){
+		}
+		else if (cube.isDenseLayer) {
 			return this.drawSettings.getColor().getDenseOpacity();
 		}
-		else if (cube.isInputLayer){
+		else if (cube.isInputLayer) {
 			return this.drawSettings.getColor().getInputOpacity();
 		}
 		else {
@@ -1302,7 +1331,7 @@ class SvgController {
 		return new Coordinate(x, y, z);
 	}
 	addHeader() {
-		this.svgString = '<svg id="svgImage" viewBox=\'' + (this.x_min) + ' ' + (this.y_min-10) + ' ' + (this.x_max - this.x_min +this.drawSettings.getViewBox().getZoom()+20) + ' ' + (this.y_max - this.y_min +10+this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
+		this.svgString = '<svg id="svgImage" viewBox=\'' + (this.x_min) + ' ' + (this.y_min - 10) + ' ' + (this.x_max - this.x_min + this.drawSettings.getViewBox().getZoom() + 15) + ' ' + (this.y_max - this.y_min + 10 + this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
 	}
 	addFooter() {
 		this.svgString += '\t </g>\n' + '</svg>';
