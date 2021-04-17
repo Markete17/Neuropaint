@@ -940,17 +940,20 @@ a.button {
 .dropdown {
     position: absolute;
     left: 0;
-    margin-left: 8%;
-    margin-top: 0.5%;
+    margin-left: 15%;
+    margin-top: 20%;
     z-index: 1000;
     top: 0;
 }
 
-.editorbuttons {
+.editorbuttons{
     position: absolute;
     left: 0;
-    margin-left: 4%;
     top: 0;
+    margin-left: 5%;
+}
+.editorbuttons div{
+    margin-left: 35%;
 }
 
 .resetbutton {
