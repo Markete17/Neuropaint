@@ -46,7 +46,7 @@ a.button {
 
 .preview {
     width: 100%;
-    height: 90%;
+    height: 89%;
     position: relative;
 }
 
@@ -70,7 +70,7 @@ a.button {
 
 .editor {
     padding-bottom: 4em;
-    height: 90%;
+    height: 70%;
 }
 
 .preview #preview {
@@ -85,7 +85,6 @@ a.button {
     .editor {
         width: 30%;
         float: left;
-        padding-bottom: 0;
     }
     .preview {
         width: 70%;
@@ -110,7 +109,7 @@ a.button {
     position: absolute;
     max-width: 800px;
     min-width: 400px;
-    height: 90.5%;
+    height: 89%;
     width: 29.8%;
     margin: 0 auto;
     background: #fafafa;
@@ -660,7 +659,6 @@ a.button {
 
 #menu-container .banner, .zoombuttons, .viewbuttons, .resetbutton, .dropdown, .editorbuttons {
     display: inline-block;
-    margin-bottom: 0.5%;
 }
 
 /**SETTINGS MENU**/

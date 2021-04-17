@@ -124,60 +124,60 @@ var example = {
 		'         \n',
 
 		'<!-- Part 1: Nodes Definition -->\n\n' +
-		'            var x1a = new Node();\n' +
-		'            var x1b = new Node();\n' +
-		'            var x1 = new Node();\n' +
-		'            var x2 = new Node();\n' +
-		'            var x3 = new Node();\n' +
-		'            var xp1 = new Node();\n' +
-		'            var xp3 = new Node();\n' +
+		'var x1a = new Node();\n' +
+		'var x1b = new Node();\n' +
+		'var x1 = new Node();\n' +
+		'var x2 = new Node();\n' +
+		'var x3 = new Node();\n' +
+		'var xp1 = new Node();\n' +
+		'var xp3 = new Node();\n' +
 		'\n' +
 		'<!-- Part 2: Neural Network -->\n\n' +
-		'            x1a.add(Input(32,32,20));\n' +
-		'            x1a.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
-		'            MaxPooling2D([2,2]);\n' +
-		'            x1a.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'x1a.add(Input(32,32,20));\n' +
+		'x1a.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'MaxPooling2D([2,2]);\n' +
+		'x1a.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
 		'\n' +
-		'            x1b.add(Input(32,32,20));\n' +
-		'            x1b.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
-		'            MaxPooling2D([2,2]);\n' +
-		'            x1b.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'x1b.add(Input(32,32,20));\n' +
+		'x1b.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'MaxPooling2D([2,2]);\n' +
+		'x1b.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
 		'\n' +
-		'            x2.add(Input(32,32,20));\n' +
-		'            x2.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
-		'            MaxPooling2D([2,2]);\n' +
-		'            x2.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
-		'            MaxPooling2D(([2,2]));\n' +
-		'            x2.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'x2.add(Input(32,32,20));\n' +
+		'x2.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'MaxPooling2D([2,2]);\n' +
+		'x2.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'MaxPooling2D(([2,2]));\n' +
+		'x2.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
 		'\n' +
-		'            x3.add(Input(32,32,20));\n' +
-		'            x3.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
-		'            MaxPooling2D([2,2]);\n' +
-		'            x3.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
-		'            MaxPooling2D([2,2]);\n' +
-		'            x3.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'x3.add(Input(32,32,20));\n' +
+		'x3.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
+		'MaxPooling2D([2,2]);\n' +
+		'x3.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'MaxPooling2D([2,2]);\n' +
+		'x3.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
 		'\n' +
-		'            x1.add(Concatenate([x1a, x1b]));\n' +
-		'            MaxPooling2D([2,2]);\n' +
-		'            x1.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'x1.add(Concatenate([x1a, x1b]));\n' +
+		'MaxPooling2D([2,2]);\n' +
+		'x1.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
 		'\n' +
-		'            xp1.add(Concatenate([x1, x2]));\n' +
-		'            xp1.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
+		'xp1.add(Concatenate([x1, x2]));\n' +
+		'xp1.add(Conv2D(64, [5,5], [1,1], "same"));\n' +
 		'\n' +
-		'            DenseLayer();\n' +
-		'            xp3.add(Concatenate([xp1, x1]));\n' +
-		'            xp3.add(Dense(100));\n' +
-		'            xp3.add(Dense(200));\n' +
-		'            xp3.add(Dense(300));\n' +
+		'DenseLayer();\n' +
+		'xp3.add(Concatenate([xp1, x1]));\n' +
+		'xp3.add(Dense(100));\n' +
+		'xp3.add(Dense(200));\n' +
+		'xp3.add(Dense(300));\n' +
 		'\n' +
 		'<!-- Part 3: Model Definition-->\n\n' +
-		'            model.add(xp3);\n' +
-		'            model.add(x1a, x1);\n' +
-		'            model.add(x1b, x1);\n' +
-		'            model.add(x1, xp1);\n' +
-		'            model.add(x2, xp1);\n' +
-		'            model.add(xp1, xp3);\n' +
-		'            model.add(x3, xp3);\n\n'
+		'model.add(xp3);\n' +
+		'model.add(x1a, x1);\n' +
+		'model.add(x1b, x1);\n' +
+		'model.add(x1, xp1);\n' +
+		'model.add(x2, xp1);\n' +
+		'model.add(xp1, xp3);\n' +
+		'model.add(x3, xp3);\n\n'
 	],
 
 }
