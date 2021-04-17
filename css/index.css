@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Handlee);
 html {
-    height: 100%;
+    height: 97%;
 }
 
 header {
@@ -46,7 +46,7 @@ a.button {
 
 .preview {
     width: 100%;
-    height: 89%;
+    height: 92%;
     position: relative;
 }
 
@@ -70,7 +70,6 @@ a.button {
 
 .editor {
     padding-bottom: 4em;
-    height: 70%;
 }
 
 .preview #preview {
@@ -100,7 +99,7 @@ a.button {
     position: relative;
     height: 100%;
     padding-left: 0.5%;
-    padding-right: 1%;
+    padding-right: 0.5%;
 }
 
 /*Editor Notebook Style*/
@@ -109,7 +108,7 @@ a.button {
     position: absolute;
     max-width: 800px;
     min-width: 400px;
-    height: 89%;
+    height: 92%;
     width: 29.8%;
     margin: 0 auto;
     background: #fafafa;
