@@ -1,6 +1,8 @@
 $("html, body").animate({ scrollTop: 0 }, "slow");
 var zoom = 100;
 var svg;
+var timeout;
+var speed = 100;
 
 $(function () {
     loadInputs();
@@ -50,8 +52,63 @@ function loadInputs() {
     $('input:radio[name=depthlogs]').change(function () {
         updatePreview(cm.getValue());
     });
+    $('#increment17').on('mousedown mouseup mouseleave', e => {
+        holdClickInc(e, 17);
+    });
+    $('#decrement17').on('mousedown mouseup mouseleave', e => {
+        holdClickDec(e, 17);
+    });
+    $('#increment18').on('mousedown mouseup mouseleave', e => {
+        holdClickInc(e, 18);
+    });
+    $('#decrement18').on('mousedown mouseup mouseleave', e => {
+        holdClickDec(e, 18);
+    });
+    $('#increment19').on('mousedown mouseup mouseleave', e => {
+        holdClickInc(e, 19);
+    });
+    $('#decrement19').on('mousedown mouseup mouseleave', e => {
+        holdClickDec(e, 19);
+    });
+    $('#increment20').on('mousedown mouseup mouseleave', e => {
+        holdClickInc(e, 20);
+    });
+    $('#decrement20').on('mousedown mouseup mouseleave', e => {
+        holdClickDec(e, 20);
+    });
+    $('#increment21').on('mousedown mouseup mouseleave', e => {
+        holdClickInc(e, 21);
+    });
+    $('#decrement21').on('mousedown mouseup mouseleave', e => {
+        holdClickDec(e, 21);
+    });
+    $('#increment22').on('mousedown mouseup mouseleave', e => {
+        holdClickInc(e, 22);
+    });
+    $('#decrement22').on('mousedown mouseup mouseleave', e => {
+        holdClickDec(e, 22);
+    });
+    $('#increment14').on('mousedown mouseup mouseleave', e => {
+        holdClickInc(e, 14);
+    });
+    $('#decrement14').on('mousedown mouseup mouseleave', e => {
+        holdClickDec(e, 14);
+    });
 }
-
+function holdClickDec(e, number) {
+    if (e.type == "mousedown") {
+        decrement(number);
+    } else {
+        stop()
+    }
+}
+function holdClickInc(e, number) {
+    if (e.type == "mousedown") {
+        increment(number);
+    } else {
+        stop()
+    }
+}
 function loadInput(number, max, min) {
     var input = document.getElementById('input' + number);
     input.addEventListener('change', function () {
@@ -153,6 +210,9 @@ function decrement(number) {
     let n1 = parseFloat(input.val());
     //Size
     if (number == 14 || number == 20 || number == 21 || number == 22) {
+        timeout = setTimeout(() => {
+            decrement(number);
+        }, speed);
         let result = parseFloat(n1 - 1);
         if (result > 0) {
             $('#input' + number).val(result.toFixed(0));
@@ -162,6 +222,9 @@ function decrement(number) {
         }
     }
     else if (number == 17 || number == 18 || number == 19) {
+        timeout = setTimeout(() => {
+            decrement(number);
+        }, speed);
         let result = parseFloat(n1 - 1);
         if (result > -360) {
             $('#input' + number).val(result.toFixed(0));
@@ -185,8 +248,12 @@ function decrement(number) {
 function increment(number) {
     let input = $('#input' + number);
     let n1 = parseFloat(input.val());
+
     //Size
     if (number == 14) {
+        timeout = setTimeout(() => {
+            increment(number);
+        }, speed);
         let result = parseFloat(n1 + 1);
         if (result < 15) {
             $('#input' + number).val(result.toFixed(0));
@@ -196,6 +263,9 @@ function increment(number) {
         }
     }
     else if (number == 17 || number == 18 || number == 19) {
+        timeout = setTimeout(() => {
+            increment(number);
+        }, speed);
         let result = parseFloat(n1 + 1);
         if (result < 360) {
             $('#input' + number).val(result.toFixed(0));
@@ -205,6 +275,9 @@ function increment(number) {
         }
     }
     else if (number == 20 || number == 21 || number == 22) {
+        timeout = setTimeout(() => {
+            increment(number);
+        }, speed);
         let result = parseFloat(n1 + 1);
         if (result < 250) {
             $('#input' + number).val(result.toFixed(0));
@@ -424,7 +497,7 @@ function expandPreview() {
         $("#btnexp").addClass("fa fa-expand");
         $(".zoombuttons").css("margin-left", "30.5%");
         $(".title").css("margin-left", "58%");
-        
+
     }
 }
 window.onbeforeunload = function (e) {
@@ -437,3 +510,7 @@ window.onbeforeunload = function (e) {
 
     return 'Are you sure want to exit?';
 };
+
+function stop() {
+    clearTimeout(timeout);
+}

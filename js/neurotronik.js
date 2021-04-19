@@ -108,7 +108,13 @@ function updatePreview(content) {
 			let a = stack[1];
 			let b =a.split(":");
 			let line = b[0]-10;
-			svgID.innerHTML = 'Line: '+line+'<p>'+eval+'</p>';
+			if(line>10){
+				svgID.innerHTML = 'Line: '+line+'<p>'+eval+'</p>';
+			}
+			else{
+				svgID.innerHTML = 'Bad Configuration-Check the Settings: '+'<p>'+eval+'</p>';
+			}
+			
 		} catch(e){
 			svgID.innerHTML = 'Badly defined variable or function.'+'<p>'+eval+'</p>';
 		}
