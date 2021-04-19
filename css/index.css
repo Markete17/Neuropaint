@@ -950,7 +950,6 @@ a.button {
     left: 0;
     margin-left: 15%;
     margin-top: 20%;
-    z-index: 1000;
     top: 0;
 }
 
@@ -962,6 +961,11 @@ a.button {
 }
 .editorbuttons div{
     margin-left: 35%;
+    z-index: 900;
+}
+
+.editorbuttons a{
+    z-index: 999;
 }
 
 .resetbutton {
