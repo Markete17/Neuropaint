@@ -6,6 +6,7 @@ $(function () {
 	cm = CodeMirror.fromTextArea(editor, {
 		lineNumbers: true,
 		styleActiveLine: true,
+		mode: 'javascript'
 	});
 	cm.setValue(example.data[0]);
 	updatePreview(cm.getValue());
@@ -120,19 +121,19 @@ function updatePreview(content) {
 
 var example = {
 	data: [
-		'<!-- Part 1: Nodes Definition -->\n\nvar n1 = new Node();\n\n<!-- Part 2: Neural Network -->\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
+		'/* Part 1: Nodes Definition */\n\nvar n1 = new Node();\n\n/* Part 2: Neural Network */\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n'
 		+ 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
-		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n' + '\n\n<!-- Part 3: Model Definition-->\n\n' + 'model.add(n1);',
+		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n' + '\n\n/* Part 3: Model Definition */\n\n' + 'model.add(n1);',
 
-		'<!-- Part 1: Nodes Definition -->\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '<!-- Part 2: Neural Network -->\n' + '\n' +
+		'/* Part 1: Nodes Definition */\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '/* Part 2: Neural Network */\n' + '\n' +
 		'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
 		'n2.add(Input(48,32,10));\n' + 'n2.add(Conv2D(32, [10,10], [1,1], "same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n2.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'MaxPooling2D([2,2]);\n' + 'n2.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
-		'DenseLayer();\n' + 'n3.add(Concatenate([n1,n2]));\n' + 'n3.add(Dense(200));\n' + 'n3.add(Dense(200));\n' + '\n' + '\n' + '<!-- Part 3: Model Definition-->\n' + '\n' + 'model.add(n3);\n' +
+		'DenseLayer();\n' + 'n3.add(Concatenate([n1,n2]));\n' + 'n3.add(Dense(200));\n' + 'n3.add(Dense(200));\n' + '\n' + '\n' + '/* Part 3: Model Definition */\n' + '\n' + 'model.add(n3);\n' +
 		'model.add(n1,n3);\n' +
 		'model.add(n2,n3);\n' +
 		'         \n',
 
-		'<!-- Part 1: Nodes Definition -->\n\n' +
+		'/* Part 1: Nodes Definition */\n\n' +
 		'var x1a = new Node();\n' +
 		'var x1b = new Node();\n' +
 		'var x1 = new Node();\n' +
@@ -141,7 +142,7 @@ var example = {
 		'var xp1 = new Node();\n' +
 		'var xp3 = new Node();\n' +
 		'\n' +
-		'<!-- Part 2: Neural Network -->\n\n' +
+		'/* Part 2: Neural Network */\n\n' +
 		'x1a.add(Input(32,32,20));\n' +
 		'x1a.add(Conv2D(32, [10,10], [1,1], "same"));\n' +
 		'MaxPooling2D([2,2]);\n' +
@@ -179,7 +180,7 @@ var example = {
 		'xp3.add(Dense(200));\n' +
 		'xp3.add(Dense(300));\n' +
 		'\n' +
-		'<!-- Part 3: Model Definition-->\n\n' +
+		'/* Part 3: Model Definition */\n\n' +
 		'model.add(xp3);\n' +
 		'model.add(x1a, x1);\n' +
 		'model.add(x1b, x1);\n' +
