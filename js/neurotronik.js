@@ -569,6 +569,16 @@ function Input(x, y, z) {
 
 function Conv2D(filters, kernel, strides, padding) {
 	if(arguments.length==4 && kernel.length==2 && strides.length==2){
+		for(let i=0;i<kernel.length;i++){
+			if(kernel[i] == undefined){
+				throw new Error("The Conv2D function is poorly defined. <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p>");
+			}
+		}
+		for(let i=0;i<strides.length;i++){
+			if(kernel[i] == undefined){
+				throw new Error("The Conv2D function is poorly defined. <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p>");
+			}
+		}
 		return layers.Conv2D(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
 	}
 	throw new Error("The Conv2D function is poorly defined. <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p>");
