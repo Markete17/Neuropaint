@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Handlee);
 html {
-    height: 97%;
+    height: 98%;
 }
 
 header {
@@ -683,7 +683,9 @@ a.button {
     position: relative;
     width: 25px;
     height: 20px;
-    margin: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-top: 5px;
 }
 
 #menu-wrapper #hamburger-menu span {
