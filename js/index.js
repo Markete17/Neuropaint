@@ -44,8 +44,12 @@ function loadInputs() {
     $('input:radio[name=kerneldimensions]').change(function () {
         updatePreview(cm.getValue());
     });
-
-
+    $('input:radio[name=widthlogs]').change(function () {
+        updatePreview(cm.getValue());
+    });
+    $('input:radio[name=depthlogs]').change(function () {
+        updatePreview(cm.getValue());
+    });
 }
 
 function loadInput(number, max, min) {

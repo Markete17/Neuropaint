@@ -61,6 +61,7 @@ function initializeDrawSettings() {
 
 	let cubeDimensions = ($('input:radio[name=cubedimensions]:checked').val() == 'true');
 	let kernelDimensions = ($('input:radio[name=kerneldimensions]:checked').val() == 'true');
+
 	let widthLogs = ($('input:radio[name=widthlogs]:checked').val() == 'true');
 	let depthtLogs = ($('input:radio[name=depthlogs]:checked').val() == 'true');
 
