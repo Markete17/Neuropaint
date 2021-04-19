@@ -424,7 +424,7 @@ function expandPreview() {
         $("#btnexp").addClass("fa fa-expand");
         $(".zoombuttons").css("margin-left", "30.5%");
 
-        $(".title").css("margin-right", "26%");
+        $(".title").css("margin-right", "27%");
     }
 }
 window.onbeforeunload = function (e) {
