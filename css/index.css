@@ -1328,7 +1328,7 @@ a.button {
 .select input:checked+label {
     order: 1;
     z-index: 2;
-    background: rgb(68, 128, 206);
+    background: rgb(99, 181, 228);
     border-top: none;
     position: relative;
 }
@@ -1353,5 +1353,5 @@ a.button {
     height: 40px;
     width: 40px;
     content: '';
-    background: rgb(68, 128, 206);
+    background: rgb(99, 181, 228);
 }
