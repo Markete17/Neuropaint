@@ -656,7 +656,7 @@ a.button {
     background-color: #aae7f1;
 }
 
-#menu-container .banner, .zoombuttons, .viewbuttons, .resetbutton, .dropdown, .editorbuttons {
+#menu-container .banner, .zoombuttons, .viewbuttons, .resetbutton, .dropdown, .editorbuttons,.title {
     display: inline-block;
 }
 
@@ -928,6 +928,13 @@ a.button {
     position: absolute;
     right: 0;
     margin-right: 1%;
+    top: 0;
+}
+
+.title {
+    position: absolute;
+    margin-right: 30%;
+    right: 0;
     top: 0;
 }
 

@@ -379,7 +379,7 @@ document.onkeyup = function (e) {
     }
 
     if (e.ctrlKey && e.shiftKey && theChar == 'S') {
-        save();
+        saveSVG();
     }
 
     if (e.ctrlKey && e.shiftKey && theChar == 'E') {
@@ -402,7 +402,14 @@ function expandPreview() {
         $(".zoombuttons").css("-moz-transition", "all 0.75s ease-in-out");
         $(".zoombuttons").css("-o-transition", "all 0.75s ease-in-out");
         $(".zoombuttons").css("transition", "all 0.75s ease-in-out");
-        $(".zoombuttons").css("margin-left", "3%");
+        $(".zoombuttons").css("margin-left", "4%");
+
+        $(".title").css("-webkit-transition", "all 0.75s ease-in-out");
+        $(".title").css("-moz-transition", "all 0.75s ease-in-out");
+        $(".title").css("-moz-transition", "all 0.75s ease-in-out");
+        $(".title").css("-o-transition", "all 0.75s ease-in-out");
+        $(".title").css("transition", "all 0.75s ease-in-out");
+        $(".title").css("margin-right", "47%");
     }
     else {
         $(".editor").show("slow");
@@ -412,6 +419,8 @@ function expandPreview() {
         $("#btnexp").removeClass("fa fa-window-maximize");
         $("#btnexp").addClass("fa fa-expand");
         $(".zoombuttons").css("margin-left", "30.5%");
+
+        $(".title").css("margin-right", "30%");
     }
 }
 window.onbeforeunload = function (e) {
