@@ -101,8 +101,16 @@ function updatePreview(content) {
 		$('text').css("font-size", layers.getDrawSettings().getFont().getFont_size());
 		$('text').css("font-family", layers.getDrawSettings().getFont().getFont_family());
 		svg = $("svg").svgPanZoom();
-	} catch (e) {
-		svgID.innerHTML = e;
+	} catch (eval) {
+		try{
+			let stack = eval.stack.split("<anonymous>:");
+			let a = stack[1];
+			let b =a.split(":");
+			let line = b[0]-10;
+			svgID.innerHTML = 'Line: '+line+'<p>'+eval+'</p>';
+		} catch(e){
+			svgID.innerHTML = 'Badly defined variable or function.'+'<p>'+eval+'</p>';
+		}
 		$('#svg').css('background-color', "rgba(228, 122, 36, 0.2)");
 		$('#svg').css('color', "#ce0f0f");
 		$('#svg').css('font-size', "30px");
@@ -527,9 +535,12 @@ class Layers {
 				output_w = (this.cube_actual.getX() - kernel_size.getN1() + 1) / strides.getN1();
 				output_h = (this.cube_actual.getY() - kernel_size.getN2() + 1) / strides.getN2();
 			}
-			if (padding == 'same') {
+			else if (padding == 'same') {
 				output_w = (this.cube_actual.getX()) / strides.getN1();
 				output_h = (this.cube_actual.getY()) / strides.getN2();
+			}
+			else{
+				throw new Error("The padding "+padding+" is not supported.");
 			}
 		}
 		this.setNewDimensions(output_w, output_h, filters);
@@ -550,24 +561,43 @@ class Layers {
 }
 
 function Input(x, y, z) {
-	return layers.Input(new Cube(new Coordinate(x, y, z), layers.getDrawSettings()));
+	if(arguments.length==3){
+		return layers.Input(new Cube(new Coordinate(x, y, z), layers.getDrawSettings()));
+	}
+	throw new Error("The Input function is poorly defined. <p> Example: Input(32,32,20) with 3 arguments.</p>");
 }
 
 function Conv2D(filters, kernel, strides, padding) {
-	return layers.Conv2D(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
+	if(arguments.length==4 && kernel.length==2 && strides.length==2){
+		return layers.Conv2D(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
+	}
+	throw new Error("The Conv2D function is poorly defined. <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p>");
 }
 
 function MaxPooling2D(tuple) {
-
-	return layers.MaxPooling2D(new Tuple(tuple[0], tuple[1]));
+	if(tuple.length==2 || tuple==undefined){
+		return layers.MaxPooling2D(new Tuple(tuple[0], tuple[1]));
+	}
+	throw new Error("The MaxPooling2D function is poorly defined. <p> Example: MaxPooling([2,2]) with 1 arguments.</p>");
 }
 
 function Dense(vector) {
-	return layers.Dense(vector);
+	if(arguments.length==1){
+		return layers.Dense(vector);
+	}
+	throw new Error("The Dense function is poorly defined.<p> Example: Dense(200) with 1 arguments.</p>");
 }
 
 function Concatenate(nodes) {
-	return layers.concatenate(nodes);
+	if(arguments.length==1){
+		for(let i=0;i<nodes.length;i++){
+			if(!(nodes[i] instanceof Node)){
+				throw new Error("The Concatenate function is poorly defined.<p> Example: Concatenate([x1,x2]) with 1 arguments.</p>");
+			}
+		}
+		return layers.concatenate(nodes);
+	}
+	throw new Error("The Concatenate function is poorly defined.<p> Example: Concatenate([x1,x2]) with 1 arguments.</p>");
 }
 
 function DenseLayer() {
@@ -799,11 +829,18 @@ class Model {
 		this.modelTree.add(child, parent);
 	}
 	add(...args$) {
+		for(let i=0;i<args$.length;i++){
+			if(!(args$[i] instanceof Node)){
+				throw new Error("The function model.add() is poorly defined. <p> Example: model.add(x1) if is the parent or model.add(x1,x2) if x1 is child of x2.</p>");
+			}
+		}
 		switch (args$.length) {
 			case 1:
 				return this.add$1(...args$);
 			case 2:
 				return this.add$2(...args$);
+			default:
+				throw new Error("The function model.add() is poorly defined. <p> Example: model.add(x1) if is the parent or model.add(x1,x2) if x1 is child of x2.</p>");
 		}
 	}
 	addJump(n1, n2) {
@@ -961,7 +998,7 @@ class NeuralNetworkTree {
 		this.jumps = new Array();
 	}
 	isEmpty() {
-		return (this.root === null);
+		return (this.root == null);
 	}
 	isLeaf(node) {
 		return (node.getChildren() === null) || (node.getChildren().length == 0);
@@ -977,15 +1014,16 @@ class NeuralNetworkTree {
 	}
 	root() {
 		if (this.root === null) {
-			throw 'The tree is empty';
+			throw new Error('There is no parent node in the model.');
 		}
 		return this.root;
 	}
 	addRoot(node) {
-		if (this.isEmpty) {
+		
+		if (this.isEmpty()) {
 			this.root = node;
 		} else {
-			throw 'Tree already has a root';
+			throw new Error('The model already has a parent node.');
 		}
 	}
 	add(child, parent) {
@@ -1067,7 +1105,7 @@ class NeuralNetworkTree {
 		for (let nodes of this.getNodes()) {
 			for (let node of nodes) {
 				if (node.getCubeList().length == 0 || node.getCubeList() === null) {
-					throw 'The neural network has been poorly defined.';
+					throw new Error('The neural network is poorly defined. There may be a node that has not added convolutions.');
 				}
 			}
 		}
