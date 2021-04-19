@@ -965,7 +965,7 @@ a.button {
 }
 
 .editorbuttons a{
-    z-index: 999;
+    z-index: 950;
 }
 
 .resetbutton {

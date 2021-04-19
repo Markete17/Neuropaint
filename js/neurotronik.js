@@ -107,8 +107,8 @@ function updatePreview(content) {
 			let stack = eval.stack.split("<anonymous>:");
 			let a = stack[1];
 			let b =a.split(":");
-			let line = b[0]-10;
-			if(line>10){
+			if(b[0]>10){
+				let line = b[0]-10;
 				svgID.innerHTML = 'Line: '+line+'<p>'+eval+'</p>';
 			}
 			else{
@@ -592,7 +592,12 @@ function Conv2D(filters, kernel, strides, padding) {
 }
 
 function MaxPooling2D(tuple) {
-	if(tuple.length==2 || tuple==undefined){
+	if(tuple.length==2){
+		for(let i=0;i<tuple.length;i++){
+			if(tuple[i] == undefined){
+				throw new Error("The MaxPooling2D function is poorly defined. <p> Example: MaxPooling([2,2]) with 1 arguments.</p>");
+			}
+		}
 		return layers.MaxPooling2D(new Tuple(tuple[0], tuple[1]));
 	}
 	throw new Error("The MaxPooling2D function is poorly defined. <p> Example: MaxPooling([2,2]) with 1 arguments.</p>");
