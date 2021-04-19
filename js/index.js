@@ -413,7 +413,7 @@ function expandPreview() {
         $(".title").css("-moz-transition", "all 0.75s ease-in-out");
         $(".title").css("-o-transition", "all 0.75s ease-in-out");
         $(".title").css("transition", "all 0.75s ease-in-out");
-        $(".title").css("margin-right", "47%");
+        $(".title").css("margin-right", "40%");
     }
     else {
         $(".editor").show("slow");
@@ -424,7 +424,7 @@ function expandPreview() {
         $("#btnexp").addClass("fa fa-expand");
         $(".zoombuttons").css("margin-left", "30.5%");
 
-        $(".title").css("margin-right", "30%");
+        $(".title").css("margin-right", "26%");
     }
 }
 window.onbeforeunload = function (e) {
