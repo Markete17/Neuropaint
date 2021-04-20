@@ -645,37 +645,37 @@ function MaxPooling2D(tuple) {
 	if(tuple.length==2){
 		for(let i=0;i<tuple.length;i++){
 			if(tuple[i] == undefined){
-				throw new Error("The MaxPooling2D function is poorly defined: (Value missing.) <p> Example: MaxPooling([2,2]) with 1 arguments.</p>");
+				throw new Error("The MaxPooling2D function is poorly defined: (Value missing.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 			}
 			if(tuple[i]<=0){
-				throw new Error("The MaxPooling2D function is poorly defined: (Only positive numbers.) <p> Example: MaxPooling([2,2]) with 1 arguments.</p>");
+				throw new Error("The MaxPooling2D function is poorly defined: (Only positive numbers.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 			}
 		}
 		return new MaxPooling2DLayer(new Tuple(tuple[0],tuple[1]));
 	}
-	throw new Error("The MaxPooling2D function is poorly defined: (Invalid number of arguments.) <p> Example: MaxPooling([2,2]) with 1 arguments.</p>");
+	throw new Error("The MaxPooling2D function is poorly defined: (Invalid number of arguments.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 }
 
 function Dense(vector) {
 	if(arguments.length==1){
 		if(vector<0){
-			throw new Error("The Dense function is poorly defined: (Vector must be a positive number.) <p> Example: Dense(200) with 1 arguments.</p>");
+			throw new Error("The Dense function is poorly defined: (Vector must be a positive number.) <p> Example: Dense(200) with 1 argument.</p>");
 		}
 		return new DenseLayer(vector);
 	}
-	throw new Error("The Dense function is poorly defined: (Invalid number of arguments.) <p> Example: Dense(200) with 1 arguments.</p>");
+	throw new Error("The Dense function is poorly defined: (Invalid number of arguments.) <p> Example: Dense(200) with 1 argument.</p>");
 }
 
 function Concatenate(nodes) {
 	if(arguments.length==1){
 		for(let i=0;i<nodes.length;i++){
 			if(!(nodes[i] instanceof Node)){
-				throw new Error("The Concatenate function is poorly defined: (Arguments must be nodes.).<p> Example: Concatenate([x1,x2]) with 1 arguments.</p>");
+				throw new Error("The Concatenate function is poorly defined: (Arguments must be nodes.).<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
 			}
 		}
 		return new ConcatenateLayer(nodes);
 	}
-	throw new Error("The Concatenate function is poorly defined: (Invalid number of arguments.)<p> Example: Concatenate([x1,x2]) with 1 arguments.</p>");
+	throw new Error("The Concatenate function is poorly defined: (Invalid number of arguments.)<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
 }
 
 /*MATRICES*/
