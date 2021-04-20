@@ -496,7 +496,7 @@ function expandPreview() {
         $("#btnexp").removeClass("fa fa-window-maximize");
         $("#btnexp").addClass("fa fa-expand");
         $(".zoombuttons").css("margin-left", "30.5%");
-        $(".title").css("margin-left", "58%");
+        $(".title").css("margin-left", "57.7%");
 
     }
 }
