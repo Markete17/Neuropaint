@@ -1084,6 +1084,10 @@ class Node {
 			if ((this.getActualCube() == null || this.cubeList.length == 0) && input.input == undefined) {
 				throw new Error('The node does not have an input layer.');
 			}
+			if(this.actualCube.isDenseLayer){
+				throw new Error('Cannot Conv2D a dense layer.');
+			}
+					
 			if (input.input == undefined) {
 				Array.prototype.push.apply(this.cubeList, layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube()));
 			}
