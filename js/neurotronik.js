@@ -1070,7 +1070,6 @@ class Node {
 	}
 	add(input) {
 		if (input.x != undefined) {
-			let f = "false";
 			for (let i = 0; i < this.cubeList.length; i++) {
 				if (this.cubeList[i].isInputLayer) {
 					throw new Error('There is already an input layer.');
@@ -1084,7 +1083,6 @@ class Node {
 			if ((this.getActualCube() == null || this.cubeList.length == 0) && input.input == undefined) {
 				throw new Error('The node does not have an input layer.');
 			}
-					
 			if (input.input == undefined) {
 				if(this.actualCube.isDenseLayer){
 					throw new Error('Can not Conv2D a dense layer.');
