@@ -102,20 +102,20 @@ function updatePreview(content) {
 		$('text').css("font-family", layerController.getDrawSettings().getFont().getFont_family());
 		svg = $("svg").svgPanZoom();
 	} catch (eval) {
-		try{
+		try {
 			let stack = eval.stack.split("<anonymous>:");
 			let a = stack[1];
-			let b =a.split(":");
-			if(b[0]>10){
-				let line = b[0]-10;
-				svgID.innerHTML = 'Line: '+line+'<p>'+eval+'</p>';
+			let b = a.split(":");
+			if (b[0] > 10) {
+				let line = b[0] - 10;
+				svgID.innerHTML = 'Line: ' + line + '<p>' + eval + '</p>';
 			}
-			else{
-				svgID.innerHTML = 'Bad Configuration-Check the Settings: '+'<p>'+eval+'</p>';
+			else {
+				svgID.innerHTML = 'Bad Configuration-Check the Settings: ' + '<p>' + eval + '</p>';
 			}
-			
-		} catch(e){
-			svgID.innerHTML = 'Badly defined variable or function.'+'<p>'+eval+'</p>';
+
+		} catch (e) {
+			svgID.innerHTML = 'Badly defined variable or function.' + '<p>' + eval + '</p>';
 		}
 		$('#svg').css('background-color', "rgba(228, 122, 36, 0.2)");
 		$('#svg').css('color', "#ce0f0f");
@@ -126,20 +126,20 @@ function updatePreview(content) {
 
 var example = {
 	data: [
-		'/* Example 1: Basic CNN */\n\n'+'/* Part 1: Nodes Definition */\n\nvar n1 = new Node();\n\n/* Part 2: Neural Network */\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32,[10,10], [1,1], "same"));\n'
+		'/* Example 1: Basic CNN */\n\n' + '/* Part 1: Nodes Definition */\n\nvar n1 = new Node();\n\n/* Part 2: Neural Network */\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32,[10,10], [1,1], "same"));\n'
 		+ 'n1.add(MaxPooling2D([2,2]));\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'n1.add(MaxPooling2D([2,2]));\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'
 		+ 'n1.add(Dense(200));\n' + 'n1.add(Dense(300));\n\n' + '/* Part 3: Model Definition */\n\n' + 'model.add(n1);',
 
-		'/* Example 2: Basic Siamese */\n\n'+'/* Part 1: Nodes Definition */\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '/* Part 2: Neural Network */\n' + '\n' +
+		'/* Example 2: Basic Siamese */\n\n' + '/* Part 1: Nodes Definition */\n' + '\n' + 'var n1 = new Node();\n' + 'var n2 = new Node();\n' + 'var n3 = new Node();\n' + '\n' + '\n' + '/* Part 2: Neural Network */\n' + '\n' +
 		'n1.add(Conv2D(32,[10,10],[1,1],"same",Input(48,32,10)));\n' + 'n1.add(MaxPooling2D([2,2]));\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'n1.add(MaxPooling2D([2,2]));\n' + 'n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' + '\n' +
 		'n2.add(Input(48,32,10));\n' + 'n2.add(Conv2D(32,[10,10],[1,1],"same"));\n' + 'n2.add(MaxPooling2D([2,2]));\n' + 'n2.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'n2.add(MaxPooling2D([2,2]));\n' + 'n2.add(Conv2D(72,[10,10],[1,1],"same"));\n\n' +
-		'n3.add(Dense(150));\n'+'n3.add(Dense(150));\n\n'+
-		 '/* Part 3: Model Definition */\n' + '\n' + 'model.add(n3);\n' +
+		'n3.add(Dense(150));\n' + 'n3.add(Dense(150));\n\n' +
+		'/* Part 3: Model Definition */\n' + '\n' + 'model.add(n3);\n' +
 		'model.add(n1,n3);\n' +
 		'model.add(n2,n3);\n' +
 		'         \n',
 
-		'/* Example 3: Complex Siamese */\n\n'+'/* Part 1: Nodes Definition */\n\n' +
+		'/* Example 3: Complex Siamese */\n\n' + '/* Part 1: Nodes Definition */\n\n' +
 		'var x1a = new Node();\n' +
 		'var x1b = new Node();\n' +
 		'var x1 = new Node();\n' +
@@ -463,22 +463,22 @@ class LayerController {
 		input.isInputLayer = true;
 		return input;
 	}
-	Conv2D$5(filters, kernel_size, strides, padding,actualCube) {
+	Conv2D$5(filters, kernel_size, strides, padding, actualCube) {
 		let cubeList = new Array();
 		let CNNCube = this.createKernel(actualCube.getZ(), kernel_size);
 		cubeList.push(CNNCube);
-		let convolution = this.setConvolution(filters, kernel_size, strides, padding,actualCube);
+		let convolution = this.setConvolution(filters, kernel_size, strides, padding, actualCube);
 		cubeList.push(convolution);
 		return cubeList;
 	}
-	Conv2D$6(filters, kernel_size, strides, input, padding,actualCube) {
+	Conv2D$6(filters, kernel_size, strides, input, padding, actualCube) {
 		let cubeList = new Array();
-		actualCube = new Cube(new Coordinate(input.x,input.y,input.z),this.drawSettings);
+		actualCube = new Cube(new Coordinate(input.x, input.y, input.z), this.drawSettings);
 		actualCube.isInputLayer = true;
 		cubeList.push(actualCube);
 		let CNNCube = this.createKernel(actualCube.getZ(), kernel_size);
 		cubeList.push(CNNCube);
-		let convolution = this.setConvolution(filters, kernel_size, strides, padding,actualCube);
+		let convolution = this.setConvolution(filters, kernel_size, strides, padding, actualCube);
 		cubeList.push(convolution);
 		return cubeList;
 	}
@@ -490,8 +490,8 @@ class LayerController {
 				return this.Conv2D$6(...args$);
 		}
 	}
-	MaxPooling2D(tuple,actualCube) {
-		return this.setPooling(tuple,actualCube);
+	MaxPooling2D(tuple, actualCube) {
+		return this.setPooling(tuple, actualCube);
 	}
 	Dense(vector) {
 		let cube = new Cube(new Coordinate(10, vector, 10), this.drawSettings);
@@ -511,12 +511,12 @@ class LayerController {
 		let newCube = new Cube(new Coordinate(x, y, z), this.drawSettings);
 		return newCube;
 	}
-	setPooling(tuple,actualCube) {
+	setPooling(tuple, actualCube) {
 		let x = (actualCube.getX()) / tuple.getN1();
 		let y = (actualCube.getY()) / tuple.getN2();
 		return this.setNewDimensions(x, y, actualCube.getZ());
 	}
-	setConvolution(filters, kernel_size, strides, padding,actualCube) {
+	setConvolution(filters, kernel_size, strides, padding, actualCube) {
 		let output_w = actualCube.getX();
 		let output_h = actualCube.getY();
 		if (strides !== null && padding !== null) {
@@ -528,8 +528,8 @@ class LayerController {
 				output_w = (actualCube.getX()) / strides.getN1();
 				output_h = (actualCube.getY()) / strides.getN2();
 			}
-			else{
-				throw new Error("The padding \'"+padding+"\' is not supported.");
+			else {
+				throw new Error("The padding \'" + padding + "\' is not supported.");
 			}
 		}
 		return this.setNewDimensions(output_w, output_h, filters);
@@ -549,24 +549,24 @@ class LayerController {
 	}
 }
 
-class InputLayer{
-	constructor(x,y,z){
+class InputLayer {
+	constructor(x, y, z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 }
 
-class Conv2DLayer{
-	constructor(filters,kernel_size,strides,padding) {
+class Conv2DLayer {
+	constructor(filters, kernel_size, strides, padding) {
 		this.filters = filters;
 		this.kernel_size = kernel_size;
 		this.strides = strides;
 		this.padding = padding;
 	}
 }
-class Conv2DInputLayer{
-	constructor(filters,kernel_size,strides,padding,input) {
+class Conv2DInputLayer {
+	constructor(filters, kernel_size, strides, padding, input) {
 		this.filters = filters;
 		this.kernel_size = kernel_size;
 		this.strides = strides;
@@ -575,90 +575,90 @@ class Conv2DInputLayer{
 	}
 }
 
-class MaxPooling2DLayer{
-	constructor(tuple){
+class MaxPooling2DLayer {
+	constructor(tuple) {
 		this.tuple = tuple;
 	}
 }
 
-class ConcatenateLayer{
-	constructor(nodes){
+class ConcatenateLayer {
+	constructor(nodes) {
 		this.nodes = nodes
 	}
 }
 
-class DenseLayer{
-	constructor(vector){
+class DenseLayer {
+	constructor(vector) {
 		this.vector = vector;
 	}
 }
 
 function Input(x, y, z) {
-	if(arguments.length==3){
-		if(x>=0 && y>=0 && z>=0 ){
-			return new InputLayer(x,y,z);
+	if (arguments.length == 3) {
+		if (x > 0 && y > 0 && z > 0) {
+			return new InputLayer(x, y, z);
 		}
-		else{
-			throw new Error("The Input function is poorly defined. (Only positive input numbers.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
+		else {
+			throw new Error("The Input function is poorly defined: (Only positive input numbers.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
 		}
-		
+
 	}
 	throw new Error("The Input function is poorly defined: (Invalid number of arguments.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
 }
 
-function Conv2D(filters, kernel, strides, padding,input) {
-	if( (arguments.length==4|| arguments.length==5) && kernel.length==2 && strides.length==2){
-		if(arguments.length==5 && input==undefined){
+function Conv2D(filters, kernel, strides, padding, input) {
+	if ((arguments.length == 4 || arguments.length == 5) && kernel.length == 2 && strides.length == 2) {
+		if (arguments.length == 5 && input == undefined) {
 			throw new Error("The Conv2D function is poorly defined: (Input Missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 		}
-		for(let i=0;i<kernel.length;i++){
-			if(kernel[i] == undefined){
+		for (let i = 0; i < kernel.length; i++) {
+			if (kernel[i] == undefined) {
 				throw new Error("The Conv2D function is poorly defined: (Kernel missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 			}
-			if(kernel[i] <0){
+			if (kernel[i] <= 0) {
 				throw new Error("The Conv2D function is poorly defined: (Kernel must have positive numbers.). <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 			}
 		}
-		for(let i=0;i<strides.length;i++){
-			if(strides[i] == undefined){
+		for (let i = 0; i < strides.length; i++) {
+			if (strides[i] == undefined) {
 				throw new Error("The Conv2D function is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 			}
-			if(strides[i] <0){
+			if (strides[i] <= 0) {
 				throw new Error("The Conv2D function is poorly defined: (Strides must have positive numbers.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 			}
 		}
-		if(filters<0){
+		if (filters <= 0) {
 			throw new Error("The Conv2D function is poorly defined: (Filters must be a positive number.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 		}
-		if(input==undefined){
-			return new Conv2DLayer(filters,new Tuple(kernel[0],kernel[1]),new Tuple(strides[0],strides[1]),padding);
+		if (input == undefined) {
+			return new Conv2DLayer(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
 		}
-		else{
-			return new Conv2DInputLayer(filters,new Tuple(kernel[0],kernel[1]),new Tuple(strides[0],strides[1]),padding,input);
+		else {
+			return new Conv2DInputLayer(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding, input);
 		}
-		
+
 	}
 	throw new Error("The Conv2D function is poorly defined: (Invalid number of arguments.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 }
 
 function MaxPooling2D(tuple) {
-	if(tuple.length==2){
-		for(let i=0;i<tuple.length;i++){
-			if(tuple[i] == undefined){
+	if (tuple.length == 2) {
+		for (let i = 0; i < tuple.length; i++) {
+			if (tuple[i] == undefined) {
 				throw new Error("The MaxPooling2D function is poorly defined: (Value missing.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 			}
-			if(tuple[i]<=0){
+			if (tuple[i] <= 0) {
 				throw new Error("The MaxPooling2D function is poorly defined: (Only positive numbers.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 			}
 		}
-		return new MaxPooling2DLayer(new Tuple(tuple[0],tuple[1]));
+		return new MaxPooling2DLayer(new Tuple(tuple[0], tuple[1]));
 	}
 	throw new Error("The MaxPooling2D function is poorly defined: (Invalid number of arguments.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 }
 
 function Dense(vector) {
-	if(arguments.length==1){
-		if(vector<0){
+	if (arguments.length == 1) {
+		if (vector <= 0) {
 			throw new Error("The Dense function is poorly defined: (Vector must be a positive number.) <p> Example: Dense(200) with 1 argument.</p>");
 		}
 		return new DenseLayer(vector);
@@ -667,9 +667,9 @@ function Dense(vector) {
 }
 
 function Concatenate(nodes) {
-	if(arguments.length==1){
-		for(let i=0;i<nodes.length;i++){
-			if(!(nodes[i] instanceof Node)){
+	if (arguments.length == 1) {
+		for (let i = 0; i < nodes.length; i++) {
+			if (!(nodes[i] instanceof Node)) {
 				throw new Error("The Concatenate function is poorly defined: (Arguments must be nodes.).<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
 			}
 		}
@@ -903,8 +903,8 @@ class Model {
 		this.modelTree.add(child, parent);
 	}
 	add(...args$) {
-		for(let i=0;i<args$.length;i++){
-			if(!(args$[i] instanceof Node)){
+		for (let i = 0; i < args$.length; i++) {
+			if (!(args$[i] instanceof Node)) {
 				throw new Error("The function model.add() is poorly defined. <p> Example: model.add(x1) if is the parent or model.add(x1,x2) if x1 is child of x2.</p>");
 			}
 		}
@@ -1045,7 +1045,7 @@ class Node {
 	getLastCube() {
 		return this.lastCube;
 	}
-	setLastCube(cube){
+	setLastCube(cube) {
 		this.lastCube = cube;
 	}
 	setLast() {
@@ -1062,51 +1062,57 @@ class Node {
 	getParent() {
 		return this.parent;
 	}
-	getActualCube(){
+	getActualCube() {
 		return this.actualCube;
 	}
-	setActualCube(cube){
+	setActualCube(cube) {
 		this.actualCube = cube;
 	}
-	add(input){
-		if(input.x!=undefined){
-			this.cubeList.push(layerController.Input(new Cube(new Coordinate(input.x,input.y,input.z), layerController.getDrawSettings())));
+	add(input) {
+		if (input.x != undefined) {
+			let f = "false";
+			for (let i = 0; i < this.cubeList.length; i++) {
+				if (this.cubeList[i].isInputLayer) {
+					throw new Error('There is already an input layer.');
+				}
+			}
+			this.cubeList.push(layerController.Input(new Cube(new Coordinate(input.x, input.y, input.z), layerController.getDrawSettings())));
 			this.setLast();
 			this.setActualCube(this.getLastCube());
 		}
-		else if(input.filters!=undefined){
-			if( (this.getActualCube()==null || this.cubeList.length==0) && input.input==undefined ){
+		else if (input.filters != undefined) {
+			if ((this.getActualCube() == null || this.cubeList.length == 0) && input.input == undefined) {
 				throw new Error('The node does not have an input layer.');
 			}
-			if(input.input==undefined){
-				Array.prototype.push.apply(this.cubeList, layerController.Conv2D(input.filters,input.kernel_size,input.strides,input.padding,this.getActualCube()));
+			if (input.input == undefined) {
+				Array.prototype.push.apply(this.cubeList, layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube()));
 			}
-			else{
-				for(let i=0;i<this.cubeList.length;i++){
-					if(this.cubeList[i].isInputLayer){
+			else {
+				for (let i = 0; i < this.cubeList.length; i++) {
+					if (this.cubeList[i].isInputLayer) {
 						throw new Error('There is already an input layer.');
 					}
 				}
-				Array.prototype.push.apply(this.cubeList, layerController.Conv2D(input.filters,input.kernel_size,input.strides,input.input,input.padding,this.getActualCube()));
+				Array.prototype.push.apply(this.cubeList, layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube()));
 			}
-			
+
 			this.setLast();
 			this.setActualCube(this.getLastCube());
 		}
-		else if (input.tuple!=undefined){
-			if(this.getActualCube()==null || this.cubeList.length==0){
+		else if (input.tuple != undefined) {
+			if (this.getActualCube() == null || this.cubeList.length == 0) {
 				throw new Error('The node does not have an input layer.');
 			}
-			this.setActualCube(layerController.MaxPooling2D(input.tuple,this.getActualCube()));
+			this.setActualCube(layerController.MaxPooling2D(input.tuple, this.getActualCube()));
 		}
-		else if (input.vector!=undefined){
+		else if (input.vector != undefined) {
 			this.cubeList.push(layerController.Dense(input.vector));
 			this.setLast();
 			this.setActualCube(this.getLastCube());
 		}
-		else if(input.nodes!=undefined){
-			for(let i=0;i<input.nodes.length;i++){
-				if(input.nodes[i].cubeList.length==0){
+		else if (input.nodes != undefined) {
+			for (let i = 0; i < input.nodes.length; i++) {
+				if (input.nodes[i].cubeList.length == 0) {
 					throw new Error('Could not concatenate because some node has no convolutions or input.');
 				}
 			}
@@ -1147,7 +1153,7 @@ class NeuralNetworkTree {
 		return this.root;
 	}
 	addRoot(node) {
-		
+
 		if (this.isEmpty()) {
 			this.root = node;
 		} else {
