@@ -58,7 +58,7 @@ function initializeDrawSettings() {
 	let layersDistance = $('#input21').val();
 	let parentsDistance = $('#input22').val();
 	settings += 'var shift = new Shift(' + nodesDistance + ',' + layersDistance + ',' + parentsDistance + ');\n';
-	settings += 'var viewBox = new ViewBox(3000,2000,' + (zoom - 100) + ');\n';
+	settings += 'var viewBox = new ViewBox(3000,2000,0);\n';
 
 	let cubeDimensions = ($('input:radio[name=cubedimensions]:checked').val() == 'true');
 	let kernelDimensions = ($('input:radio[name=kerneldimensions]:checked').val() == 'true');
@@ -1381,7 +1381,7 @@ class SvgController {
 		return new Coordinate(x, y, z);
 	}
 	addHeader() {
-		this.svgString = '<svg id="svgImage" viewBox=\'' + (this.x_min) + ' ' + (this.y_min - 10) + ' ' + (this.x_max - this.x_min + this.drawSettings.getViewBox().getZoom() + 15) + ' ' + (this.y_max - this.y_min + 10 + this.drawSettings.getViewBox().getZoom()) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
+		this.svgString = '<svg id="svgImage" viewBox=\'' + (this.x_min) + ' ' + (this.y_min - 10) + ' ' + (this.x_max - this.x_min + 15) + ' ' + (this.y_max - this.y_min + 10) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
 	}
 	addFooter() {
 		this.svgString += '\t </g>\n' + '</svg>';
