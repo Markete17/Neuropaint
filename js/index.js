@@ -175,6 +175,8 @@ function saveCode() {
 function saveSVG() {
     var fname = prompt('Svg File', 'neurotronikSVG');
     if (fname) {
+        let save =svgCode.slice(54,svgCode.length);
+        svgCode = '<svg id="svgImage" viewBox=\'' + (x_min) + ' ' + (y_min - 10) + ' ' + (x_max - x_min + 15) + ' ' + (y_max - y_min + 10) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + save;
         saveAsFile(fname, svgCode, 'image/svg+xml');
     }
 }
