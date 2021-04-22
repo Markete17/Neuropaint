@@ -1,6 +1,10 @@
 var cm;
 var svgCode = "";
 var layerController;
+var x_max;
+var x_min;
+var y_max;
+var y_min;
 
 $(function () {
 	cm = CodeMirror.fromTextArea(editor, {
@@ -100,7 +104,17 @@ function updatePreview(content) {
 		$('text').css("fill", layerController.getDrawSettings().getFont().getFont_color());
 		$('text').css("font-size", layerController.getDrawSettings().getFont().getFont_size());
 		$('text').css("font-family", layerController.getDrawSettings().getFont().getFont_family());
-		svg = $("svg").svgPanZoom();
+		svg = $("svg").svgPanZoom(
+
+			options = {
+				initialViewBox: { // the initial viewBox, if null or undefined will try to use the viewBox set in the svg tag. Also accepts string in the format "X Y Width Height"
+				x: 0, // the top-left corner X coordinate
+				y: 0, // the top-left corner Y coordinate
+				width: 1000, // the width of the viewBox
+				height: 1000// the height of the viewBox
+				},
+			}
+		);
 	} catch (eval) {
 		try {
 			let stack = eval.stack.split("<anonymous>:");
@@ -1498,6 +1512,9 @@ class SvgController {
 		this.matrixController.move('x', coordinates, this.imageCenter.getX());
 		this.matrixController.move('y', coordinates, this.imageCenter.getY());
 		this.matrixController.move('z', coordinates, this.imageCenter.getZ());
+
+		this.matrixController.move('x', coordinates, 500);
+		this.matrixController.move('y', coordinates, 500);
 	}
 	calculateCenter(coordinates) {
 		let x = (coordinates[0].getX() + coordinates[1].getX() + coordinates[2].getX() + coordinates[3].getX()) / 4;
@@ -1506,7 +1523,11 @@ class SvgController {
 		return new Coordinate(x, y, z);
 	}
 	addHeader() {
-		this.svgString = '<svg id="svgImage" viewBox=\'' + (this.x_min) + ' ' + (this.y_min - 10) + ' ' + (this.x_max - this.x_min + 15) + ' ' + (this.y_max - this.y_min + 10) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
+		x_max=this.x_max;
+		x_min=this.x_min;
+		y_max=this.y_max;
+		y_min=this.y_min;
+		this.svgString = '<svg id="svgImage" xmlns=\'http://www.w3.org/2000/svg\'>\n' + '\t<g stroke=\'' + this.drawSettings.getStroke().getStroke_color() + '\' stroke-width=\'' + this.drawSettings.getStroke().getStroke_width() + '\'>\n';
 	}
 	addFooter() {
 		this.svgString += '\t </g>\n' + '</svg>';

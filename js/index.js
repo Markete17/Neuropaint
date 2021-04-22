@@ -487,6 +487,7 @@ function expandPreview() {
         $(".title").css("-o-transition", "all 0.75s ease-in-out");
         $(".title").css("transition", "all 0.75s ease-in-out");
         $(".title").css("margin-left", "44.7%");
+        svg.setViewBox(0, 0, 2000, 2000, 0);
     }
     else {
         $(".editor").show("slow");
@@ -497,7 +498,7 @@ function expandPreview() {
         $("#btnexp").addClass("fa fa-expand");
         $(".zoombuttons").css("margin-left", "30.5%");
         $(".title").css("margin-left", "57.7%");
-
+        svg.setViewBox(0, 0, 1000, 1000, 0);
     }
 }
 window.onbeforeunload = function (e) {
