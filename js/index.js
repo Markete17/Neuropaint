@@ -403,7 +403,7 @@ function reset(...args) {
 
         } else {
             //Distance Settings
-            a = 100;
+            a = 50;
             b = 50;
             c = 50;
         }

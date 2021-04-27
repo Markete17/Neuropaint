@@ -1513,8 +1513,9 @@ class SvgController {
 		this.matrixController.move('y', coordinates, this.imageCenter.getY());
 		this.matrixController.move('z', coordinates, this.imageCenter.getZ());
 
-		this.matrixController.move('x', coordinates, 500);
-		this.matrixController.move('y', coordinates, 500);
+		this.matrixController.move('x', coordinates, (1000-this.imageCenter.getX())/2);
+		this.matrixController.move('y', coordinates, (1000-this.imageCenter.getY())/2);
+		this.matrixController.move('z', coordinates, (1000-this.imageCenter.getZ())/2);
 	}
 	calculateCenter(coordinates) {
 		let x = (coordinates[0].getX() + coordinates[1].getX() + coordinates[2].getX() + coordinates[3].getX()) / 4;
