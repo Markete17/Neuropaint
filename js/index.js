@@ -1,4 +1,3 @@
-$("html, body").animate({ scrollTop: 0 }, "slow");
 var zoom = 100;
 var svg;
 var timeout;

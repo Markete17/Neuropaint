@@ -101,11 +101,7 @@ function updatePreview(content) {
 		$('#svg').css('color', "");
 		$('#svg').css('font-size', "");
 		$('#preview').css('border', '2px solid #1b6181');
-		$('text').css("fill", layerController.getDrawSettings().getFont().getFont_color());
-		$('text').css("font-size", layerController.getDrawSettings().getFont().getFont_size());
-		$('text').css("font-family", layerController.getDrawSettings().getFont().getFont_family());
 		svg = $("svg").svgPanZoom(
-
 			options = {
 				initialViewBox: { // the initial viewBox, if null or undefined will try to use the viewBox set in the svg tag. Also accepts string in the format "X Y Width Height"
 				x: 0, // the top-left corner X coordinate
@@ -1438,14 +1434,14 @@ class SvgController {
 	}
 	drawText(cube) {
 		let svg = '';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
-		svg += '\t\t<text style=\'fill:' + this.drawSettings.getFont().getFont_color() + ';font-family:' + this.drawSettings.getFont().getFont_family() + ';font-size:' + this.drawSettings.getFont().getFont_size() + '\' x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getZ()) + '</text>\n';
+		svg += '\t\t<text font-size="'+this.drawSettings.getFont().getFont_size()+'" font-family="'+this.drawSettings.getFont().getFont_family()+'" fill="'+this.drawSettings.getFont().getFont_color()+'"  x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[6].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[4].getY() + cube.getCoordinates()[6].getY()) / 2 + '\'>' + (cube.getY()) + '</text>\n';
+		svg += '\t\t<text font-size="'+this.drawSettings.getFont().getFont_size()+'" font-family="'+this.drawSettings.getFont().getFont_family()+'" fill="'+this.drawSettings.getFont().getFont_color()+'" x=\'' + ((cube.getCoordinates()[6].getX() + cube.getCoordinates()[7].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[6].getY() + cube.getCoordinates()[7].getY()) / 2 + '\'>' + (cube.getX()) + '</text>\n';
+		svg += '\t\t<text font-size="'+this.drawSettings.getFont().getFont_size()+'" font-family="'+this.drawSettings.getFont().getFont_family()+'" fill="'+this.drawSettings.getFont().getFont_color()+'" x=\'' + ((cube.getCoordinates()[4].getX() + cube.getCoordinates()[0].getX()) / 2) + '\' y=\'' + (cube.getCoordinates()[0].getY() + cube.getCoordinates()[4].getY()) / 2 + '\'>' + (cube.getZ()) + '</text>\n';
 		return svg;
 
 	}
 	drawTextPyramid(pyramid, kernel) {
-		return "\t\t<text style=\"fill:" + this.drawSettings.getFont().getFont_color() + ";font-family:" + this.drawSettings.getFont().getFont_family() + ";font-size:" + this.drawSettings.getFont().getFont_size() + "\" " + "x=\"" + ((pyramid.getCoordinates()[0].getX() + pyramid.getCoordinates()[1].getX() + pyramid.getVertex().getX()) / 3) + "\" y=\"" + (pyramid.getCoordinates()[0].getY() + (pyramid.getVertex().getY() - 7)) / 2 + "\" " + ">" + "[" + (kernel.getX()) + "," + (kernel.getY()) + "]" + "</text>\n";
+		return '\t\t<text font-size="'+this.drawSettings.getFont().getFont_size()+'" font-family="'+this.drawSettings.getFont().getFont_family()+'" fill="'+this.drawSettings.getFont().getFont_color()+'"'+" x=\"" + ((pyramid.getCoordinates()[0].getX() + pyramid.getCoordinates()[1].getX() + pyramid.getVertex().getX()) / 3) + "\" y=\"" + (pyramid.getCoordinates()[0].getY() + (pyramid.getVertex().getY() - 7)) / 2 + "\" " + ">" + "[" + (kernel.getX()) + "," + (kernel.getY()) + "]" + "</text>\n";
 	}
 	drawPyramid(pyramid, kernel) {
 		let svg = '';
