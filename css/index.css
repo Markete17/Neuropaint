@@ -983,7 +983,7 @@ a.button {
     left: 0;
     margin-left: 30.5%;
     top: 0;
-    z-index: 999;
+    z-index: 900;
 }
 
 .dropdown {
