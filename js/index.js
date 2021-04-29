@@ -6,6 +6,7 @@ var speed = 100;
 $(function () {
     loadInputs();
     loadMenu();
+    $("html,body").animate({scrollTop: 0},"slow");
 });
 function loadInputs() {
     let inputsColor = ['--cubeColor', '--kernelColor', '--denseColor', '--pyramidColor',
