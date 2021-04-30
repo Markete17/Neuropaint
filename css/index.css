@@ -853,7 +853,7 @@ a.button {
 }
 
 .accordion-toggle.active-tab {
-    background: rgb(68, 128, 206);
+    background: rgb(99, 181, 228);
     transition: all 0.3s ease;
 }
 
