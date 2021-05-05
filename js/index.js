@@ -189,7 +189,7 @@ function openFile() {
         fr.onload = function () {
             if (fileValidation()) {
                 cm.setValue(this.result);
-
+                updatePreview(cm.getValue());
             }
         }
         fr.readAsText(this.files[0]);
