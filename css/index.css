@@ -809,6 +809,9 @@ a.button {
 .social-media-container {
     margin-left: 10%;
 }
+.social-media-container p{
+    margin-left: 3%;
+}
 
 .accordion-toggle, .accordion-content {
     cursor: pointer;

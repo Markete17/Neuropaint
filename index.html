@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
-<title>Neuropaint</title>
-<meta name="google" content="notranslate">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="utf-8">
-
+<html lang="en">
 <head>
+    <title>Neuropaint</title>
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="css/00-codemirror.css">
     <script src="js/codemirror.js"></script>
     <script src="js/active-line.js"></script>
@@ -18,7 +17,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type="image/png" href="images/favicon.PNG" />
 </head>
-
 <body>
     <div id="menu-container">
         <div class="banner" id="menu-wrapper">
@@ -26,13 +24,14 @@
             <!-- hamburger-menu -->
         </div>
         <!-- menu-wrapper -->
+        <nav>
         <ul class="menu-list accordion">
-            <li id="nav1" class="toggle accordion-toggle">
+            <li class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">Color Settings</a>
             </li>
             <ul class="menu-submenu accordion-content">
-                <li id="nav1" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Input Layer</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -56,7 +55,7 @@
                         </div>
                     </li>
                 </ul>
-                <li id="nav1" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Convolutional Layer</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -80,7 +79,7 @@
                         </div>
                     </li>
                 </ul>
-                <li id="nav2" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Kernel</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -104,7 +103,7 @@
                         </div>
                     </li>
                 </ul>
-                <li id="nav3" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Flattern Layer</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -128,7 +127,7 @@
                         </div>
                     </li>
                 </ul>
-                <li id="nav4" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Convolution Connection</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -152,7 +151,7 @@
                         </div>
                     </li>
                 </ul>
-                <li id="nav5" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Connector</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -176,7 +175,7 @@
                         </div>
                     </li>
                 </ul>
-                <li id="nav6" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Stroke</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -201,7 +200,7 @@
                     </li>
                 </ul>
             </ul>
-            <li id="nav2" class="toggle accordion-toggle">
+            <li class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">Font Settings</a>
             </li>
@@ -231,7 +230,7 @@
                     </div>
                 </li>
             </ul>
-            <li id="nav2" class="toggle accordion-toggle">
+            <li class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">Rotations Settings</a>
             </li>
@@ -271,7 +270,7 @@
 
                 </li>
             </ul>
-            <li id="nav3" class="toggle accordion-toggle">
+            <li class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">Distance Settings</a>
             </li>
@@ -310,12 +309,12 @@
                     </div>
                 </li>
             </ul>
-            <li id="nav4" class="toggle accordion-toggle">
+            <li class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">Dimension Settings</a>
             </li>
             <ul class="menu-submenu accordion-content">
-                <li id="nav1" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Dimensions Text</a>
                 </li>
                 <ul class="menu-submenu accordion-content2">
@@ -341,7 +340,7 @@
                         </label>
                     </li>
                 </ul>
-                <li id="nav5" class="toggle accordion-toggle2">
+                <li class="toggle accordion-toggle2">
                     <a class="menu-link">Logarithms</a>
 
                 </li>
@@ -368,27 +367,29 @@
                     </li>
                 </ul>
             </ul>
-            <li id="nav6" class="toggle accordion-toggle">
+            <li class="toggle accordion-toggle">
                 <span class="icon-plus"></span>
                 <a class="menu-link">About</a>
             </li>
             <ul class="menu-submenu accordion-content">
                 <div class="social-media-container">
-                    <a href="https://github.com/Markete17" target="_blank" class="icon-button github"><i
+                    <p><b>Author:</b> Marcos Ruiz Muñoz</p>
+                    <a title="GitHub" href="https://github.com/Markete17" target="_blank" class="icon-button github"><i
                             class="fa fa-github"></i><span></span></a>
-                    <a href="https://twitter.com/markete17" target="_blank" class="icon-button twitter"><i
+                    <a title="Twitter" href="https://twitter.com/markete17" target="_blank" class="icon-button twitter"><i
                             class="fa fa-twitter"></i><span></span></a>
-                    <a href="https://www.instagram.com/markete_17/" target="_blank" class="icon-button instagram"><i
+                    <a title="Instagram" href="https://www.instagram.com/markete_17/" target="_blank" class="icon-button instagram"><i
                             class="fa fa-instagram"></i><span></span></a>
-                    <a href="https://www.facebook.com/profile.php?id=100009550702601" target="_blank"
+                    <a title="Facebook" href="https://www.facebook.com/profile.php?id=100009550702601" target="_blank"
                         class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
                 </div>
             </ul>
             <!-- menu-submenu accordon-content-->
         </ul>
+        </nav>
         <!-- menu-list accordion-->
         <div class="editorbuttons">
-            <div><a onclick="saveCode();" class="icon-button save"><i id="btnsave"
+            <div><a title="Save code as a txt file" onclick="saveCode();" class="icon-button save"><i id="btnsave"
                         class="fa fa-save"></i><span></span></a>
             </div>
             <div class="dropdown">
@@ -406,19 +407,19 @@
 
         <div class="zoombuttons">
 
-            <a onclick="zoomIn();" class="icon-button zoom1"><i class="fa fa-search-plus"></i><span></span></a>
+            <a title="Zoom In" onclick="zoomIn();" class="icon-button zoom1"><i class="fa fa-search-plus"></i><span></span></a>
 
-            <a onclick="zoomOut();" class="icon-button zoom2"><i class="fa fa-search-minus"></i><span></span></a>
+            <a title="Zoom Out" onclick="zoomOut();" class="icon-button zoom2"><i class="fa fa-search-minus"></i><span></span></a>
 
-            <a onclick="undo();" class="icon-button undo"><i class="fa fa-undo"></i><span></span></a>
+            <a title="Undo" onclick="undo();" class="icon-button undo"><i class="fa fa-undo"></i><span></span></a>
         </div>
 
         <div class="viewbuttons">
-            <a onclick="saveSVG();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
-            <a onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen"
+            <a title="Save image as a svg file" onclick="saveSVG();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
+            <a title="Open file" onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen"
                     class="fa fa-folder-open"></i><span></span></a>
             <input type="file" name="open" id="openFile">
-            <a onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"
+            <a title="Expand preview" onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"
                     class="fa fa-expand"></i><span></span></a>
         </div>
 
@@ -427,7 +428,7 @@
 
     </div>
     <div class="title">
-        <a href="https://github.com/Markete17/Neurotronik-Web" target="_blank"><img src="images/title.PNG" height="60px" width="250px"></a>
+        <a title="Neuropaint - GitHub project" href="https://github.com/Markete17/Neurotronik-Web" target="_blank"><img src="images/title.PNG" alt="Neurotronik Logo" height="60" width="250"></a>
     </div>
     <br>
     <!-- menu-container -->
