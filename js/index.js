@@ -468,9 +468,9 @@ document.onkeyup = function (e) {
 }
 
 function expandPreview() {
-    var isVisible = $(".editor").is(":visible");
+    var isVisible = $(".paper").is(":visible");
     if (isVisible) {
-        $(".editor").hide("slow");
+        $(".paper").hide("slow");
         $(".editorbuttons").hide("slow");
         $(".dropdown").hide("slow");
         $(".preview").css("width", "100%");
@@ -492,7 +492,7 @@ function expandPreview() {
         svg.setViewBox(0, 0, 2000, 2000, 0);
     }
     else {
-        $(".editor").show("slow");
+        $(".paper").show("slow");
         $(".editorbuttons").show("slow");
         $(".dropdown").show("slow");
         $(".preview").css("width", "70%");

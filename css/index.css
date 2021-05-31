@@ -69,11 +69,9 @@ a.button {
     position: relative;
 }
 
-.editor {
-    padding-bottom: 4em;
+.paper {
     z-index: 0;
 }
-
 .preview #preview {
     height: 100%;
     width: 100%;
@@ -84,8 +82,9 @@ a.button {
 }
 
 @media screen and (min-width: 720px) {
-    .editor {
+    .paper{
         width: 30%;
+        height: 92.5%;
         float: left;
     }
     .preview {
@@ -100,39 +99,21 @@ a.button {
         display: none;
     }
     .dropdown div{
-        display: none;
-    }
-    .editor {
-        float: left;
-    }
-    .preview {
-        float: left;
+        padding-left: 15%;
+        width: 100%;
     }
 }
 
 @media screen and (max-width: 570px) {
-    .viewbuttons a{
-        display: none;
-    }
     .zoombuttons a{
         display: none;
     }
-    .editorbuttons a{
-        display: none;
-    }
-    .editor div{
-        display: none;
-    }
-    .editor {
-        float: left;
-    }
-    .preview {
-        float: left;
-    }
 }
 
-.editor-container {
-    margin-left: 1%;
+@media screen and (max-width:400px) {
+    .viewbuttons a{
+        display: none;
+    }
 }
 
 .preview-container {
@@ -145,11 +126,7 @@ a.button {
 /*Editor Notebook Style*/
 
 .paper {
-    position: absolute;
-    max-width: 800px;
-    min-width: 400px;
-    height: 92%;
-    width: 29.8%;
+    position: relative;
     margin: 0 auto;
     background: #fafafa;
     border-radius: 10px;
@@ -171,7 +148,7 @@ a.button {
 }
 
 .paper-content {
-    position: absolute;
+    position: relative;
     top: 0px;
     right: 0;
     bottom: 20px;
