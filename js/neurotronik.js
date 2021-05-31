@@ -204,7 +204,7 @@ var example = {
 		'model.add(xp1,xp3);\n' +
 		'model.add(x3,xp3);\n\n',
 
-		'/*Example 4: CNN Decoder */\n\n'+
+		'/*Example 4: Decoder CNN */\n\n'+
 		'/* Part 1: Nodes Definition */\n\n'+
 		'var n1 = new Node();\n\n'+
 		''+
@@ -220,11 +220,48 @@ var example = {
 		'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n'+
 		'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n'+
 		'n1.add(Dense(200));\n'+
-		'n1.add(Dense(300));\n'+
+		'n1.add(Dense(300));\n\n'+
 		''+
 		'/* Part 3: Model Definition */\n\n'+
 		''+
-		'model.add(n1);\n'
+		'model.add(n1);\n',
+
+		'/* Example 5: Encoder CNN */\n'+
+		'\n'+
+		'/* Part 1: Nodes Definition */\n'+
+		'\n'+
+		'var n1 = new Node();\n'+
+		'var n2 = new Node();\n'+
+		'var n3 = new Node();\n'+
+		'\n'+
+		'\n'+
+		'/* Part 2: Neural Network */\n'+
+		'\n'+
+		'var n4=n1.add(Conv2D(32,[10,10],[1,1],"same",Input(48,32,10)));\n'+
+		'n1.add(MaxPooling2D([2,2]));\n'+
+		'var n6=n1.add(Conv2D(64,[5,5],[1,1],"same"));\n'+
+		'n1.add(MaxPooling2D([2,2]));\n'+
+		'var n7=n1.add(Conv2D(72,[10,10],[1,1],"same"));\n'+
+		'\n'+
+		'n2.add(Input(48,32,10));\n'+
+		'var n5=n2.add(Conv2D(32,[10,10],[1,1],"same"));\n'+
+		'n2.add(MaxPooling2D([2,2]));\n'+
+		'var n8=n2.add(Conv2D(64,[5,5],[1,1],"same"));\n'+
+		'n2.add(MaxPooling2D([2,2]));\n'+
+		'var n9=n2.add(Conv2D(72,[10,10],[1,1],"same"));\n'+
+		'\n'+
+		'n3.add(Dense(150));\n'+
+		'n3.add(Dense(150));\n'+
+		'\n'+
+		'/* Part 3: Model Definition */\n'+
+		'\n'+
+		'model.add(n3);\n'+
+		'model.add(n1,n3);\n'+
+		'model.add(n2,n3);\n'+
+		'\n'+
+		'model.addEncoder(n4,n5);\n'+
+		'model.addEncoder(n6,n7);\n'+
+		'model.addEncoder(n8,n9);'
 	],
 
 }
@@ -933,41 +970,23 @@ class MatrixController {
 		switch (axis) {
 			case "x":
 				{
-					coordinates[0].setX(coordinates[0].getX() + length);
-					coordinates[1].setX(coordinates[1].getX() + length);
-					coordinates[2].setX(coordinates[2].getX() + length);
-					coordinates[3].setX(coordinates[3].getX() + length);
-					coordinates[4].setX(coordinates[4].getX() + length);
-					coordinates[5].setX(coordinates[5].getX() + length);
-					coordinates[6].setX(coordinates[6].getX() + length);
-					coordinates[7].setX(coordinates[7].getX() + length);
-					coordinates[8].setX(coordinates[8].getX() + length);
+					for(let i=0;i<11;i++){
+						coordinates[i].setX(coordinates[i].getX() + length);
+					}
 					break;
 				}
 			case "y":
 				{
-					coordinates[0].setY(coordinates[0].getY() + length);
-					coordinates[1].setY(coordinates[1].getY() + length);
-					coordinates[2].setY(coordinates[2].getY() + length);
-					coordinates[3].setY(coordinates[3].getY() + length);
-					coordinates[4].setY(coordinates[4].getY() + length);
-					coordinates[5].setY(coordinates[5].getY() + length);
-					coordinates[6].setY(coordinates[6].getY() + length);
-					coordinates[7].setY(coordinates[7].getY() + length);
-					coordinates[8].setY(coordinates[8].getY() + length);
+					for(let i=0;i<11;i++){
+						coordinates[i].setY(coordinates[i].getY() + length);
+					}
 					break;
 				}
 			case "z":
 				{
-					coordinates[0].setZ(coordinates[0].getZ() + length);
-					coordinates[1].setZ(coordinates[1].getZ() + length);
-					coordinates[2].setZ(coordinates[2].getZ() + length);
-					coordinates[3].setZ(coordinates[3].getZ() + length);
-					coordinates[4].setZ(coordinates[4].getZ() + length);
-					coordinates[5].setZ(coordinates[5].getZ() + length);
-					coordinates[6].setZ(coordinates[6].getZ() + length);
-					coordinates[7].setZ(coordinates[7].getZ() + length);
-					coordinates[8].setZ(coordinates[8].getZ() + length);
+					for(let i=0;i<11;i++){
+						coordinates[i].setZ(coordinates[i].getZ() + length);
+					}
 					break;
 				}
 		}
@@ -982,6 +1001,8 @@ class MatrixController {
 		let c6 = this.multiply(this.matrix, coordinates[6].getCoordinateMatrix());
 		let c7 = this.multiply(this.matrix, coordinates[7].getCoordinateMatrix());
 		let c8 = this.multiply(this.matrix, coordinates[8].getCoordinateMatrix());
+		let c9 = this.multiply(this.matrix, coordinates[9].getCoordinateMatrix());
+		let c10 = this.multiply(this.matrix, coordinates[10].getCoordinateMatrix());
 		coordinates[0] = new Coordinate(c0[0][0], c0[1][0], c0[2][0]);
 		coordinates[1] = new Coordinate(c1[0][0], c1[1][0], c1[2][0]);
 		coordinates[2] = new Coordinate(c2[0][0], c2[1][0], c2[2][0]);
@@ -991,6 +1012,8 @@ class MatrixController {
 		coordinates[6] = new Coordinate(c6[0][0], c6[1][0], c6[2][0]);
 		coordinates[7] = new Coordinate(c7[0][0], c7[1][0], c7[2][0]);
 		coordinates[8] = new Coordinate(c8[0][0], c8[1][0], c8[2][0]);
+		coordinates[9] = new Coordinate(c9[0][0], c9[1][0], c9[2][0]);
+		coordinates[10] = new Coordinate(c10[0][0], c10[1][0], c10[2][0]);
 	}
 	multiply(a, b) {
 		var c = (function (dims) {
@@ -1053,6 +1076,12 @@ class Model {
 		jump.push(n2);
 		this.getModelTree().getJumps().push(jump);
 	}
+	addEncoder(n1, n2) {
+		let encoders = new Array();
+		encoders.push(n1);
+		encoders.push(n2);
+		this.getModelTree().getEncoders().push(encoders);
+	}
 }
 
 /*ARROW CLASS*/
@@ -1112,6 +1141,10 @@ class Cube {
 		let x_random = Math.random() * (this.coordinates[5].getX() - this.coordinates[4].getX()) + this.coordinates[4].getX();
 		let y_random = Math.random() * (this.coordinates[6].getY() - this.coordinates[4].getY()) + this.coordinates[4].getY();
 		this.coordinates.push(new Coordinate(x_random, y_random, this.coordinates[4].getZ()));
+
+		//Encoder
+		this.coordinates.push(new Coordinate(0,this.coordinates[0].getY()-50,0));
+		this.coordinates.push(new Coordinate(0, this.coordinates[0].getY(), 0));
 	}
 	getX() {
 		return this.x;
@@ -1172,6 +1205,9 @@ class Node {
 	getCubeList() {
 		return this.cubeList;
 	}
+	setCubeList(cubelist){
+		this.cubeList = cubelist;
+	}
 	getLastCube() {
 		return this.lastCube;
 	}
@@ -1205,11 +1241,22 @@ class Node {
 					throw new Error('There is already an input layer.');
 				}
 			}
-			this.cubeList.push(layerController.Input(new Cube(new Coordinate(input.x, input.y, input.z), layerController.getDrawSettings())));
+			let inputCube = layerController.Input(new Cube(new Coordinate(input.x, input.y, input.z), layerController.getDrawSettings()));
+			this.cubeList.push(inputCube);
 			this.setLast();
 			this.setActualCube(this.getLastCube());
+
+			let node = new Node();
+			let inputCubeList = new Array();
+			inputCubeList.push(inputCube);
+			node.setCubeList(inputCubeList);
+			node.setLastCube(inputCube);
+			node.setActualCube(inputCube);
+			return node;
+		
 		}
 		else if (input instanceof Conv2DLayer || input instanceof Conv2DInputLayer) {
+			let convolutionList = new Array();
 			if (input.input == undefined) {
 				if ((this.getActualCube() == null || this.cubeList.length == 0)) {
 					throw new Error('The node does not have an input layer.');
@@ -1217,7 +1264,7 @@ class Node {
 				if(this.actualCube.isDenseLayer){
 					throw new Error('Can not Conv2D a dense layer.');
 				}
-				Array.prototype.push.apply(this.cubeList, layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube()));
+				convolutionList = layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube());
 			}
 			else {
 				for (let i = 0; i < this.cubeList.length; i++) {
@@ -1225,13 +1272,21 @@ class Node {
 						throw new Error('There is already an input layer.');
 					}
 				}
-				Array.prototype.push.apply(this.cubeList, layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube()));
+				convolutionList = layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube());
 			}
-
+			Array.prototype.push.apply(this.cubeList,convolutionList);
 			this.setLast();
 			this.setActualCube(this.getLastCube());
+
+			let node = new Node();
+			node.setCubeList(convolutionList);
+			node.setLastCube(convolutionList[convolutionList.length-1]);
+			node.setActualCube(node.getLastCube());
+
+			return node;
 		}
 		else if (input instanceof Deconv2DLayer || input instanceof Deconv2DInputLayer) {
+			let deconvolutionList = new Array();
 			if (input.input == undefined) {
 				if ((this.getActualCube() == null || this.cubeList.length == 0)) {
 					throw new Error('The node does not have an input layer.');
@@ -1239,7 +1294,7 @@ class Node {
 				if(this.actualCube.isDenseLayer){
 					throw new Error('Can not Deconv2D a dense layer.');
 				}
-				Array.prototype.push.apply(this.cubeList, layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube()));
+				deconvolutionList = layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube())
 			}
 			else {
 				for (let i = 0; i < this.cubeList.length; i++) {
@@ -1247,11 +1302,19 @@ class Node {
 						throw new Error('There is already an input layer.');
 					}
 				}
-				Array.prototype.push.apply(this.cubeList, layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube()));
+				deconvolutionList = layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube());
 			}
 
+			Array.prototype.push.apply(this.cubeList,deconvolutionList);
 			this.setLast();
 			this.setActualCube(this.getLastCube());
+
+			let node = new Node();
+			node.setCubeList(deconvolutionList);
+			node.setLastCube(deconvolutionList[deconvolutionList.length-1]);
+			node.setActualCube(node.getLastCube());
+
+			return node;
 		}
 		else if (input instanceof MaxPooling2DLayer) {
 			if (this.getActualCube() == null || this.cubeList.length == 0) {
@@ -1270,9 +1333,18 @@ class Node {
 					throw new Error('Could not concatenate because some node has no convolutions or input.');
 				}
 			}
-			this.cubeList.push(layerController.Concatenate(input.nodes));
+			let concatenatedCube = layerController.Concatenate(input.nodes)
+			this.cubeList.push(concatenatedCube);
 			this.setLast();
 			this.setActualCube(this.getLastCube());
+
+			let node = new Node();
+			let concatenatedCubeList = new Array();
+			concatenatedCubeList.push(concatenatedCube);
+			node.setCubeList(concatenatedCubeList);
+			node.setLastCube(concatenatedCube);
+			node.setActualCube(node.getLastCube());
+			return node;
 		}
 	}
 
@@ -1284,6 +1356,7 @@ class NeuralNetworkTree {
 		this.root = null;
 		this.nodes = null;
 		this.jumps = new Array();
+		this.encoders = new Array();
 	}
 	isEmpty() {
 		return (this.root == null);
@@ -1299,6 +1372,9 @@ class NeuralNetworkTree {
 	}
 	getJumps() {
 		return this.jumps;
+	}
+	getEncoders(){
+		return this.encoders;
 	}
 	root() {
 		if (this.root === null) {
@@ -1444,6 +1520,7 @@ class SvgController {
 		}
 		this.drawUnions(modelTree);
 		this.drawJumps(modelTree.getJumps());
+		this.drawEncoders(modelTree.getEncoders());
 		this.drawOrderList.sort((a, b) => (a.getZ() > b.getZ()) ? -1 : 1)
 		this.addHeader();
 		for (let n of this.drawOrderList) {
@@ -1612,6 +1689,21 @@ class SvgController {
 			let lastCube = jump[0].getLastCube();
 			let firstCube = jump[1].getCubeList()[0];
 			this.lineTo(lastCube, firstCube);
+		}
+	}
+	drawEncoders(encoders) {
+		for (let e of encoders) {
+			let cube1= e[0].getLastCube();
+			let cube2 = e[1].getLastCube();
+			
+			let vertex1 = cube1.getCoordinates()[10];
+			let vertex2 = cube1.getCoordinates()[9];
+			let vertex3 = cube2.getCoordinates()[9];
+			let vertex4 = cube2.getCoordinates()[10];
+
+			this.drawArrow(new Arrow(vertex1,vertex2));
+			this.drawArrow(new Arrow(vertex2,vertex3));
+			this.drawArrow(new Arrow(vertex4,vertex3));
 		}
 	}
 	selectColor(cube) {
