@@ -110,7 +110,7 @@ a.button {
     }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:450px) {
     .viewbuttons a{
         display: none;
     }
