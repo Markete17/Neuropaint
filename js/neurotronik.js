@@ -202,7 +202,29 @@ var example = {
 		'model.add(x1,xp1);\n' +
 		'model.add(x2,xp1);\n' +
 		'model.add(xp1,xp3);\n' +
-		'model.add(x3,xp3);\n\n'
+		'model.add(x3,xp3);\n\n',
+
+		'/*Example 4: CNN Decoder */\n\n'+
+		'/* Part 1: Nodes Definition */\n\n'+
+		'var n1 = new Node();\n\n'+
+		''+
+		'/* Part 2: Neural Network */\n\n'+
+		''+
+		'n1.add(Input(72,72,72));\n'+
+		'n1.add(Conv2D(32,[5,5], [1,1], "same"));\n'+
+		'n1.add(Conv2D(64,[5,5],[2,2],"same"));\n'+
+		'n1.add(MaxPooling2D([2,2]));\n'+
+		'n1.add(Conv2D(72,[5,5],[2,2],"same"));\n'+
+		'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n'+
+		'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n'+
+		'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n'+
+		'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n'+
+		'n1.add(Dense(200));\n'+
+		'n1.add(Dense(300));\n'+
+		''+
+		'/* Part 3: Model Definition */\n\n'+
+		''+
+		'model.add(n1);\n'
 	],
 
 }
@@ -500,6 +522,33 @@ class LayerController {
 				return this.Conv2D$6(...args$);
 		}
 	}
+	Deconv2D$5(filters, kernel_size, strides, padding, actualCube) {
+		let cubeList = new Array();
+		let CNNCube = this.createKernel(actualCube.getZ(), kernel_size);
+		cubeList.push(CNNCube);
+		let deconvolution = this.setDeconvolution(filters, kernel_size, strides, padding, actualCube);
+		cubeList.push(deconvolution);
+		return cubeList;
+	}
+	Deconv2D$6(filters, kernel_size, strides, input, padding, actualCube) {
+		let cubeList = new Array();
+		actualCube = new Cube(new Coordinate(input.x, input.y, input.z), this.drawSettings);
+		actualCube.isInputLayer = true;
+		cubeList.push(actualCube);
+		let CNNCube = this.createKernel(actualCube.getZ(), kernel_size);
+		cubeList.push(CNNCube);
+		let deconvolution = this.setDeconvolution(filters, kernel_size, strides, padding, actualCube);
+		cubeList.push(deconvolution);
+		return cubeList;
+	}
+	Deconv2D(...args$) {
+		switch (args$.length) {
+			case 5:
+				return this.Deconv2D$5(...args$);
+			case 6:
+				return this.Deconv2D$6(...args$);
+		}
+	}
 	MaxPooling2D(tuple, actualCube) {
 		return this.setPooling(tuple, actualCube);
 	}
@@ -544,6 +593,24 @@ class LayerController {
 		}
 		return this.setNewDimensions(output_w, output_h, filters);
 	}
+	setDeconvolution(filters, kernel_size, strides, padding, actualCube) {
+		let output_w = actualCube.getX();
+		let output_h = actualCube.getY();
+		if (strides !== null && padding !== null) {
+			if (padding == 'valid') {
+				output_w = (actualCube.getX() - kernel_size.getN1() + 1) * strides.getN1();
+				output_h = (actualCube.getY() - kernel_size.getN2() + 1) * strides.getN2();
+			}
+			else if (padding == 'same') {
+				output_w = (actualCube.getX()) * strides.getN1();
+				output_h = (actualCube.getY()) * strides.getN2();
+			}
+			else {
+				throw new Error("The padding \'" + padding + "\' is not supported.");
+			}
+		}
+		return this.setNewDimensions(output_w, output_h, filters);
+	}
 	createKernel(z, tuple) {
 		let coordinates = new Coordinate(tuple.getN1(), tuple.getN2(), z);
 		let kernel = new Cube(coordinates, this.drawSettings);
@@ -576,6 +643,24 @@ class Conv2DLayer {
 	}
 }
 class Conv2DInputLayer {
+	constructor(filters, kernel_size, strides, padding, input) {
+		this.filters = filters;
+		this.kernel_size = kernel_size;
+		this.strides = strides;
+		this.padding = padding;
+		this.input = input;
+	}
+}
+
+class Deconv2DLayer {
+	constructor(filters, kernel_size, strides, padding) {
+		this.filters = filters;
+		this.kernel_size = kernel_size;
+		this.strides = strides;
+		this.padding = padding;
+	}
+}
+class Deconv2DInputLayer {
 	constructor(filters, kernel_size, strides, padding, input) {
 		this.filters = filters;
 		this.kernel_size = kernel_size;
@@ -649,6 +734,41 @@ function Conv2D(filters, kernel, strides, padding, input) {
 
 	}
 	throw new Error("The Conv2D function is poorly defined: (Invalid number of arguments.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+}
+
+function Deconv2D(filters, kernel, strides, padding, input) {
+	if ((arguments.length == 4 || arguments.length == 5) && kernel.length == 2 && strides.length == 2) {
+		if (arguments.length == 5 && input == undefined) {
+			throw new Error("The Deconv2D function is poorly defined: (Input Missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+		}
+		for (let i = 0; i < kernel.length; i++) {
+			if (kernel[i] == undefined) {
+				throw new Error("The Deconv2D function is poorly defined: (Kernel missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+			}
+			if (kernel[i] <= 0) {
+				throw new Error("The Deconv2D function is poorly defined: (Kernel must have positive numbers.). <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+			}
+		}
+		for (let i = 0; i < strides.length; i++) {
+			if (strides[i] == undefined) {
+				throw new Error("The Deconv2D function is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+			}
+			if (strides[i] <= 0) {
+				throw new Error("The Deconv2D function is poorly defined: (Strides must have positive numbers.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+			}
+		}
+		if (filters <= 0) {
+			throw new Error("The Conv2D function is poorly defined: (Filters must be a positive number.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+		}
+		if (input == undefined) {
+			return new Deconv2DLayer(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
+		}
+		else {
+			return new Deconv2DInputLayer(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding, input);
+		}
+
+	}
+	throw new Error("The Deconv2D function is poorly defined: (Invalid number of arguments.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
 }
 
 function MaxPooling2D(tuple) {
@@ -1079,7 +1199,7 @@ class Node {
 		this.actualCube = cube;
 	}
 	add(input) {
-		if (input.x != undefined) {
+		if (input instanceof InputLayer) {
 			for (let i = 0; i < this.cubeList.length; i++) {
 				if (this.cubeList[i].isInputLayer) {
 					throw new Error('There is already an input layer.');
@@ -1089,11 +1209,11 @@ class Node {
 			this.setLast();
 			this.setActualCube(this.getLastCube());
 		}
-		else if (input.filters != undefined) {
-			if ((this.getActualCube() == null || this.cubeList.length == 0) && input.input == undefined) {
-				throw new Error('The node does not have an input layer.');
-			}
+		else if (input instanceof Conv2DLayer || input instanceof Conv2DInputLayer) {
 			if (input.input == undefined) {
+				if ((this.getActualCube() == null || this.cubeList.length == 0)) {
+					throw new Error('The node does not have an input layer.');
+				}
 				if(this.actualCube.isDenseLayer){
 					throw new Error('Can not Conv2D a dense layer.');
 				}
@@ -1111,18 +1231,40 @@ class Node {
 			this.setLast();
 			this.setActualCube(this.getLastCube());
 		}
-		else if (input.tuple != undefined) {
+		else if (input instanceof Deconv2DLayer || input instanceof Deconv2DInputLayer) {
+			if (input.input == undefined) {
+				if ((this.getActualCube() == null || this.cubeList.length == 0)) {
+					throw new Error('The node does not have an input layer.');
+				}
+				if(this.actualCube.isDenseLayer){
+					throw new Error('Can not Deconv2D a dense layer.');
+				}
+				Array.prototype.push.apply(this.cubeList, layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube()));
+			}
+			else {
+				for (let i = 0; i < this.cubeList.length; i++) {
+					if (this.cubeList[i].isInputLayer) {
+						throw new Error('There is already an input layer.');
+					}
+				}
+				Array.prototype.push.apply(this.cubeList, layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube()));
+			}
+
+			this.setLast();
+			this.setActualCube(this.getLastCube());
+		}
+		else if (input instanceof MaxPooling2DLayer) {
 			if (this.getActualCube() == null || this.cubeList.length == 0) {
 				throw new Error('The node does not have an input layer.');
 			}
 			this.setActualCube(layerController.MaxPooling2D(input.tuple, this.getActualCube()));
 		}
-		else if (input.vector != undefined) {
+		else if (input instanceof DenseLayer) {
 			this.cubeList.push(layerController.Dense(input.vector));
 			this.setLast();
 			this.setActualCube(this.getLastCube());
 		}
-		else if (input.nodes != undefined) {
+		else if (input instanceof ConcatenateLayer) {
 			for (let i = 0; i < input.nodes.length; i++) {
 				if (input.nodes[i].cubeList.length == 0) {
 					throw new Error('Could not concatenate because some node has no convolutions or input.');

@@ -28,7 +28,7 @@
 
       return {
         "if": kw("if"), "while": A,
-        "Input": A, "Conv2D": A, "Concatenate": A, "Dense": A, "MaxPooling2D": A, "Node": atom, "DenseLayer": A, "model": atom,
+        "Input": A, "Conv2D": A, "Deconv2D":A, "Concatenate": A, "Dense": A, "MaxPooling2D": A, "Node": atom, "DenseLayer": A, "model": atom,
         "with": A, "else": B, "do": B, "try": B, "finally": B,
         "return": D, "break": D, "continue": D, "new": kw("new"), "delete": C, "void": C, "throw": C,
         "debugger": kw("debugger"), "var": kw("var"), "const": kw("var"), "let": kw("var"),
