@@ -102,6 +102,9 @@ a.button {
         padding-left: 15%;
         width: 100%;
     }
+}
+
+@media screen and (max-width: 700px) {
     .zoombuttons a{
         display: none;
     }
