@@ -202,7 +202,7 @@ var example = {
         'model.add(xp1,xp3);\n' +
         'model.add(x3,xp3);\n\n',
 
-        '/*Example 4: Decoder CNN */\n\n' +
+        '/*Example 4: Encoder-Decoder*/\n\n' +
         '/* Part 1: Nodes Definition */\n\n' +
         'var n1 = new Node();\n\n' +
         '' +
@@ -224,7 +224,7 @@ var example = {
         '' +
         'model.add(n1);\n',
 
-        '/* Example 5: Encoder CNN */\n' +
+        '/* Example 5: ResNet */\n' +
         '\n' +
         '/* Part 1: Nodes Definition */\n' +
         '\n' +
