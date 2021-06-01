@@ -142,7 +142,7 @@ a.button {
     top: 0;
     bottom: 0;
     left: 0;
-    width: 60px;
+    width: 40px;
     background: radial-gradient(#575450 6px, transparent 7px) repeat-y;
     background-size: 30px 30px;
     border-right: 3px solid #D44147;
@@ -154,7 +154,7 @@ a.button {
     top: 0px;
     right: 0;
     bottom: 20px;
-    left: 60px;
+    left: 40px;
     height: 100%;
 }
 
