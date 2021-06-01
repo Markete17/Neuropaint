@@ -228,26 +228,32 @@ var example = {
         '\n' +
         '/* Part 1: Nodes Definition */\n' +
         '\n' +
-        'var n1 = new Node();\n' +
+        'var n1 = new Node();' +
         'var n2 = new Node();\n' +
-        'var n3 = new Node();\n' +
+        'var n3 = new Node();' +
+        'var n4 = new Node();\n' +
+        'var n5 = new Node();' +
+        'var n6 = new Node();\n' +
+        'var n7 = new Node();' +
+        'var n8 = new Node();\n' +
+        'var n9 = new Node();' +
         '\n' +
         '\n' +
         '/* Part 2: Neural Network */\n' +
         '\n' +
         'n1.add(Input(48,32,10));\n' +
-        'var n4=n1.add(Conv2D(32,[10,10],[1,1],"same"));\n' +
+        'n4=n1.add(Conv2D(32,[10,10],[1,1],"same"));\n' +
         'n1.add(MaxPooling2D([2,2]));\n' +
-        'var n6=n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' +
+        'n6=n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' +
         'n1.add(MaxPooling2D([2,2]));\n' +
-        'var n7=n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' +
+        'n7=n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' +
         '\n' +
         'n2.add(Input(48,32,10));\n' +
-        'var n5=n2.add(Conv2D(32,[10,10],[1,1],"same"));\n' +
+        'n5=n2.add(Conv2D(32,[10,10],[1,1],"same"));\n' +
         'n2.add(MaxPooling2D([2,2]));\n' +
-        'var n8=n2.add(Conv2D(64,[5,5],[1,1],"same"));\n' +
+        'n8=n2.add(Conv2D(64,[5,5],[1,1],"same"));\n' +
         'n2.add(MaxPooling2D([2,2]));\n' +
-        'var n9=n2.add(Conv2D(72,[10,10],[1,1],"same"));\n' +
+        'n9=n2.add(Conv2D(72,[10,10],[1,1],"same"));\n' +
         '\n' +
         'n3.add(Dense(150));\n' +
         'n3.add(Dense(150));\n' +
