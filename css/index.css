@@ -847,6 +847,10 @@ a.button {
     margin-left: 3%;
 }
 
+.documents-container {
+    margin-left: 25%;
+}
+
 .accordion-toggle,
 .accordion-content {
     cursor: pointer;
@@ -1093,6 +1097,14 @@ a.button {
 
 .github span {
     background-color: #e0741a;
+}
+
+.keras span {
+    background-color: #b60f09;
+}
+
+.book span {
+    background-color: #d6da25;
 }
 
 .zoom1 span {
