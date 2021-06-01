@@ -34,7 +34,17 @@ In Neuropaint you can edit any configuration on the image and the neural network
   - <b>Save Image:</b> You can save your image in an SVG file with the name you want.
   - <b>Open Code:</b> You can load a previously saved code (only .txt file) to continue editing your neural network representation.
   - <b>Expand Preview:</b> You can expand the preview and hide the code editor.
-  
+
+### Zoom Buttons
+
+<p align="center">
+  <a href="https://imgbb.com/"><img src="https://i.ibb.co/Tq24r2h/Captura.png" alt="Zoom Buttons" border="0"></a>
+</p>
+
+  - <b>Zoom In:</b> Zoom in on the image.
+  - <b>Zoom Out:</b> Zoom out on the image.
+  - <b>Reset:</b> Reset the zoom settings.
+
 ### Editor Buttons
 <p align="center">
   <a href="https://imgbb.com/"><img src="https://i.ibb.co/rQzjsZh/Captura.png" alt="Editor Buttons" border="0"></a>
@@ -210,7 +220,7 @@ model.add(x1,xp3);</code></pre>
 <a name="encoder"></a> 
 ### 8. Add Encoder
 <p align="justify">
- You can join any layer of any node to each other
+ You can join any layer of any node to each other.
 </p>
 <pre><code>n1.add(Input(48,32,10));
 n4=n1.add(Conv2D(32,[10,10],[1,1],"same"));
