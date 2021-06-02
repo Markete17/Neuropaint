@@ -757,6 +757,7 @@ a.button {
     margin-left: 15px;
     margin-bottom: 15px;
     margin-top: 5px;
+    z-index: 999;
 }
 
 #menu-wrapper #hamburger-menu span {
