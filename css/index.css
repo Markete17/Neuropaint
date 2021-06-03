@@ -1473,3 +1473,7 @@ a.button {
     content: '';
     background: rgb(99, 181, 228);
 }
+
+path {
+    stroke-linecap: square;
+}
