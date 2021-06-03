@@ -264,9 +264,9 @@ var example = {
         'model.add(n1,n3);\n' +
         'model.add(n2,n3);\n' +
         '\n' +
-        'model.addEncoder(n4,n5);\n' +
-        'model.addEncoder(n6,n7);\n' +
-        'model.addEncoder(n8,n9);'
+        'model.addShortcut(n4,n5);\n' +
+        'model.addShortcut(n6,n7);\n' +
+        'model.addShortcut(n8,n9);\n'
     ],
 
 }
@@ -1074,11 +1074,11 @@ class Model {
         jump.push(n2);
         this.getModelTree().getJumps().push(jump);
     }
-    addEncoder(n1, n2) {
-        let encoders = new Array();
-        encoders.push(n1);
-        encoders.push(n2);
-        this.getModelTree().getEncoders().push(encoders);
+    addShortcut(n1, n2) {
+        let shortcut = new Array();
+        shortcut.push(n1);
+        shortcut.push(n2);
+        this.getModelTree().getShortcuts().push(shortcut);
     }
 }
 
@@ -1140,7 +1140,7 @@ class Cube {
         let y_random = Math.random() * (this.coordinates[6].getY() - this.coordinates[4].getY()) + this.coordinates[4].getY();
         this.coordinates.push(new Coordinate(x_random, y_random, this.coordinates[4].getZ()));
 
-        //Encoder
+        //Shortcut CNN
         this.coordinates.push(new Coordinate(0, this.coordinates[0].getY() - 50, 0));
         this.coordinates.push(new Coordinate(0, this.coordinates[0].getY(), 0));
     }
@@ -1347,7 +1347,7 @@ class NeuralNetworkTree {
         this.root = null;
         this.nodes = null;
         this.jumps = new Array();
-        this.encoders = new Array();
+        this.shortcuts = new Array();
     }
     isEmpty() {
         return (this.root == null);
@@ -1364,8 +1364,8 @@ class NeuralNetworkTree {
     getJumps() {
         return this.jumps;
     }
-    getEncoders() {
-        return this.encoders;
+    getShortcuts() {
+        return this.shortcuts;
     }
     root() {
         if (this.root === null) {
@@ -1511,7 +1511,7 @@ class SvgController {
         }
         this.drawUnions(modelTree);
         this.drawJumps(modelTree.getJumps());
-        this.drawEncoders(modelTree.getEncoders());
+        this.drawShortcuts(modelTree.getShortcuts());
         this.drawOrderList.sort((a, b) => (a.getZ() > b.getZ()) ? -1 : 1)
         this.addHeader();
         for (let n of this.drawOrderList) {
@@ -1682,10 +1682,10 @@ class SvgController {
             this.lineTo(lastCube, firstCube);
         }
     }
-    drawEncoders(encoders) {
-        for (let e of encoders) {
-            let cube1 = e[0].getLastCube();
-            let cube2 = e[1].getLastCube();
+    drawShortcuts(shortcuts) {
+        for (let shortcut of shortcuts) {
+            let cube1 = shortcut[0].getLastCube();
+            let cube2 = shortcut[1].getLastCube();
 
             let vertex1 = cube1.getCoordinates()[10];
             let vertex2 = cube1.getCoordinates()[9];
