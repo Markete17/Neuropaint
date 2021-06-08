@@ -106,7 +106,7 @@ In the upper left corner, you will find a button to access the menu with which y
 5. [MaxPooling2D](#maxpooling2d)
 6. [Dense](#dense)
 7. [Concatenate](#concatenate)
-8. [AddEncoder](#encoder)
+8. [AddShortcut](#shortcut)
 
 <a name="declarations"></a>
 ### 1. Declarations
@@ -217,8 +217,8 @@ model.add(x1,xp3);</code></pre>
   <a href="https://imgbb.com/"><img src="https://i.ibb.co/VHdybJ2/Captura.png" alt="Concatenate" border="0"></a>
 </p>
 
-<a name="encoder"></a> 
-### 8. Add Encoder
+<a name="shortcut"></a> 
+### 8. Add Shortcut
 <p align="justify">
  You can join any layer of any node to each other.
 </p>
@@ -240,11 +240,11 @@ In the model:
 <pre><code>model.add(n3);
 model.add(n1,n3);
 model.add(n2,n3);
-model.addEncoder(n4,n5);
-model.addEncoder(n6,n7);
-model.addEncoder(n8,n9);
+model.addShortcut(n4,n5);
+model.addShortcut(n6,n7);
+model.addShortcut(n8,n9);
 </code></pre>
 
 <p align="center">
-  <a href="https://ibb.co/F6SJsBv"><img src="https://i.ibb.co/rkCMbZP/Captura.png" alt="Encoder" border="0"></a>
+  <a href="https://ibb.co/F6SJsBv"><img src="https://i.ibb.co/rkCMbZP/Captura.png" alt="Shortcut" border="0"></a>
 </p>
