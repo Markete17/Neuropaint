@@ -216,9 +216,7 @@ var example = {
         'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n' +
         'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n' +
         'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n' +
-        'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n' +
-        'n1.add(Dense(200));\n' +
-        'n1.add(Dense(300));\n\n' +
+        'n1.add(Deconv2D(72,[5,5],[2,2],"same"));\n\n' +
         '' +
         '/* Part 3: Model Definition */\n\n' +
         '' +
