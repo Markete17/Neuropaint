@@ -200,6 +200,7 @@ var example = {
         'model.add(x1,xp1);\n' +
         'model.add(x2,xp1);\n' +
         'model.add(xp1,xp3);\n' +
+        'model.add(x2,xp3);\n'+
         'model.add(x3,xp3);\n\n',
 
         '/*Example 4: Encoder-Decoder*/\n\n' +
@@ -1194,7 +1195,7 @@ class Node {
     constructor() {
         this.cubeList = new Array();
         this.lastCube = null;
-        this.parent = null;
+        this.parent = new Array();
         this.children = new Array();
         this.actualCube = null;
     }
@@ -1215,14 +1216,14 @@ class Node {
             this.setLastCube(this.cubeList[this.getCubeList().length - 1]);
         }
     }
-    setParent(parent) {
-        this.parent = parent;
+    setParents(parents) {
+        this.parents = parents;
     }
     getChildren() {
         return this.children;
     }
-    getParent() {
-        return this.parent;
+    getParents() {
+        return this.parents;
     }
     getActualCube() {
         return this.actualCube;
@@ -1381,7 +1382,10 @@ class NeuralNetworkTree {
     }
     add(child, parent) {
         parent.getChildren().push(child);
-        child.setParent(parent);
+        if(child.getParents()==null){
+            child.setParents(new Array());
+        }
+        child.getParents().push(parent);
     }
     levels(node, maxDepth) {
         if (node !== null) {
@@ -1390,7 +1394,7 @@ class NeuralNetworkTree {
                     this.nodes[maxDepth - 1].push(node);
                 }
             } else {
-                let level = this.level(node);
+                let level = this.level(node,0);
                 if (!this.nodes[level].includes(node)) {
                     this.nodes[level].push(node);
                 }
@@ -1410,13 +1414,15 @@ class NeuralNetworkTree {
         }
         return 1 + Math.max(max, 0);
     }
-    level(node) {
-        let l = 0;
-        while (!this.isParent(node)) {
-            node = node.getParent();
-            l++;
+    level(node,level) {
+        if(node.getParents()!=null) {
+            level++;
+            for (let i=0;i<node.getParents().length;i++){
+                let parent = node.getParents()[i];
+                level = Math.max(level,this.level(parent,level));
+            }
         }
-        return l;
+        return level;
     }
     greaterDepthChild(children) {
         let max = Number.MIN_VALUE;
@@ -1450,9 +1456,6 @@ class NeuralNetworkTree {
             }
         }
         return firstChild;
-    }
-    isParent(node) {
-        return node.getParent() === null;
     }
     check() {
         for (let nodes of this.getNodes()) {
