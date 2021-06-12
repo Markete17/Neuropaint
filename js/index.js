@@ -372,7 +372,13 @@ function reset(...args) {
             fonts.index = 0;
         } else {
             //Color Settings
-            $('#input' + (args[0] + 1)).val(0.5);
+            if(args[0]==11){
+                $('#input' + (args[0] + 1)).val(0.3);
+            }
+            else{
+                $('#input' + (args[0] + 1)).val(0.5);
+            }
+            
         }
 
     }
