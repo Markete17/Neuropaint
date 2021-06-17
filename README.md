@@ -81,7 +81,7 @@ In the upper left corner, you will find a button to access the menu with which y
   <br>
   <a href="https://imgbb.com/"><img src="https://i.ibb.co/xgk0FSc/Captura.png" alt="Distance Settings" border="0"></a>
 </p>
- - <b>Dimension Settings:</b> You can show or hide the size of the layers and also activate or deactivate algorithms in the dimension.
+ - <b>Dimension Settings:</b> You can show or hide the size of the layers and also activate or deactivate logarithms in the dimension to scale the image.
  <p align="center">
   <br>
   <a href="https://imgbb.com/"><img src="https://i.ibb.co/6vtQpg2/Captura.png" alt="Dimension Text" border="0"></a>
