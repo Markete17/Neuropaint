@@ -1,5 +1,9 @@
+<!-- Neuropaint:  is a website for creating representations of neural networks of all kinds. It has a user interface with which you can edit and configure everything.-->
+<!-- Author: Marcos Ruiz Muñoz -->
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head -->
 
 <head>
     <title>Neuropaint</title>
@@ -19,11 +23,13 @@
     <link rel="shortcut icon" type="image/png" href="images/favicon.PNG" />
 </head>
 
+<!-- Body -->
+
 <body>
     <div id="menu-container">
         <div class="banner" id="menu-wrapper">
-            <div id="hamburger-menu"><span></span><span></span><span></span></div>
             <!-- hamburger-menu -->
+            <div id="hamburger-menu"><span></span><span></span><span></span></div>
         </div>
         <!-- menu-wrapper -->
         <nav>
@@ -45,7 +51,9 @@
                             <div class="color-opacity">
                                 <div class="opacity">
                                     <span class="radiotitle">Opacity</span>
-                                    <div class="input-number-decrement" onclick="decrement(16);">–</div><input onblur="checkInputNumber(16);" class="input-number" id="input16" name="input16" type="text" value="0.5" min="0" max="1">
+                                    <div class="input-number-decrement" onclick="decrement(16);">–</div><input
+                                        onblur="checkInputNumber(16);" class="input-number" id="input16" name="input16"
+                                        type="text" value="0.5" min="0" max="1">
                                     <div class="input-number-increment" onclick="increment(16);">+</div>
                                 </div>
                             </div>
@@ -67,7 +75,9 @@
                             <div class="color-opacity">
                                 <div class="opacity">
                                     <span class="radiotitle">Opacity</span>
-                                    <div class="input-number-decrement" onclick="decrement(2);">–</div><input onblur="checkInputNumber(2);" class="input-number" id="input2" name="input2" type="text" value="0.5" min="0" max="1">
+                                    <div class="input-number-decrement" onclick="decrement(2);">–</div><input
+                                        onblur="checkInputNumber(2);" class="input-number" id="input2" name="input2"
+                                        type="text" value="0.5" min="0" max="1">
                                     <div class="input-number-increment" onclick="increment(2);">+</div>
                                 </div>
                             </div>
@@ -89,7 +99,9 @@
                             <div class="color-opacity">
                                 <div class="opacity">
                                     <span class="radiotitle">Opacity</span>
-                                    <div class="input-number-decrement" onclick="decrement(4);">–</div><input onblur="checkInputNumber(4);" class="input-number" id="input4" name="input4" type="text" value="0.5" min="0" max="1">
+                                    <div class="input-number-decrement" onclick="decrement(4);">–</div><input
+                                        onblur="checkInputNumber(4);" class="input-number" id="input4" name="input4"
+                                        type="text" value="0.5" min="0" max="1">
                                     <div class="input-number-increment" onclick="increment(4);">+</div>
                                 </div>
                             </div>
@@ -111,7 +123,9 @@
                             <div class="color-opacity">
                                 <div class="opacity">
                                     <span class="radiotitle">Opacity</span>
-                                    <div class="input-number-decrement" onclick="decrement(6);">–</div><input onblur="checkInputNumber(6);" class="input-number" id="input6" name="input6" type="text" value="0.5" min="0" max="1">
+                                    <div class="input-number-decrement" onclick="decrement(6);">–</div><input
+                                        onblur="checkInputNumber(6);" class="input-number" id="input6" name="input6"
+                                        type="text" value="0.5" min="0" max="1">
                                     <div class="input-number-increment" onclick="increment(6);">+</div>
                                 </div>
                             </div>
@@ -133,7 +147,9 @@
                             <div class="color-opacity">
                                 <div class="opacity">
                                     <span class="radiotitle">Opacity</span>
-                                    <div class="input-number-decrement" onclick="decrement(8);">–</div><input onblur="checkInputNumber(8);" class="input-number" id="input8" name="input8" type="text" value="0.5" min="0" max="1">
+                                    <div class="input-number-decrement" onclick="decrement(8);">–</div><input
+                                        onblur="checkInputNumber(8);" class="input-number" id="input8" name="input8"
+                                        type="text" value="0.5" min="0" max="1">
                                     <div class="input-number-increment" onclick="increment(8);">+</div>
                                 </div>
                             </div>
@@ -155,7 +171,9 @@
                             <div class="color-opacity">
                                 <div class="opacity">
                                     <span class="radiotitle">Opacity</span>
-                                    <div class="input-number-decrement" onclick="decrement(10);">–</div><input onblur="checkInputNumber(10);" class="input-number" id="input10" name="input10" type="text" value="0.5" min="0" max="1">
+                                    <div class="input-number-decrement" onclick="decrement(10);">–</div><input
+                                        onblur="checkInputNumber(10);" class="input-number" id="input10" name="input10"
+                                        type="text" value="0.5" min="0" max="1">
                                     <div class="input-number-increment" onclick="increment(10);">+</div>
                                 </div>
                             </div>
@@ -177,7 +195,9 @@
                             <div class="color-opacity">
                                 <div class="opacity">
                                     <span class="radiotitle">Width</span>
-                                    <div class="input-number-decrement" onclick="decrement(12);">–</div><input onblur="checkInputNumber(12);" class="input-number" id="input12" name="input12" type="text" value="0.3" min="0" max="1">
+                                    <div class="input-number-decrement" onclick="decrement(12);">–</div><input
+                                        onblur="checkInputNumber(12);" class="input-number" id="input12" name="input12"
+                                        type="text" value="0.3" min="0" max="1">
                                     <div class="input-number-increment" onclick="increment(12);">+</div>
                                 </div>
                             </div>
@@ -201,13 +221,16 @@
                         <div class="color-opacity">
                             <div class="opacity">
                                 <span class="radiotitle">Size</span>
-                                <div id="decrement14" class="input-number-decrement">–</div><input onblur="checkInputNumber(14);" class="input-number" id="input14" name="input14" type="text" value="6" min="0" max="15">
+                                <div id="decrement14" class="input-number-decrement">–</div><input
+                                    onblur="checkInputNumber(14);" class="input-number" id="input14" name="input14"
+                                    type="text" value="6" min="0" max="15">
                                 <div id="increment14" class="input-number-increment">+</div>
                             </div>
                         </div>
                         <div class="button-distance">
                             <span class="radiotitle">Font Family</span>
-                            <button type="button" onclick="toggleButton();" class="btn btn-default btn-md btn3d" id="fontButton">Calibri</button>
+                            <button type="button" onclick="toggleButton();" class="btn btn-default btn-md btn3d"
+                                id="fontButton">Calibri</button>
                         </div>
                         <br>
                         <div class="reset-div2">
@@ -224,21 +247,27 @@
                         <div class="rangediv">
                             <div>
                                 <span class="radiotitle">X-Axis</span>
-                                <div id="decrement17" class="input-number-decrement">–</div><input onblur="checkInputNumber(17);" class="input-number" id="input17" name="input17" type="text" value="30" min="-360" max="360">
+                                <div id="decrement17" class="input-number-decrement">–</div><input
+                                    onblur="checkInputNumber(17);" class="input-number" id="input17" name="input17"
+                                    type="text" value="30" min="-360" max="360">
                                 <div id="increment17" class="input-number-increment">+</div>
 
                             </div>
                             <br>
                             <div>
                                 <span class="radiotitle">Y-Axis</span>
-                                <div id="decrement18" class="input-number-decrement">–</div><input onblur="checkInputNumber(18);" class="input-number" id="input18" name="input18" type="text" value="60" min="-360" max="360">
+                                <div id="decrement18" class="input-number-decrement">–</div><input
+                                    onblur="checkInputNumber(18);" class="input-number" id="input18" name="input18"
+                                    type="text" value="60" min="-360" max="360">
                                 <div id="increment18" class="input-number-increment">+</div>
 
                             </div>
                             <br>
                             <div>
                                 <span class="radiotitle">Z-Axis</span>
-                                <div id="decrement19" class="input-number-decrement">–</div><input onblur="checkInputNumber(19);" class="input-number" id="input19" name="input19" type="text" value="0" min="-360" max="360">
+                                <div id="decrement19" class="input-number-decrement">–</div><input
+                                    onblur="checkInputNumber(19);" class="input-number" id="input19" name="input19"
+                                    type="text" value="0" min="-360" max="360">
                                 <div id="increment19" class="input-number-increment">+</div>
                             </div>
                         </div>
@@ -258,21 +287,27 @@
                         <div class="rangediv">
                             <div>
                                 <span class="radiotitle">Nodes</span>
-                                <div id="decrement20" class="input-number-decrement">–</div><input onblur="checkInputNumber(20);" class="input-number" id="input20" name="input20" type="text" value="50" min="0" max="250">
+                                <div id="decrement20" class="input-number-decrement">–</div><input
+                                    onblur="checkInputNumber(20);" class="input-number" id="input20" name="input20"
+                                    type="text" value="50" min="0" max="250">
                                 <div id="increment20" class="input-number-increment">+</div>
 
                             </div>
                             <br>
                             <div>
                                 <span class="radiotitle">Layers</span>
-                                <div id="decrement21" class="input-number-decrement">–</div><input onblur="checkInputNumber(21);" class="input-number" id="input21" name="input21" type="text" value="50" min="0" max="250">
+                                <div id="decrement21" class="input-number-decrement">–</div><input
+                                    onblur="checkInputNumber(21);" class="input-number" id="input21" name="input21"
+                                    type="text" value="50" min="0" max="250">
                                 <div id="increment21" class="input-number-increment">+</div>
 
                             </div>
                             <br>
                             <div>
                                 <span class="radiotitle">Parent</span>
-                                <div id="decrement22" class="input-number-decrement">–</div><input onblur="checkInputNumber(22);" class="input-number" id="input22" name="input22" type="text" value="50" min="0" max="250">
+                                <div id="decrement22" class="input-number-decrement">–</div><input
+                                    onblur="checkInputNumber(22);" class="input-number" id="input22" name="input22"
+                                    type="text" value="50" min="0" max="250">
                                 <div id="increment22" class="input-number-increment" onclick="increment(22);">+</div>
                             </div>
                         </div>
@@ -294,23 +329,24 @@
                         <li>
                             <p class="radiotitle">Cube Dimensions</p>
                             <label>
-                            <input type="radio" class="option-input radio" name="cubedimensions" value="true" checked />
-                            Activate
-                        </label>
+                                <input type="radio" class="option-input radio" name="cubedimensions" value="true"
+                                    checked />
+                                Activate
+                            </label>
                             <label>
-                            <input type="radio" class="option-input radio" name="cubedimensions" value="false" />
-                            Desactivate
-                        </label>
+                                <input type="radio" class="option-input radio" name="cubedimensions" value="false" />
+                                Desactivate
+                            </label>
                             <p class="radiotitle">Kernel Dimensions</p>
                             <label>
-                            <input type="radio" class="option-input radio" name="kerneldimensions" value="true"
-                                checked />
-                            Activate
-                        </label>
+                                <input type="radio" class="option-input radio" name="kerneldimensions" value="true"
+                                    checked />
+                                Activate
+                            </label>
                             <label>
-                            <input type="radio" class="option-input radio" name="kerneldimensions" value="false" />
-                            Desactivate
-                        </label>
+                                <input type="radio" class="option-input radio" name="kerneldimensions" value="false" />
+                                Desactivate
+                            </label>
                         </li>
                     </ul>
                     <li class="toggle accordion-toggle2">
@@ -321,22 +357,22 @@
                         <li>
                             <p class="radiotitle">Width Logs</p>
                             <label>
-                            <input type="radio" class="option-input radio" name="widthlogs" value="true" />
-                            Activate
-                        </label>
+                                <input type="radio" class="option-input radio" name="widthlogs" value="true" />
+                                Activate
+                            </label>
                             <label>
-                            <input type="radio" class="option-input radio" name="widthlogs" value="false" checked />
-                            Desactivate
-                        </label>
+                                <input type="radio" class="option-input radio" name="widthlogs" value="false" checked />
+                                Desactivate
+                            </label>
                             <p class="radiotitle">Depth Logs</p>
                             <label>
-                            <input type="radio" class="option-input radio" name="depthlogs" value="true" />
-                            Activate
-                        </label>
+                                <input type="radio" class="option-input radio" name="depthlogs" value="true" />
+                                Activate
+                            </label>
                             <label>
-                            <input type="radio" class="option-input radio" name="depthlogs" value="false" checked />
-                            Desactivate
-                        </label>
+                                <input type="radio" class="option-input radio" name="depthlogs" value="false" checked />
+                                Desactivate
+                            </label>
                         </li>
                     </ul>
                 </ul>
@@ -346,10 +382,10 @@
                 </li>
                 <ul class="menu-submenu accordion-content">
                     <div class="documents-container">
-                        <a title="ReadMe" href="https://github.com/Markete17/Neuropaint#readme" target="_blank" class="icon-button book"><i
-                            class="fa fa-book"></i><span></span></a>
+                        <a title="ReadMe" href="https://github.com/Markete17/Neuropaint#readme" target="_blank"
+                            class="icon-button book"><i class="fa fa-book"></i><span></span></a>
                         <a title="Keras" href="https://keras.io/api/" target="_blank" class="icon-button keras"><i
-                            class="fa fa-keras">K</i><span></span></a>
+                                class="fa fa-keras">K</i><span></span></a>
                     </div>
                 </ul>
                 <li class="toggle accordion-toggle">
@@ -358,17 +394,18 @@
                 </li>
                 <ul class="menu-submenu accordion-content">
                     <div class="social-media-container">
-                        <p><b>Author:</b> Marcos Ruiz Muñoz</p>
-                        <p><b>Tutor:</b> José Francisco Vélez Serrano</p>
-                        <p><b>University</b> Universidad Rey Juan Carlos</p>
-                        <p><b>GitHub:</b> @Markete17</p>
-                        <a title="GitHub" href="https://github.com/Markete17" target="_blank" class="icon-button github"><i
-                            class="fa fa-github"></i><span></span></a>
-                        <a title="Twitter" href="https://twitter.com/markete17" target="_blank" class="icon-button twitter"><i
-                            class="fa fa-twitter"></i><span></span></a>
-                        <a title="Instagram" href="https://www.instagram.com/markete_17/" target="_blank" class="icon-button instagram"><i
-                            class="fa fa-instagram"></i><span></span></a>
-                        <a title="Facebook" href="https://www.facebook.com/profile.php?id=100009550702601" target="_blank" class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
+                        <p><strong>Author:</strong> Marcos Ruiz Muñoz</p>
+                        <p><strong>Tutor:</strong> José Francisco Vélez Serrano</p>
+                        <p><strong>University</strong> Universidad Rey Juan Carlos</p>
+                        <p><strong>GitHub:</strong> @Markete17</p>
+                        <a title="GitHub" href="https://github.com/Markete17" target="_blank"
+                            class="icon-button github"><i class="fa fa-github"></i><span></span></a>
+                        <a title="Twitter" href="https://twitter.com/markete17" target="_blank"
+                            class="icon-button twitter"><i class="fa fa-twitter"></i><span></span></a>
+                        <a title="Instagram" href="https://www.instagram.com/markete_17/" target="_blank"
+                            class="icon-button instagram"><i class="fa fa-instagram"></i><span></span></a>
+                        <a title="Facebook" href="https://www.facebook.com/profile.php?id=100009550702601"
+                            target="_blank" class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
                     </div>
                 </ul>
                 <!-- menu-submenu accordon-content-->
@@ -398,14 +435,17 @@
 
         <div class="zoombuttons">
 
-            <a title="Zoom In" onclick="zoomIn();" class="icon-button zoom1"><i class="fa fa-search-plus"></i><span></span></a>
+            <a title="Zoom In" onclick="zoomIn();" class="icon-button zoom1"><i
+                    class="fa fa-search-plus"></i><span></span></a>
 
-            <a title="Zoom Out" onclick="zoomOut();" class="icon-button zoom2"><i class="fa fa-search-minus"></i><span></span></a>
+            <a title="Zoom Out" onclick="zoomOut();" class="icon-button zoom2"><i
+                    class="fa fa-search-minus"></i><span></span></a>
 
             <a title="Undo" onclick="undo();" class="icon-button undo"><i class="fa fa-undo"></i><span></span></a>
         </div>
         <div class="viewbuttons">
-            <a title="Save image as a svg file" onclick="saveSVG();" class="icon-button save"><i id="btnsave" class="fa fa-save"></i><span></span></a>
+            <a title="Save image as a svg file" onclick="saveSVG();" class="icon-button save"><i id="btnsave"
+                    class="fa fa-save"></i><span></span></a>
             <a title="Open file" onclick="openFile();" id="#openFile" class="icon-button openFile"><i id="btnopen"
                     class="fa fa-folder-open"></i><span></span></a>
             <input type="file" name="open" id="openFile">
@@ -418,7 +458,8 @@
 
     </div>
     <div class="title">
-        <a title="Neuropaint - GitHub project" href="https://github.com/Markete17/Neurotronik-Web" target="_blank"><img src="images/title.PNG" alt="Neurotronik Logo" height="60" width="250"></a>
+        <a title="Neuropaint - GitHub project" href="https://github.com/Markete17/Neurotronik-Web" target="_blank"><img
+                src="images/title.PNG" alt="Neurotronik Logo" height="60" width="250"></a>
     </div>
     <br>
     <!-- menu-container -->

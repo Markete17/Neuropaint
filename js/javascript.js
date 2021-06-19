@@ -1,17 +1,17 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
-(function(mod) {
+(function (mod) {
     if (typeof exports == "object" && typeof module == "object") // CommonJS
         mod(require("../../js/codemirror"));
     else if (typeof define == "function" && define.amd) // AMD
         define(["../../js/codemirror"], mod);
     else // Plain browser env
         mod(CodeMirror);
-})(function(CodeMirror) {
+})(function (CodeMirror) {
     "use strict";
 
-    CodeMirror.defineMode("javascript", function(config, parserConfig) {
+    CodeMirror.defineMode("javascript", function (config, parserConfig) {
         var indentUnit = config.indentUnit;
         var statementIndent = parserConfig.statementIndent;
         var jsonldMode = parserConfig.jsonld;
@@ -21,7 +21,7 @@
 
         // Tokenizer
 
-        var keywords = function() {
+        var keywords = function () {
             function kw(type) { return { type: type, style: "keyword" }; }
             var A = kw("keyword a"),
                 B = kw("keyword b"),
@@ -175,7 +175,7 @@
         }
 
         function tokenString(quote) {
-            return function(stream, state) {
+            return function (stream, state) {
                 var escaped = false,
                     next;
                 if (jsonldMode && stream.peek() == "@" && stream.match(isJsonldKeyword)) {
@@ -241,7 +241,7 @@
                 var ch = stream.string.charAt(pos);
                 var bracket = brackets.indexOf(ch);
                 if (bracket >= 0 && bracket < 3) {
-                    if (!depth) {++pos; break; }
+                    if (!depth) { ++pos; break; }
                     if (--depth == 0) { if (ch == "(") sawSomething = true; break; }
                 } else if (bracket >= 3 && bracket < 6) {
                     ++depth;
@@ -364,12 +364,16 @@
 
         // Combinators
 
-        function Context(prev, vars, block) { this.prev = prev;
+        function Context(prev, vars, block) {
+            this.prev = prev;
             this.vars = vars;
-            this.block = block }
+            this.block = block
+        }
 
-        function Var(name, next) { this.name = name;
-            this.next = next }
+        function Var(name, next) {
+            this.name = name;
+            this.next = next
+        }
 
         var defaultVars = new Var("this", new Var("arguments", null))
 
@@ -390,7 +394,7 @@
         popcontext.lex = true
 
         function pushlex(type, info) {
-            var result = function() {
+            var result = function () {
                 var state = cx.state,
                     indent = state.indented;
                 if (state.lexical.type == "stat") indent = state.lexical.indented;
@@ -570,7 +574,7 @@
         }
 
         function maybeTarget(noComma) {
-            return function(type) {
+            return function (type) {
                 if (type == ".") return cont(noComma ? targetNoComma : target);
                 else if (type == "variable" && isTS) return cont(maybeTypeArgs, noComma ? maybeoperatorNoComma : maybeoperatorComma)
                 else return pass(noComma ? expressionNoComma : expression);
@@ -641,7 +645,7 @@
                 if (sep ? sep.indexOf(type) > -1 : type == ",") {
                     var lex = cx.state.lexical;
                     if (lex.info == "call") lex.pos = (lex.pos || 0) + 1;
-                    return cont(function(type, value) {
+                    return cont(function (type, value) {
                         if (type == end || value == end) return pass()
                         return pass(what)
                     }, proceed);
@@ -650,7 +654,7 @@
                 if (sep && sep.indexOf(";") > -1) return pass(what)
                 return cont(expect(end));
             }
-            return function(type, value) {
+            return function (type, value) {
                 if (type == end || value == end) return cont();
                 return pass(what, proceed);
             };
@@ -966,7 +970,7 @@
         // Interface
 
         return {
-            startState: function(basecolumn) {
+            startState: function (basecolumn) {
                 var state = {
                     tokenize: tokenBase,
                     lastType: "sof",
@@ -981,7 +985,7 @@
                 return state;
             },
 
-            token: function(stream, state) {
+            token: function (stream, state) {
                 if (stream.sol()) {
                     if (!state.lexical.hasOwnProperty("align"))
                         state.lexical.align = false;
@@ -995,13 +999,13 @@
                 return parseJS(state, style, type, content, stream);
             },
 
-            indent: function(state, textAfter) {
+            indent: function (state, textAfter) {
                 if (state.tokenize == tokenComment) return CodeMirror.Pass;
                 if (state.tokenize != tokenBase) return 0;
                 var firstChar = textAfter && textAfter.charAt(0),
                     lexical = state.lexical,
                     top
-                    // Kludge to prevent 'maybelse' from blocking lexical scope pops
+                // Kludge to prevent 'maybelse' from blocking lexical scope pops
                 if (!/^\s*else\b/.test(textAfter))
                     for (var i = state.cc.length - 1; i >= 0; --i) {
                         var c = state.cc[i];
@@ -1043,7 +1047,7 @@
 
             expressionAllowed: expressionAllowed,
 
-            skipExpression: function(state) {
+            skipExpression: function (state) {
                 var top = state.cc[state.cc.length - 1]
                 if (top == expression || top == expressionNoComma) state.cc.pop()
             }

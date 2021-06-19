@@ -5,27 +5,49 @@
     font-family: monospace;
     color: black;
     direction: ltr;
+    position: relative;
+    overflow: hidden;
+    background: rgb(255, 255, 255);
 }
-
 
 /* PADDING */
 
 .CodeMirror-lines {
     padding: 4px 0;
     /* Vertical padding around content */
+    cursor: text;
+    min-height: 1px;
+    /* prevents collapsing before first draw */
 }
 
 .CodeMirror pre {
     padding: 0 4px;
     /* Horizontal padding of content */
+    /* Reset some styles that the rest of the page might have set */
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    border-width: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    white-space: pre;
+    word-wrap: normal;
+    line-height: inherit;
+    color: inherit;
+    z-index: 2;
+    position: relative;
+    overflow: visible;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-variant-ligatures: contextual;
+    font-variant-ligatures: contextual;
 }
 
-.CodeMirror-scrollbar-filler,
-.CodeMirror-gutter-filler {
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
     background-color: white;
     /* The little square between H and V scrollbars */
 }
-
 
 /* GUTTER */
 
@@ -33,6 +55,11 @@
     border-right: 1px solid #ddd;
     background-color: #f7f7f7;
     white-space: nowrap;
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+    z-index: 3;
 }
 
 .CodeMirror-linenumber {
@@ -51,15 +78,15 @@
     color: #999;
 }
 
-
 /* CURSOR */
 
 .CodeMirror-cursor {
     border-left: 1px solid black;
     border-right: none;
     width: 0;
+    position: absolute;
+    pointer-events: none;
 }
-
 
 /* Shown when moving in bi-directional text */
 
@@ -94,27 +121,21 @@
 }
 
 @-moz-keyframes blink {
-    0% {}
     50% {
         background-color: transparent;
     }
-    100% {}
 }
 
 @-webkit-keyframes blink {
-    0% {}
     50% {
         background-color: transparent;
     }
-    100% {}
 }
 
 @keyframes blink {
-    0% {}
     50% {
         background-color: transparent;
     }
-    100% {}
 }
 
 .cm-tab {
@@ -138,7 +159,6 @@
     position: absolute;
 }
 
-
 /* DEFAULT THEME */
 
 .cm-s-default .cm-header {
@@ -157,8 +177,7 @@
     color: #292;
 }
 
-.cm-header,
-.cm-strong {
+.cm-header, .cm-strong {
     font-weight: bold;
 }
 
@@ -194,8 +213,7 @@
     color: #05a;
 }
 
-.cm-s-default .cm-variable-3,
-.cm-s-default .cm-type {
+.cm-s-default .cm-variable-3, .cm-s-default .cm-type {
     color: #085;
 }
 
@@ -255,7 +273,6 @@
     border-bottom: 2px solid;
 }
 
-
 /* Default styles for common addons */
 
 div.CodeMirror span.CodeMirror-matchingbracket {
@@ -274,18 +291,10 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     background: #e8f2ff;
 }
 
-
 /* STOP */
-
 
 /* The rest of this file contains styles related to the mechanics of
    the editor. You probably shouldn't touch them. */
-
-.CodeMirror {
-    position: relative;
-    overflow: hidden;
-    background: white;
-}
 
 .CodeMirror-scroll {
     overflow: scroll !important;
@@ -306,15 +315,11 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     border-right: 30px solid transparent;
 }
 
-
 /* The fake, visible scrollbars. Used to force redraw during scrolling
    before actual scrolling happens, thus preventing shaking and
    flickering artifacts. */
 
-.CodeMirror-vscrollbar,
-.CodeMirror-hscrollbar,
-.CodeMirror-scrollbar-filler,
-.CodeMirror-gutter-filler {
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
     position: absolute;
     z-index: 6;
     display: none;
@@ -342,14 +347,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .CodeMirror-gutter-filler {
     left: 0;
     bottom: 0;
-}
-
-.CodeMirror-gutters {
-    position: absolute;
-    left: 0;
-    top: 0;
-    min-height: 100%;
-    z-index: 3;
 }
 
 .CodeMirror-gutter {
@@ -388,34 +385,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     background-color: transparent
 }
 
-.CodeMirror-lines {
-    cursor: text;
-    min-height: 1px;
-    /* prevents collapsing before first draw */
-}
-
-.CodeMirror pre {
-    /* Reset some styles that the rest of the page might have set */
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    border-width: 0;
-    background: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    margin: 0;
-    white-space: pre;
-    word-wrap: normal;
-    line-height: inherit;
-    color: inherit;
-    z-index: 2;
-    position: relative;
-    overflow: visible;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-font-variant-ligatures: contextual;
-    font-variant-ligatures: contextual;
-}
-
 .CodeMirror-wrap pre {
     word-wrap: break-word;
     white-space: pre-wrap;
@@ -446,14 +415,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     outline: none;
 }
 
-
 /* Force content-box sizing for the elements where we expect it */
 
-.CodeMirror-scroll,
-.CodeMirror-sizer,
-.CodeMirror-gutter,
-.CodeMirror-gutters,
-.CodeMirror-linenumber {
+.CodeMirror-scroll, .CodeMirror-sizer, .CodeMirror-gutter, .CodeMirror-gutters, .CodeMirror-linenumber {
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
@@ -464,11 +428,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     height: 0;
     overflow: hidden;
     visibility: hidden;
-}
-
-.CodeMirror-cursor {
-    position: absolute;
-    pointer-events: none;
 }
 
 .CodeMirror-measure pre {
@@ -501,15 +460,11 @@ div.CodeMirror-dragcursors {
     cursor: crosshair;
 }
 
-.CodeMirror-line::selection,
-.CodeMirror-line>span::selection,
-.CodeMirror-line>span>span::selection {
+.CodeMirror-line::selection, .CodeMirror-line>span::selection, .CodeMirror-line>span>span::selection {
     background: #d7d4f0;
 }
 
-.CodeMirror-line::-moz-selection,
-.CodeMirror-line>span::-moz-selection,
-.CodeMirror-line>span>span::-moz-selection {
+.CodeMirror-line::-moz-selection, .CodeMirror-line>span::-moz-selection, .CodeMirror-line>span>span::-moz-selection {
     background: #d7d4f0;
 }
 
@@ -517,7 +472,6 @@ div.CodeMirror-dragcursors {
     background-color: #ffa;
     background-color: rgba(255, 255, 0, .4);
 }
-
 
 /* Used to force a border model for a node */
 
@@ -532,13 +486,11 @@ div.CodeMirror-dragcursors {
     }
 }
 
-
 /* See issue #2901 */
 
 .cm-tab-wrap-hack:after {
     content: '';
 }
-
 
 /* Help users use markselection to safely style text background */
 

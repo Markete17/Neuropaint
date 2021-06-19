@@ -1,14 +1,24 @@
+/**
+ * GLOBAL VARIABLES
+ */
 var zoom = 100;
 var svg;
 var timeout;
 var speed = 100;
+var svgCode;
 
-$(function() {
+/**
+ * LOAD PAGE
+ */
+$(function () {
     loadInputs();
     loadMenu();
     $("html,body").animate({ scrollTop: 0 }, "slow");
 });
 
+/**
+ * Loads the input of the menu
+ */
 function loadInputs() {
     let inputsColor = ['--cubeColor', '--kernelColor', '--denseColor', '--pyramidColor',
         '--arrowColor', '--strokeColor', '--fontColor', '--inputColor',
@@ -18,7 +28,6 @@ function loadInputs() {
         loadInputColor(i, inputsColor[j]);
         j++;
     }
-    j = 0;
     for (let i = 2; i < 17; i += 2) {
         if (i == 14) {
             loadInput(i, 15, 0)
@@ -36,20 +45,20 @@ function loadInputs() {
             loadInput(i, 250, 0);
         }
     }
-    $('input:radio[name=test]').change(function() {
+    $('input:radio[name=test]').change(function () {
         let example = ($('input:radio[name=test]:checked').val());
         init(example);
     });
-    $('input:radio[name=cubedimensions]').change(function() {
+    $('input:radio[name=cubedimensions]').change(function () {
         updatePreview(cm.getValue());
     });
-    $('input:radio[name=kerneldimensions]').change(function() {
+    $('input:radio[name=kerneldimensions]').change(function () {
         updatePreview(cm.getValue());
     });
-    $('input:radio[name=widthlogs]').change(function() {
+    $('input:radio[name=widthlogs]').change(function () {
         updatePreview(cm.getValue());
     });
-    $('input:radio[name=depthlogs]').change(function() {
+    $('input:radio[name=depthlogs]').change(function () {
         updatePreview(cm.getValue());
     });
     $('#increment17').on('mousedown mouseup mouseleave', e => {
@@ -96,6 +105,11 @@ function loadInputs() {
     });
 }
 
+/**
+ * Decreases the counter while the button is pressed
+ * @param {e} e 
+ * @param {number} number 
+ */
 function holdClickDec(e, number) {
     if (e.type == "mousedown") {
         decrement(number);
@@ -104,6 +118,11 @@ function holdClickDec(e, number) {
     }
 }
 
+/**
+ * Increases the counter while the button is pressed
+ * @param {e} e 
+ * @param {number} number 
+ */
 function holdClickInc(e, number) {
     if (e.type == "mousedown") {
         increment(number);
@@ -112,9 +131,15 @@ function holdClickInc(e, number) {
     }
 }
 
+/**
+ * Load a determinate input of the menu
+ * @param {number} number 
+ * @param {max} max 
+ * @param {min} min 
+ */
 function loadInput(number, max, min) {
     var input = document.getElementById('input' + number);
-    input.addEventListener('change', function() {
+    input.addEventListener('change', function () {
         if (input.value < min) {
             input.value = min;
         }
@@ -126,23 +151,31 @@ function loadInput(number, max, min) {
     });
 }
 
+/**
+ * Load an input color of the menu
+ * @param {number} number 
+ * @param {css} css 
+ */
 function loadInputColor(number, css) {
     var body = document.querySelector('body');
     var input = document.getElementById('input' + number);
-    input.addEventListener('change', function() {
+    input.addEventListener('change', function () {
         body.style.setProperty(css, input.value);
         $('#input' + number).val(input.value);
         updatePreview(cm.getValue());
     });
 }
 
+/**
+ * Load all elements of the menu
+ */
 function loadMenu() {
     /*SLIDER MENU*/
     function slideMenu() {
         var activeState = $("#menu-container .menu-list").hasClass("active");
         $("#menu-container .menu-list").animate({ left: activeState ? "0%" : "-100%" }, 400);
     }
-    $("#menu-wrapper").click(function(event) {
+    $("#menu-wrapper").click(function (event) {
         event.stopPropagation();
         $("#hamburger-menu").toggleClass("open");
         $("#menu-container .menu-list").toggleClass("active");
@@ -151,7 +184,7 @@ function loadMenu() {
         $("body").toggleClass("overflow-hidden");
     });
 
-    $(".menu-list").find(".accordion-toggle").click(function() {
+    $(".menu-list").find(".accordion-toggle").click(function () {
         $(this).next().toggleClass("open").slideToggle("fast");
         $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
 
@@ -159,15 +192,20 @@ function loadMenu() {
         $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
     });
 
-    $(".menu-list").find(".accordion-toggle2").click(function() {
+    $(".menu-list").find(".accordion-toggle2").click(function () {
         $(this).next().toggleClass("open").slideToggle("fast");
         $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
 
         $(".menu-list .accordion-content2").not($(this).next()).slideUp("fast").removeClass("open");
         $(".menu-list .accordion-toggle2").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
     });
+
+    $('#fontButton').css('font-family', 'Calibri');
 }
 
+/**
+ * Save the code of the neural network
+ */
 function saveCode() {
     var fname = prompt('Code File', 'neurotronikCode');
     if (fname) {
@@ -175,6 +213,9 @@ function saveCode() {
     }
 }
 
+/**
+ * Save the SVG file generated
+ */
 function saveSVG() {
     var fname = prompt('Svg File', 'neurotronikSVG');
     if (fname) {
@@ -184,12 +225,15 @@ function saveSVG() {
     }
 }
 
+/**
+ * Open the code and update the editor with the content of this file
+ */
 function openFile() {
     $('#openFile').click();
 
-    document.getElementById("openFile").addEventListener('change', function() {
+    document.getElementById("openFile").addEventListener('change', function () {
         var fr = new FileReader();
-        fr.onload = function() {
+        fr.onload = function () {
             if (fileValidation()) {
                 cm.setValue(this.result);
                 updatePreview(cm.getValue());
@@ -199,6 +243,12 @@ function openFile() {
     })
 }
 
+/**
+ * Returns true if the file to open is a txt format
+ * 
+ * @returns the validation
+ * 
+ */
 function fileValidation() {
     var fileInput = document.getElementById('openFile');
     var filePath = fileInput.value;
@@ -210,6 +260,11 @@ function fileValidation() {
     return true;
 }
 
+/**
+ * Decrement an input number
+ * 
+ * @param {number} number 
+ */
 function decrement(number) {
     let input = $('#input' + number);
     let n1 = parseFloat(input.val());
@@ -245,6 +300,11 @@ function decrement(number) {
     updatePreview(cm.getValue());
 }
 
+/**
+ * Increment an input namber
+ * 
+ * @param {number} number 
+ */
 function increment(number) {
     let input = $('#input' + number);
     let n1 = parseFloat(input.val());
@@ -291,6 +351,10 @@ function increment(number) {
     updatePreview(cm.getValue());
 }
 
+/**
+ * Checks if an input number is valid
+ * @param {number} number 
+ */
 function checkInputNumber(number) {
     let input = $('#input' + number);
     if (number == 14) {
@@ -328,6 +392,10 @@ function checkInputNumber(number) {
     }
 
 }
+
+/**
+ * Strores de avaliable fonts
+ */
 var fonts = {
     list: [
         'Calibri',
@@ -339,11 +407,14 @@ var fonts = {
     index: 0
 }
 
+/**
+ * Update the input font with a click
+ */
 function toggleButton() {
     fonts.index = fonts.index + 1;
     let i = (fonts.index) % fonts.list.length;
     $('#fontButton').text(fonts.list[i]);
-    $('#fontButton').css('font-family', fonts.list[i]);
+    $('#fontButton').css('font-family', fonts.list[i] + ', sans-serif');
     updatePreview(cm.getValue());
 }
 
@@ -372,13 +443,13 @@ function reset(...args) {
             fonts.index = 0;
         } else {
             //Color Settings
-            if(args[0]==11){
+            if (args[0] == 11) {
                 $('#input' + (args[0] + 1)).val(0.3);
             }
-            else{
+            else {
                 $('#input' + (args[0] + 1)).val(0.5);
             }
-            
+
         }
 
     }
@@ -407,6 +478,14 @@ function reset(...args) {
     updatePreview(cm.getValue());
 }
 
+/**
+ * Save a file
+ * 
+ * @param {filename} filename 
+ * @param {data} data 
+ * @param {type} type 
+ * @returns 
+ */
 function saveAsFile(filename, data, type) {
     var blob = new Blob([data], { type });
 
@@ -429,12 +508,13 @@ function saveAsFile(filename, data, type) {
 
 /**
  * Keyboard shortcut for Hide or show Editor and Preview window
+ * 
  * CTRL+Shift+O = Open File
  * CTRL+Shift+S = Save File
  * CTRL+Shift+B = Word wrap
  * CTRL+Shift+E = Hide/Show Editor
  */
-document.onkeyup = function(e) {
+document.onkeyup = function (e) {
     e.preventDefault();
 
     var theChar = null;
@@ -460,6 +540,10 @@ document.onkeyup = function(e) {
 
 }
 
+/**
+ * Puts the preview in full screen. 
+ * In the case that it is in full screen, it returns to its original size
+ */
 function expandPreview() {
     var isVisible = $(".paper").is(":visible");
     if (isVisible) {
@@ -495,7 +579,13 @@ function expandPreview() {
         svg.setViewBox(0, 0, 1000, 1000, 0);
     }
 }
-window.onbeforeunload = function(e) {
+/**
+ * Dialog box to avoid exiting the web without saving
+ * 
+ * @param {e} e 
+ * @returns 
+ */
+window.onbeforeunload = function (e) {
     if (e) {
         // Cancel the event
         e.preventDefault();
@@ -506,6 +596,9 @@ window.onbeforeunload = function(e) {
     return 'Are you sure want to exit?';
 };
 
+/**
+ * Stope Timeout
+ */
 function stop() {
     clearTimeout(timeout);
 }

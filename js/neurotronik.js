@@ -1,3 +1,4 @@
+/*Global variables*/
 var cm;
 var svgCode = "";
 var layerController;
@@ -6,7 +7,8 @@ var x_min;
 var y_max;
 var y_min;
 
-$(function() {
+/*Update preview in init*/
+$(function () {
     cm = CodeMirror.fromTextArea(editor, {
         lineNumbers: true,
         styleActiveLine: true,
@@ -14,12 +16,14 @@ $(function() {
     });
     cm.setValue(example.data[0]);
     updatePreview(cm.getValue());
-    cm.on('change', function() {
+    cm.on('change', function () {
         initializeDrawSettings();
         updatePreview(cm.getValue());
     });
 });
 
+/*initializes the style  settings for the neural network.
+The layercontroller class, drawsettings, svg controller and model are started*/
 function initializeDrawSettings() {
     let settings = "";
 
@@ -83,6 +87,10 @@ function initializeDrawSettings() {
     return settings;
 }
 
+/*
+Function that represents the neural network in the preview with the 
+configurable data collected from the menu
+*/
 function updatePreview(content) {
     try {
         let settings = initializeDrawSettings();
@@ -110,20 +118,20 @@ function updatePreview(content) {
                 },
             }
         );
-    } catch (eval) {
+    } catch (error) {
         try {
-            let stack = eval.stack.split("<anonymous>:");
+            let stack = error.stack.split("<anonymous>:");
             let a = stack[1];
             let b = a.split(":");
             if (b[0] > 10) {
                 let line = b[0] - 10;
-                svgID.innerHTML = 'Line: ' + line + '<p>' + eval + '</p>';
+                svgID.innerHTML = 'Line: ' + line + '<p>' + error + '</p>';
             } else {
-                svgID.innerHTML = 'Bad Configuration-Check the Settings: ' + '<p>' + eval + '</p>';
+                svgID.innerHTML = 'Bad Configuration-Check the Settings: ' + '<p>' + error + '</p>';
             }
 
         } catch (e) {
-            svgID.innerHTML = 'Badly defined variable or function.' + '<p>' + eval + '</p>';
+            svgID.innerHTML = 'Badly defined variable or function.' + '<p>' + error + '</p>';
         }
         $('#svg').css('background-color', "rgba(228, 122, 36, 0.2)");
         $('#svg').css('color', "#ce0f0f");
@@ -131,7 +139,17 @@ function updatePreview(content) {
         $('#preview').css('border', '2px solid #ce0f0f');
     }
 }
-
+/**
+ * Stores the sample codes
+ * 
+ * 1. Basic CNN
+ * 2. Basic Siamese
+ * 3. Complex Siamese
+ * 4. Encoder-Decoder
+ * 5. ResNet
+ * 
+ * Add more!
+ */
 var example = {
     data: [
         '/* Example 1: Basic CNN */\n\n' + '/* Part 1: Nodes Definition */\n\nvar n1 = new Node();\n\n/* Part 2: Neural Network */\n\n' + 'n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32,[10,10], [1,1], "same"));\n' +
@@ -200,7 +218,7 @@ var example = {
         'model.add(x1,xp1);\n' +
         'model.add(x2,xp1);\n' +
         'model.add(xp1,xp3);\n' +
-        'model.add(x2,xp3);\n'+
+        'model.add(x2,xp3);\n' +
         'model.add(x3,xp3);\n\n',
 
         '/*Example 4: Encoder-Decoder*/\n\n' +
@@ -270,26 +288,42 @@ var example = {
 
 }
 
+/**
+ * Init de example of the code
+ * @param {number} number 
+ */
 function init(number) {
     cm.setValue(example.data[number]);
     updatePreview(cm.getValue());
 }
 
+/**
+ * 
+ * Define the coordinate array
+ * 
+ * @param {dims} dims 
+ * @returns 
+ */
+
+function allocate(dims) {
+    if (dims.length === 0) {
+        return 0;
+    } else {
+        var array = [];
+        for (let i = 0; i < dims[0]; i++) {
+            array.push(allocate(dims.slice(1)));
+        }
+        return array;
+    }
+}
+
 /*COORDINATE CLASS*/
+/**
+ * Save the coordinates of three-dimensional figures
+ */
 class Coordinate {
     constructor(x, y, z) {
-        this.coordinateMatrix = (function(dims) {
-            var allocate = function(dims) {
-                if (dims.length === 0) {
-                    return 0;
-                } else {
-                    var array = [];
-                    for (var i = 0; i < dims[0]; i++) {
-                        array.push(allocate(dims.slice(1)));
-                    }
-                    return array;
-                }
-            };
+        this.coordinateMatrix = (function (dims) {
             return allocate(dims);
         })([3, 1]);
         this.coordinateMatrix[0][0] = x;
@@ -320,6 +354,9 @@ class Coordinate {
 }
 
 /*TUPLE CLASS*/
+/**
+ * It is made up of two numbers. Useful for defining neural functions
+ */
 class Tuple {
     constructor(n1, n2) {
         this.n1 = n1;
@@ -335,6 +372,9 @@ class Tuple {
 }
 
 /*ALFA CLASS*/
+/**
+ * Stores the three angles of rotation on the three axes
+ */
 class Alfa {
     constructor(alfaX, alfaY, alfaZ) {
         this.alfaX = alfaX;
@@ -354,6 +394,9 @@ class Alfa {
 }
 
 /*COLOR CLASS*/
+/**
+ * Stores the color of the figures
+ */
 class Color {
     constructor(input, cube, kernel, dense, pyramid, arrow, inputOpacity, layerOpacity, kernelOpacity, convOpacity, arrowOpacity, denseOpacity) {
         this.inputColor = input;
@@ -408,6 +451,9 @@ class Color {
 }
 
 /*FONT CLASS*/
+/**
+ * Stores the font color, size, and font family.
+ */
 class Font {
     constructor(font_size, font_family, font_color) {
         this.font_size = font_size;
@@ -426,6 +472,10 @@ class Font {
 }
 
 /*SHIFT CLASS*/
+/**
+ * Store the displacement of nodes, layers and child-parents nodes
+ * 
+ */
 class Shift {
     constructor(shiftNodes, shiftLayers, shiftParent) {
 
@@ -445,6 +495,9 @@ class Shift {
 }
 
 /*STROKE CLASS*/
+/**
+ * Store the color and width properties of the stroke
+ */
 class Stroke {
     constructor(stroke_color, stroke_width) {
         this.stroke_color = stroke_color;
@@ -459,6 +512,12 @@ class Stroke {
 }
 
 /*VIEWBOX CLASS */
+/**
+ * The panoramic
+ *  Width
+ *  Height
+ *  Zoom
+ */
 class ViewBox {
     constructor(width, height, zoom) {
         this.width = width;
@@ -475,7 +534,12 @@ class ViewBox {
         return this.zoom;
     }
 }
+
 /*DRAW SETTINGS */
+/**
+ * Class that stores all the neural network style configuration data.
+ * These data come from the menu that the user modifies
+ */
 class DrawSettings {
     constructor(color, alfa, shift, font, stroke, viewBox, activateDepthLogs, activateWidhtLogs, activateLayerDimensions, activateKernelDimensions) {
         this.color = color;
@@ -528,6 +592,17 @@ class DrawSettings {
 }
 
 /*LAYERS CLASS */
+/**
+ * Execute neural functions
+ * Input
+ * Conv2D
+ * Deconv2D
+ * MaxPooling2D
+ * Concatenate
+ * Dense
+ * 
+ * Add more!
+ */
 class LayerController {
     constructor(drawSettings) {
         this.drawSettings = drawSettings;
@@ -544,9 +619,9 @@ class LayerController {
         cubeList.push(convolution);
         return cubeList;
     }
-    Conv2D$6(filters, kernel_size, strides, input, padding, actualCube) {
+    Conv2D$6(filters, kernel_size, strides, input, padding) {
         let cubeList = new Array();
-        actualCube = new Cube(new Coordinate(input.x, input.y, input.z), this.drawSettings);
+        let actualCube = new Cube(new Coordinate(input.x, input.y, input.z), this.drawSettings);
         actualCube.isInputLayer = true;
         cubeList.push(actualCube);
         let CNNCube = this.createKernel(actualCube.getZ(), kernel_size);
@@ -556,11 +631,11 @@ class LayerController {
         return cubeList;
     }
     Conv2D(...args$) {
-        switch (args$.length) {
-            case 5:
-                return this.Conv2D$5(...args$);
-            case 6:
-                return this.Conv2D$6(...args$);
+        if (args$[4] instanceof Cube) {
+            return this.Conv2D$5(...args$);
+        }
+        else {
+            return this.Conv2D$6(...args$);
         }
     }
     Deconv2D$5(filters, kernel_size, strides, padding, actualCube) {
@@ -571,9 +646,9 @@ class LayerController {
         cubeList.push(deconvolution);
         return cubeList;
     }
-    Deconv2D$6(filters, kernel_size, strides, input, padding, actualCube) {
+    Deconv2D$6(filters, kernel_size, strides, input, padding) {
         let cubeList = new Array();
-        actualCube = new Cube(new Coordinate(input.x, input.y, input.z), this.drawSettings);
+        let actualCube = new Cube(new Coordinate(input.x, input.y, input.z), this.drawSettings);
         actualCube.isInputLayer = true;
         cubeList.push(actualCube);
         let CNNCube = this.createKernel(actualCube.getZ(), kernel_size);
@@ -608,8 +683,7 @@ class LayerController {
             y += n.getLastCube().getY();
             z += n.getLastCube().getZ();
         }
-        let newCube = new Cube(new Coordinate(x, y, z), this.drawSettings);
-        return newCube;
+        return new Cube(new Coordinate(x, y, z), this.drawSettings);
     }
     setPooling(tuple, actualCube) {
         let x = (actualCube.getX()) / tuple.getN1();
@@ -663,6 +737,9 @@ class LayerController {
     }
 }
 
+/**
+ * User can create layer: Input Layer
+ */
 class InputLayer {
     constructor(x, y, z) {
         this.x = x;
@@ -670,6 +747,10 @@ class InputLayer {
         this.z = z;
     }
 }
+
+/**
+ * User can create layer: Conv2D Layer without input
+ */
 
 class Conv2DLayer {
     constructor(filters, kernel_size, strides, padding) {
@@ -679,6 +760,11 @@ class Conv2DLayer {
         this.padding = padding;
     }
 }
+
+/**
+ * User can create layer: Conv2D Layer with input
+ */
+
 class Conv2DInputLayer {
     constructor(filters, kernel_size, strides, padding, input) {
         this.filters = filters;
@@ -689,6 +775,10 @@ class Conv2DInputLayer {
     }
 }
 
+/**
+ * User can create layer: Deconv2D Layer without input
+ */
+
 class Deconv2DLayer {
     constructor(filters, kernel_size, strides, padding) {
         this.filters = filters;
@@ -697,6 +787,11 @@ class Deconv2DLayer {
         this.padding = padding;
     }
 }
+
+/**
+ * User can create layer: Deconv2D Layer with input
+ */
+
 class Deconv2DInputLayer {
     constructor(filters, kernel_size, strides, padding, input) {
         this.filters = filters;
@@ -707,11 +802,19 @@ class Deconv2DInputLayer {
     }
 }
 
+/**
+ * User can use the function: MaxPooling2D to reduce the dimensions
+ */
+
 class MaxPooling2DLayer {
     constructor(tuple) {
         this.tuple = tuple;
     }
 }
+
+/**
+ * User can use the function: Concatenate to join two layers
+ */
 
 class ConcatenateLayer {
     constructor(nodes) {
@@ -719,14 +822,29 @@ class ConcatenateLayer {
     }
 }
 
+/**
+ * User can use the layer: Dense
+ */
+
 class DenseLayer {
     constructor(vector) {
         this.vector = vector;
     }
 }
 
+/**
+ * INPUT Layer
+ * The input image
+ * 
+ * @param {x} x 
+ * @param {y} y 
+ * @param {z} z 
+ * @returns 
+ */
+
 function Input(x, y, z) {
     if (arguments.length == 3) {
+        //Only input with positive valid numbers
         if (x > 0 && y > 0 && z > 0) {
             return new InputLayer(x, y, z);
         } else {
@@ -737,24 +855,38 @@ function Input(x, y, z) {
     throw new Error("The Input function is poorly defined: (Invalid number of arguments.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
 }
 
+/**
+ * CONV2D Layer
+ * Is a 2D Convolution Layer, this layer creates a convolution kernel 
+ * that is wind with layers input which helps produce a tensor of outputs.
+ * 
+ * @param {filters} filters 
+ * @param {kernel} kernel 
+ * @param {strides} strides 
+ * @param {padding} padding 
+ * @param {input} input 
+ * @returns 
+ */
+
 function Conv2D(filters, kernel, strides, padding, input) {
+    //Check the arguments
     if ((arguments.length == 4 || arguments.length == 5) && kernel.length == 2 && strides.length == 2) {
         if (arguments.length == 5 && input == undefined) {
             throw new Error("The Conv2D function is poorly defined: (Input Missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
         }
-        for (let i = 0; i < kernel.length; i++) {
-            if (kernel[i] == undefined) {
+        for (let kern of kernel) {
+            if (kern == undefined) {
                 throw new Error("The Conv2D function is poorly defined: (Kernel missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
-            if (kernel[i] <= 0) {
+            if (kern <= 0) {
                 throw new Error("The Conv2D function is poorly defined: (Kernel must have positive numbers.). <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
-        for (let i = 0; i < strides.length; i++) {
-            if (strides[i] == undefined) {
+        for (let str of strides) {
+            if (str == undefined) {
                 throw new Error("The Conv2D function is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
-            if (strides[i] <= 0) {
+            if (str <= 0) {
                 throw new Error("The Conv2D function is poorly defined: (Strides must have positive numbers.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
@@ -771,24 +903,37 @@ function Conv2D(filters, kernel, strides, padding, input) {
     throw new Error("The Conv2D function is poorly defined: (Invalid number of arguments.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 }
 
+/**
+ * DECONV2D Layer
+ * Add a deconvolution layer to the node with the Deconv2D function 
+ * that has these arguments.
+ * 
+ * @param {filters} filters 
+ * @param {kernel} kernel 
+ * @param {strides} strides 
+ * @param {padding} padding 
+ * @param {input} input 
+ * @returns 
+ */
+
 function Deconv2D(filters, kernel, strides, padding, input) {
     if ((arguments.length == 4 || arguments.length == 5) && kernel.length == 2 && strides.length == 2) {
         if (arguments.length == 5 && input == undefined) {
             throw new Error("The Deconv2D function is poorly defined: (Input Missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
         }
-        for (let i = 0; i < kernel.length; i++) {
-            if (kernel[i] == undefined) {
+        for (let kern of kernel) {
+            if (kern == undefined) {
                 throw new Error("The Deconv2D function is poorly defined: (Kernel missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
-            if (kernel[i] <= 0) {
+            if (kern <= 0) {
                 throw new Error("The Deconv2D function is poorly defined: (Kernel must have positive numbers.). <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
-        for (let i = 0; i < strides.length; i++) {
-            if (strides[i] == undefined) {
+        for (let str of strides) {
+            if (str == undefined) {
                 throw new Error("The Deconv2D function is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
-            if (strides[i] <= 0) {
+            if (str <= 0) {
                 throw new Error("The Deconv2D function is poorly defined: (Strides must have positive numbers.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
@@ -805,13 +950,23 @@ function Deconv2D(filters, kernel, strides, padding, input) {
     throw new Error("The Deconv2D function is poorly defined: (Invalid number of arguments.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
 }
 
+/**
+ * MAX POOLING 2D
+ * Max pooling operation for 2D spatial data.
+ * Downsamples the input representation by taking the maximum value over the window defined by pool_size for
+ * each dimension along the features axis. The window is shifted by strides in each dimension.
+ * 
+ * @param {tuple} tuple 
+ * @returns 
+ */
+
 function MaxPooling2D(tuple) {
     if (tuple.length == 2) {
-        for (let i = 0; i < tuple.length; i++) {
-            if (tuple[i] == undefined) {
+        for (let tup of tuple) {
+            if (tup == undefined) {
                 throw new Error("The MaxPooling2D function is poorly defined: (Value missing.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
             }
-            if (tuple[i] <= 0) {
+            if (tup <= 0) {
                 throw new Error("The MaxPooling2D function is poorly defined: (Only positive numbers.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
             }
         }
@@ -819,6 +974,15 @@ function MaxPooling2D(tuple) {
     }
     throw new Error("The MaxPooling2D function is poorly defined: (Invalid number of arguments.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 }
+
+/**
+ * DENSE LAYER
+ * A dense layer is just a regular layer of neurons in a neural network.
+ * Each neuron recieves input from all the neurons in the previous layer, thus densely connected
+ *
+ * @param {vector} vector 
+ * @returns 
+ */
 
 function Dense(vector) {
     if (arguments.length == 1) {
@@ -830,10 +994,17 @@ function Dense(vector) {
     throw new Error("The Dense function is poorly defined: (Invalid number of arguments.) <p> Example: Dense(200) with 1 argument.</p>");
 }
 
+/**
+ * Concatenate nodes
+ * 
+ * @param {Concatenate} nodes 
+ * @returns 
+ */
+
 function Concatenate(nodes) {
     if (arguments.length == 1) {
-        for (let i = 0; i < nodes.length; i++) {
-            if (!(nodes[i] instanceof Node)) {
+        for (let node of nodes) {
+            if (!(node instanceof Node)) {
                 throw new Error("The Concatenate function is poorly defined: (Arguments must be nodes.).<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
             }
         }
@@ -843,23 +1014,15 @@ function Concatenate(nodes) {
 }
 
 /*MATRICES*/
+/**
+ * Rotation Matrix in axis X
+ */
 class RotationMatrixX {
     constructor(alfa) {
         this.initializeMatrix(alfa);
     }
     initializeMatrix(alfa) {
-        this.matrix = (function(dims) {
-            var allocate = function(dims) {
-                if (dims.length === 0) {
-                    return 0;
-                } else {
-                    var array = [];
-                    for (var i = 0; i < dims[0]; i++) {
-                        array.push(allocate(dims.slice(1)));
-                    }
-                    return array;
-                }
-            };
+        this.matrix = (function (dims) {
             return allocate(dims);
         })([3, 3]);
         this.matrix[0][0] = 1;
@@ -879,23 +1042,15 @@ class RotationMatrixX {
     }
 }
 
+/**
+ * Rotation Matrix in axis Y
+ */
 class RotationMatrixY {
     constructor(alfa) {
         this.initializeMatrix(alfa);
     }
     initializeMatrix(alfa) {
-        this.matrix = (function(dims) {
-            var allocate = function(dims) {
-                if (dims.length === 0) {
-                    return 0;
-                } else {
-                    var array = [];
-                    for (var i = 0; i < dims[0]; i++) {
-                        array.push(allocate(dims.slice(1)));
-                    }
-                    return array;
-                }
-            };
+        this.matrix = (function (dims) {
             return allocate(dims);
         })([3, 3]);
         this.matrix[0][0] = Math.cos(alfa * (Math.PI / 180));
@@ -915,23 +1070,15 @@ class RotationMatrixY {
     }
 }
 
+/**
+ * Rotation Matrix in axis Z
+ */
 class RotationMatrixZ {
     constructor(alfa) {
         this.initializeMatrix(alfa);
     }
     initializeMatrix(alfa) {
-        this.matrix = (function(dims) {
-            var allocate = function(dims) {
-                if (dims.length === 0) {
-                    return 0;
-                } else {
-                    var array = [];
-                    for (var i = 0; i < dims[0]; i++) {
-                        array.push(allocate(dims.slice(1)));
-                    }
-                    return array;
-                }
-            };
+        this.matrix = (function (dims) {
             return allocate(dims);
         })([3, 3]);
         this.matrix[0][0] = Math.cos(alfa * (Math.PI / 180));
@@ -952,6 +1099,13 @@ class RotationMatrixZ {
 }
 
 /*MATRIX CONTROLLER*/
+
+/**
+ * Rotation Matrix in axis Y
+ * 
+ * Perform translation and rotation with matrix operations
+ * Multiply
+ */
 class MatrixController {
     constructor(alfaX, alfaY, alfaZ) {
         let rotationMatrixX = new RotationMatrixX(alfaX);
@@ -1013,32 +1167,25 @@ class MatrixController {
         coordinates[10] = new Coordinate(c10[0][0], c10[1][0], c10[2][0]);
     }
     multiply(a, b) {
-        var c = (function(dims) {
-            var allocate = function(dims) {
-                if (dims.length === 0) {
-                    return 0;
-                } else {
-                    var array = [];
-                    for (var i = 0; i < dims[0]; i++) {
-                        array.push(allocate(dims.slice(1)));
-                    }
-                    return array;
-                }
-            };
+        var c = (function (dims) {
             return allocate(dims);
         })([a.length, b[0].length]);
-        for (var i = 0; i < c.length; i++) {
+        for (let i = 0; i < c.length; i++) {
             for (var j = 0; j < c[0].length; j++) {
                 for (var k = 0; k < b.length; k++) {
                     c[i][j] += a[i][k] * b[k][j];
-                };
-            };
+                }
+            }
         }
         return c;
     }
 }
 
 /*MODEL CLASS*/
+/**
+ * Stores all nodes in a data structure 
+ * (NeuralNetworkTree)
+ */
 class Model {
     constructor() {
         this.modelTree = new NeuralNetworkTree();
@@ -1053,8 +1200,8 @@ class Model {
         this.modelTree.add(child, parent);
     }
     add(...args$) {
-        for (let i = 0; i < args$.length; i++) {
-            if (!(args$[i] instanceof Node)) {
+        for (let arg of args$) {
+            if (!(arg instanceof Node)) {
                 throw new Error("The function model.add() is poorly defined. <p> Example: model.add(x1) if is the parent or model.add(x1,x2) if x1 is child of x2.</p>");
             }
         }
@@ -1081,7 +1228,12 @@ class Model {
     }
 }
 
+//SHAPES
+
 /*ARROW CLASS*/
+/**
+ * Figure to draw the junctions between nodes
+ */
 class Arrow {
     constructor(vertex1, vertex2) {
         this.vertex1 = vertex1;
@@ -1102,8 +1254,11 @@ class Arrow {
 }
 
 /*CUBE CLASS*/
+
+/**
+ * Figure to draw the layers of the nodes
+ */
 class Cube {
-    constructor$0() {}
     constructor$2(coordinates, drawSettings) {
         this.initializeCube(coordinates, drawSettings);
     }
@@ -1168,7 +1323,12 @@ class Cube {
         this.isDenseLayer = denseLayer;
     }
 }
+
 /*PYRAMID CLASS*/
+
+/**
+ * Figure to draw the convolutions of the layers
+ */
 class Pyramid {
     constructor(coordinates, point) {
         this.initializePyramid(coordinates, point);
@@ -1191,6 +1351,9 @@ class Pyramid {
 }
 
 /*NODE CLASS*/
+/**
+ * Tree element that contains the set of layers represented as cubic figures
+ */
 class Node {
     constructor() {
         this.cubeList = new Array();
@@ -1233,8 +1396,8 @@ class Node {
     }
     add(input) {
         if (input instanceof InputLayer) {
-            for (let i = 0; i < this.cubeList.length; i++) {
-                if (this.cubeList[i].isInputLayer) {
+            for (let cube of this.cubeList) {
+                if (cube.isInputLayer) {
                     throw new Error('There is already an input layer.');
                 }
             }
@@ -1252,7 +1415,7 @@ class Node {
             return node;
 
         } else if (input instanceof Conv2DLayer || input instanceof Conv2DInputLayer) {
-            let convolutionList = new Array();
+            let convolutionList;
             if (input.input == undefined) {
                 if ((this.getActualCube() == null || this.cubeList.length == 0)) {
                     throw new Error('The node does not have an input layer.');
@@ -1262,12 +1425,12 @@ class Node {
                 }
                 convolutionList = layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube());
             } else {
-                for (let i = 0; i < this.cubeList.length; i++) {
-                    if (this.cubeList[i].isInputLayer) {
+                for (let cube of this.cubeList) {
+                    if (cube.isInputLayer) {
                         throw new Error('There is already an input layer.');
                     }
                 }
-                convolutionList = layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube());
+                convolutionList = layerController.Conv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding);
             }
             Array.prototype.push.apply(this.cubeList, convolutionList);
             this.setLast();
@@ -1280,7 +1443,7 @@ class Node {
 
             return node;
         } else if (input instanceof Deconv2DLayer || input instanceof Deconv2DInputLayer) {
-            let deconvolutionList = new Array();
+            let deconvolutionList;
             if (input.input == undefined) {
                 if ((this.getActualCube() == null || this.cubeList.length == 0)) {
                     throw new Error('The node does not have an input layer.');
@@ -1290,12 +1453,12 @@ class Node {
                 }
                 deconvolutionList = layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.padding, this.getActualCube())
             } else {
-                for (let i = 0; i < this.cubeList.length; i++) {
-                    if (this.cubeList[i].isInputLayer) {
+                for (let cube of this.cubeList) {
+                    if (cube.isInputLayer) {
                         throw new Error('There is already an input layer.');
                     }
                 }
-                deconvolutionList = layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding, this.getActualCube());
+                deconvolutionList = layerController.Deconv2D(input.filters, input.kernel_size, input.strides, input.input, input.padding);
             }
 
             Array.prototype.push.apply(this.cubeList, deconvolutionList);
@@ -1318,8 +1481,8 @@ class Node {
             this.setLast();
             this.setActualCube(this.getLastCube());
         } else if (input instanceof ConcatenateLayer) {
-            for (let i = 0; i < input.nodes.length; i++) {
-                if (input.nodes[i].cubeList.length == 0) {
+            for (let n of input.nodes) {
+                if (n.cubeList.length == 0) {
                     throw new Error('Could not concatenate because some node has no convolutions or input.');
                 }
             }
@@ -1341,6 +1504,10 @@ class Node {
 }
 
 /*NEURALNETOWRK TREE*/
+/**
+ * Model data structure
+ * It is a n-ary tree with several parents
+ */
 class NeuralNetworkTree {
     constructor() {
         this.root = null;
@@ -1382,7 +1549,7 @@ class NeuralNetworkTree {
     }
     add(child, parent) {
         parent.getChildren().push(child);
-        if(child.getParents()==null){
+        if (child.getParents() == null) {
             child.setParents(new Array());
         }
         child.getParents().push(parent);
@@ -1394,7 +1561,7 @@ class NeuralNetworkTree {
                     this.nodes[maxDepth - 1].push(node);
                 }
             } else {
-                let level = this.level(node,0);
+                let level = this.level(node, 0);
                 if (!this.nodes[level].includes(node)) {
                     this.nodes[level].push(node);
                 }
@@ -1414,12 +1581,11 @@ class NeuralNetworkTree {
         }
         return 1 + Math.max(max, 0);
     }
-    level(node,level) {
-        if(node.getParents()!=null) {
+    level(node, level) {
+        if (node.getParents() != null) {
             level++;
-            for (let i=0;i<node.getParents().length;i++){
-                let parent = node.getParents()[i];
-                level = Math.max(level,this.level(parent,level));
+            for (let parent of node.getParents()) {
+                level = Math.max(level, this.level(parent, level));
             }
         }
         return level;
@@ -1479,6 +1645,11 @@ class NeuralNetworkTree {
 }
 
 /*SVGCONTROLLER CLASS */
+
+/**
+ * Class that shifts the neural structure and paints the layers. 
+ * Generate the final SVG file
+ */
 class SvgController {
     constructor(settings) {
         this.depth = 0;
@@ -1504,9 +1675,8 @@ class SvgController {
     draw(modelTree) {
         this.shiftTree(modelTree);
         this.calculateImageCenter();
-        for (let i = 0; i < modelTree.getNodes().length; i++) {
-            for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
-                let node = modelTree.getNodes()[i][j];
+        for (let nodes of modelTree.getNodes()) {
+            for (let node of nodes) {
                 this.drawNode(node);
             }
         }
@@ -1542,8 +1712,7 @@ class SvgController {
                     this.depthAux = 0;
                 }
             } else {
-                for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
-                    let node = modelTree.getNodes()[i][j];
+                for (let node of modelTree.getNodes()[i]) {
                     let firstChild = modelTree.findFirstChild(node.getChildren());
                     let lastChild = modelTree.findLastChild(node.getChildren());
                     let centerChild1 = this.calculateCenter(firstChild.getCubeList()[0].getCoordinates());
@@ -1611,9 +1780,8 @@ class SvgController {
         this.drawOrderList.push(sn);
     }
     drawUnions(modelTree) {
-        for (let i = 0; i < modelTree.getNodes().length; i++) {
-            for (let j = 0; j < modelTree.getNodes()[i].length; j++) {
-                let parent = modelTree.getNodes()[i][j];
+        for (let nodeList of modelTree.getNodes()) {
+            for (let parent of nodeList) {
                 for (let child of parent.getChildren()) {
                     let lastCube = child.getLastCube();
                     this.lineTo(lastCube, parent.getCubeList()[0]);
@@ -1794,8 +1962,8 @@ class SvgController {
     moveKernel(cube_actual, kernel) {
         let difY = Math.abs((cube_actual.getCoordinates()[3].getY() - kernel.getCoordinates()[3].getY()));
         let difX = Math.abs((cube_actual.getCoordinates()[3].getX() - kernel.getCoordinates()[3].getX()));
-        let x_random = -difX + (Math.random() * ((difX + difX)));
-        let y_random = -difY + (Math.random() * ((difY + difY)));
+        let x_random = -difX + (Math.random() * (difX + difX));
+        let y_random = -difY + (Math.random() * (difY + difY));
         this.matrixController.move('x', kernel.getCoordinates(), x_random);
         this.matrixController.move('y', kernel.getCoordinates(), y_random);
     }
@@ -1827,6 +1995,10 @@ class SvgController {
 }
 
 /*SORTNODE CLASS */
+/**
+ * Class that uses Svg Controller that orders
+ * the figures to be represented depending on the depth
+ */
 class SortNode {
     constructor(svgString, z) {
         this.svgString = svgString;
