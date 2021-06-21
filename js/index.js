@@ -103,6 +103,8 @@ function loadInputs() {
     $('#decrement14').on('mousedown mouseup mouseleave', e => {
         holdClickDec(e, 14);
     });
+    /*Open file*/
+    openFile();
 }
 
 /**
@@ -228,10 +230,12 @@ function saveSVG() {
 /**
  * Open the code and update the editor with the content of this file
  */
-function openFile() {
+function clickOpen() {
     $('#openFile').click();
+}
 
-    document.getElementById("openFile").addEventListener('change', function () {
+function openFile(){
+    $("#openFile").on('change', function () {
         var fr = new FileReader();
         fr.onload = function () {
             if (fileValidation()) {
