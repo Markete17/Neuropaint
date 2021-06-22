@@ -1228,6 +1228,7 @@ a.button {
     vertical-align: top;
     text-align: center;
     outline: none;
+    margin-right: -3%;
 }
 
 .input-number, .input-number-decrement, .input-number-increment {
@@ -1257,7 +1258,6 @@ a.button {
 }
 
 .input-number-increment {
-    border-left: none;
     border-radius: 0 4px 4px 0;
 }
 
