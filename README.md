@@ -47,7 +47,7 @@ In Neuropaint you can edit any configuration on the image and the neural network
 
 ### Editor Buttons
 <p align="center">
-  <a href="https://imgbb.com/"><img src="https://i.ibb.co/rQzjsZh/Captura.png" alt="Editor Buttons" border="0"></a>
+  <a href="https://imgbb.com/"><img src="https://i.ibb.co/v1jf60V/Editor-Buttons.png" alt="Editor Buttons" border="0"></a>
 </p>
 
   - <b>Save Code:</b> You can save your code to continue editing it at another time.
