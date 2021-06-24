@@ -8,7 +8,7 @@ var y_max;
 var y_min;
 
 /*Update preview in init*/
-$(function () {
+$(function() {
     cm = CodeMirror.fromTextArea(editor, {
         lineNumbers: true,
         styleActiveLine: true,
@@ -16,7 +16,7 @@ $(function () {
     });
     cm.setValue(example.data[0]);
     updatePreview(cm.getValue());
-    cm.on('change', function () {
+    cm.on('change', function() {
         initializeDrawSettings();
         updatePreview(cm.getValue());
     });
@@ -94,15 +94,14 @@ configurable data collected from the menu
 function updatePreview(content) {
     try {
         let settings = initializeDrawSettings();
-        var svgID = document.getElementById('svg');
         if (content.includes('model')) {
             let code = settings + content;
             eval(code);
             svgCode = svgController.draw(model.getModelTree());
-            svgID.innerHTML = svgCode;
+            $('#svg').html(svgCode);
 
         } else {
-            svgID.innerHTML = content;
+            $('#svg').html(content);
         }
         $('#svg').css('background-color', "");
         $('#svg').css('color', "");
@@ -119,24 +118,28 @@ function updatePreview(content) {
             }
         );
     } catch (error) {
-        try {
-            let stack = error.stack.split("<anonymous>:");
-            let a = stack[1];
-            let b = a.split(":");
-            if (b[0] > 10) {
-                let line = b[0] - 10;
-                svgID.innerHTML = 'Line: ' + line + '<p>' + error + '</p>';
-            } else {
-                svgID.innerHTML = 'Bad Configuration-Check the Settings: ' + '<p>' + error + '</p>';
-            }
-
-        } catch (e) {
-            svgID.innerHTML = 'Badly defined variable or function.' + '<p>' + error + '</p>';
-        }
+        handleErrors(error);
         $('#svg').css('background-color', "rgba(228, 122, 36, 0.2)");
         $('#svg').css('color', "#ce0f0f");
         $('#svg').css('font-size', "30px");
         $('#preview').css('border', '2px solid #ce0f0f');
+    }
+}
+
+function handleErrors(error) {
+    try {
+        let stack = error.stack.split("<anonymous>:");
+        let a = stack[1];
+        let b = a.split(":");
+        if (b[0] > 10) {
+            let line = b[0] - 10;
+            $('#svg').html('Line: ' + line + '<p>' + error + '</p>');
+        } else {
+            $('#svg').html('Bad Configuration-Check the Settings: ' + '<p>' + error + '</p>');
+        }
+
+    } catch (e) {
+        $('#svg').html('Badly defined variable or function.' + '<p>' + error + '</p>');
     }
 }
 /**
@@ -323,7 +326,7 @@ function allocate(dims) {
  */
 class Coordinate {
     constructor(x, y, z) {
-        this.coordinateMatrix = (function (dims) {
+        this.coordinateMatrix = (function(dims) {
             return allocate(dims);
         })([3, 1]);
         this.coordinateMatrix[0][0] = x;
@@ -633,8 +636,7 @@ class LayerController {
     Conv2D(...args$) {
         if (args$[4] instanceof Cube) {
             return this.Conv2D$5(...args$);
-        }
-        else {
+        } else {
             return this.Conv2D$6(...args$);
         }
     }
@@ -1022,7 +1024,7 @@ class RotationMatrixX {
         this.initializeMatrix(alfa);
     }
     initializeMatrix(alfa) {
-        this.matrix = (function (dims) {
+        this.matrix = (function(dims) {
             return allocate(dims);
         })([3, 3]);
         this.matrix[0][0] = 1;
@@ -1050,7 +1052,7 @@ class RotationMatrixY {
         this.initializeMatrix(alfa);
     }
     initializeMatrix(alfa) {
-        this.matrix = (function (dims) {
+        this.matrix = (function(dims) {
             return allocate(dims);
         })([3, 3]);
         this.matrix[0][0] = Math.cos(alfa * (Math.PI / 180));
@@ -1078,7 +1080,7 @@ class RotationMatrixZ {
         this.initializeMatrix(alfa);
     }
     initializeMatrix(alfa) {
-        this.matrix = (function (dims) {
+        this.matrix = (function(dims) {
             return allocate(dims);
         })([3, 3]);
         this.matrix[0][0] = Math.cos(alfa * (Math.PI / 180));
@@ -1167,7 +1169,7 @@ class MatrixController {
         coordinates[10] = new Coordinate(c10[0][0], c10[1][0], c10[2][0]);
     }
     multiply(a, b) {
-        var c = (function (dims) {
+        var c = (function(dims) {
             return allocate(dims);
         })([a.length, b[0].length]);
         for (let i = 0; i < c.length; i++) {
