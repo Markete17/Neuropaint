@@ -45,7 +45,7 @@ function loadInputs() {
             loadInput(i, 250, 0);
         }
     }
-    $('input:radio[name=test]').change(function () {
+    $('input:radio[name=test]').click(function () {
         let example = ($('input:radio[name=test]:checked').val());
         init(example);
     });
@@ -209,7 +209,7 @@ function loadMenu() {
  * Save the code of the neural network
  */
 function saveCode() {
-    var fname = prompt('Code File', 'neurotronikCode');
+    var fname = prompt('Code File', 'neuroCode');
     if (fname) {
         saveAsFile(fname, cm.getValue(), 'text/plain');
     }
@@ -219,7 +219,7 @@ function saveCode() {
  * Save the SVG file generated
  */
 function saveSVG() {
-    var fname = prompt('Svg File', 'neurotronikSVG');
+    var fname = prompt('Svg File', 'neuroImage');
     if (fname) {
         let save = svgCode.slice(54, svgCode.length);
         svgCode = '<svg id="svgImage" viewBox=\'' + (x_min) + ' ' + (y_min - 10) + ' ' + (x_max - x_min + 15) + ' ' + (y_max - y_min + 10) + '\' xmlns=\'http://www.w3.org/2000/svg\'>\n' + save;
@@ -231,7 +231,8 @@ function saveSVG() {
  * Open the code and update the editor with the content of this file
  */
 function clickOpen() {
-    $('#openFile').click();
+    $('#openFile').val(''); // Reset de the content of input type file
+    $('#openFile').click(); // Click de hidden input type file
 }
 
 function openFile(){

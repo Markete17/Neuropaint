@@ -14,10 +14,8 @@ $(function() {
         styleActiveLine: true,
         mode: 'javascript'
     });
-    cm.setValue(example.data[0]);
-    updatePreview(cm.getValue());
+    init(0);
     cm.on('change', function() {
-        initializeDrawSettings();
         updatePreview(cm.getValue());
     });
 });
@@ -103,6 +101,7 @@ function updatePreview(content) {
         } else {
             $('#svg').html(content);
         }
+        //Without errors, the preview frame is blue
         $('#svg').css('background-color', "");
         $('#svg').css('color', "");
         $('#svg').css('font-size', "");
@@ -119,6 +118,7 @@ function updatePreview(content) {
         );
     } catch (error) {
         handleErrors(error);
+        //With errors, the preview frame is colored red
         $('#svg').css('background-color', "rgba(228, 122, 36, 0.2)");
         $('#svg').css('color', "#ce0f0f");
         $('#svg').css('font-size', "30px");
