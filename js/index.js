@@ -514,11 +514,16 @@ function saveAsFile(filename, data, type) {
 /**
  * Keyboard shortcut for Hide or show Editor and Preview window
  * 
- * CTRL+Shift+O = Open File
- * CTRL+Shift+S = Save File
- * CTRL+Shift+B = Word wrap
+ * CTRL+Shift+S = Save Svg File
+ * CTRL+Shift+F = Open File
+ * CTRL+Shift+H = Change example
  * CTRL+Shift+E = Hide/Show Editor
+ * CTRL+Shift+'+' = Zoom In
+ * CTRL+Shift+'-' = Zoom Out
+ * CTRL+Shift+'BACKSPACE' = Undo Image
+ * CTRL+Shift+Q = Open Menu
  */
+var indexExample = 1;
 document.onkeyup = function (e) {
     e.preventDefault();
 
@@ -531,17 +536,48 @@ document.onkeyup = function (e) {
         theChar = String.fromCharCode(e.key).toUpperCase();
     }
 
-    if (e.ctrlKey && e.shiftKey && theChar == 'O') {
-        openFile();
-    }
-
+    // Export image in Svg file
     if (e.ctrlKey && e.shiftKey && theChar == 'S') {
         saveSVG();
     }
 
+    // Open File
+    if (e.ctrlKey && e.shiftKey && theChar == 'F') {
+        clickOpen();
+    }
+
+    // Change example
+    if (e.ctrlKey && e.shiftKey && theChar == 'H') {
+        let index = indexExample % example.data.length+1;
+        $('#opt'+index).click();
+        indexExample++;
+    }
+
+    // Expand Preview
     if (e.ctrlKey && e.shiftKey && theChar == 'E') {
         expandPreview();
     }
+
+    // Zoom In
+    if (e.ctrlKey && e.shiftKey && theChar == '+') {
+        zoomIn();
+    }
+
+    // Zoom Out
+    if (e.ctrlKey && e.shiftKey && theChar == '-') {
+        zoomOut();
+    }
+
+    // Undo
+    if (e.ctrlKey && e.shiftKey && theChar == 'BACKSPACE') {
+        undo();
+    }
+
+    // Open Menu
+    if (e.ctrlKey && e.shiftKey && theChar == 'Q') {
+        $("#menu-wrapper").click();
+    }
+
 
 }
 

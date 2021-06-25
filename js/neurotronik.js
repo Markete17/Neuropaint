@@ -9,12 +9,15 @@ var y_min;
 
 /*Update preview in init*/
 $(function() {
+    //Load Code Mirror Object (Plugin)
     cm = CodeMirror.fromTextArea(editor, {
         lineNumbers: true,
         styleActiveLine: true,
         mode: 'javascript'
     });
+    //Load de example number 1
     init(0);
+    //Detect a change in the editor
     cm.on('change', function() {
         updatePreview(cm.getValue());
     });
