@@ -168,8 +168,7 @@ var example = {
         'n3.add(Dense(150));\n' + 'n3.add(Dense(150));\n\n' +
         '/* Part 3: Model Definition */\n' + '\n' + 'model.add(n3);\n' +
         'model.add(n1,n3);\n' +
-        'model.add(n2,n3);\n' +
-        '         \n',
+        'model.add(n2,n3);',
 
         '/* Example 3: Complex Siamese */\n\n' + '/* Part 1: Nodes Definition */\n\n' +
         'var x1a = new Node();\n' +
@@ -225,7 +224,7 @@ var example = {
         'model.add(x2,xp1);\n' +
         'model.add(xp1,xp3);\n' +
         'model.add(x2,xp3);\n' +
-        'model.add(x3,xp3);\n\n',
+        'model.add(x3,xp3);',
 
         '/*Example 4: Encoder-Decoder*/\n\n' +
         '/* Part 1: Nodes Definition */\n\n' +
@@ -245,51 +244,30 @@ var example = {
         '' +
         '/* Part 3: Model Definition */\n\n' +
         '' +
-        'model.add(n1);\n',
+        'model.add(n1);',
 
         '/* Example 5: ResNet */\n' +
         '\n' +
         '/* Part 1: Nodes Definition */\n' +
         '\n' +
         'var n1 = new Node();' +
-        'var n2 = new Node();\n' +
-        'var n3 = new Node();' +
-        'var n4 = new Node();\n' +
-        'var n5 = new Node();' +
-        'var n6 = new Node();\n' +
-        'var n7 = new Node();' +
-        'var n8 = new Node();\n' +
-        'var n9 = new Node();' +
         '\n' +
         '\n' +
         '/* Part 2: Neural Network */\n' +
         '\n' +
         'n1.add(Input(48,32,10));\n' +
-        'n4=n1.add(Conv2D(32,[10,10],[1,1],"same"));\n' +
-        'n1.add(MaxPooling2D([2,2]));\n' +
-        'n6=n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' +
-        'n1.add(MaxPooling2D([2,2]));\n' +
-        'n7=n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' +
-        '\n' +
-        'n2.add(Input(48,32,10));\n' +
-        'n5=n2.add(Conv2D(32,[10,10],[1,1],"same"));\n' +
-        'n2.add(MaxPooling2D([2,2]));\n' +
-        'n8=n2.add(Conv2D(64,[5,5],[1,1],"same"));\n' +
-        'n2.add(MaxPooling2D([2,2]));\n' +
-        'n9=n2.add(Conv2D(72,[10,10],[1,1],"same"));\n' +
-        '\n' +
-        'n3.add(Dense(150));\n' +
-        'n3.add(Dense(150));\n' +
+        'n2 = n1.add(Conv2D(32,[10,10],[1,1],"same"));\n' +
+        'n3 = n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' +
+        'n4 = n1.add(Conv2D(72,[10,10],[1,1],"same"));\n' +
+        'n5 = n1.add(Conv2D(86,[10,10],[1,1],"same"));\n' +
+        'n1.add(Dense(150));\n' +
         '\n' +
         '/* Part 3: Model Definition */\n' +
         '\n' +
-        'model.add(n3);\n' +
-        'model.add(n1,n3);\n' +
-        'model.add(n2,n3);\n' +
+        'model.add(n1);\n' +
         '\n' +
-        'model.addShortcut(n4,n5);\n' +
-        'model.addShortcut(n6,n7);\n' +
-        'model.addShortcut(n8,n9);\n'
+        'model.addShortcut(n2,n3);\n' +
+        'model.addShortcut(n4,n5);'
     ],
 
 }

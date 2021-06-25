@@ -29,7 +29,7 @@
     <div id="menu-container">
         <div class="banner" id="menu-wrapper">
             <!-- hamburger-menu -->
-            <div id="hamburger-menu"><span></span><span></span><span></span></div>
+            <div title="Open/Close Menu (CTRL+SHIFT+Q)" id="hamburger-menu"><span></span><span></span><span></span></div>
         </div>
         <!-- menu-wrapper -->
         <nav>
@@ -417,7 +417,7 @@
                         class="fa fa-save"></i><span></span></a>
             </div>
             <div class="dropdown">
-                <div class="select" tabindex="1">
+                <div title="Change the example (CRTL+SHIFT+H)"class="select" tabindex="1">
                     <input class="selectopt" name="test" type="radio" id="opt1" value="0" checked>
                     <label for="opt1" class="option">Basic CNN</label>
                     <input class="selectopt" name="test" type="radio" id="opt2" value="1">
@@ -435,21 +435,21 @@
 
         <div class="zoombuttons">
 
-            <a title="Zoom In" onclick="zoomIn();" class="icon-button zoom1"><i
+            <a title="Zoom In (CTRL+SHIFT +)" onclick="zoomIn();" class="icon-button zoom1"><i
                     class="fa fa-search-plus"></i><span></span></a>
 
-            <a title="Zoom Out" onclick="zoomOut();" class="icon-button zoom2"><i
+            <a title="Zoom Out (CTRL+SHIFT -)" onclick="zoomOut();" class="icon-button zoom2"><i
                     class="fa fa-search-minus"></i><span></span></a>
 
-            <a title="Undo" onclick="undo();" class="icon-button undo"><i class="fa fa-undo"></i><span></span></a>
+            <a title="Undo (CTRL+SHIFT+BACKSPACE)" onclick="undo();" class="icon-button undo"><i class="fa fa-undo"></i><span></span></a>
         </div>
         <div class="viewbuttons">
-            <a title="Save image as a svg file" onclick="saveSVG();" class="icon-button save"><i id="btnsave"
+            <a title="Save image as a svg file (CTRL+SHIFT+S)" onclick="saveSVG();" class="icon-button save"><i id="btnsave"
                     class="fa fa-save"></i><span></span></a>
-            <a title="Open file" onclick="clickOpen();" id="open" class="icon-button openFile"><i id="btnopen"
+            <a title="Open file (CTRL+SHIFT+F)" onclick="clickOpen();" id="open" class="icon-button openFile"><i id="btnopen"
                     class="fa fa-folder-open"></i><span></span></a>
             <input type="file" name="open" id="openFile">
-            <a title="Expand preview" onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"
+            <a title="Expand preview (CTRL+SHIFT+E)" onclick="expandPreview();" class="icon-button expand"><i id="btnexpand"
                     class="fa fa-expand"></i><span></span></a>
         </div>
 

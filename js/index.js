@@ -512,7 +512,7 @@ function saveAsFile(filename, data, type) {
 }
 
 /**
- * Keyboard shortcut for Hide or show Editor and Preview window
+ * Keyboard shortcuts
  * 
  * CTRL+Shift+S = Save Svg File
  * CTRL+Shift+F = Open File
@@ -577,8 +577,6 @@ document.onkeyup = function (e) {
     if (e.ctrlKey && e.shiftKey && theChar == 'Q') {
         $("#menu-wrapper").click();
     }
-
-
 }
 
 /**
