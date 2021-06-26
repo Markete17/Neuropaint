@@ -4,6 +4,7 @@
 1. [Description 🚀](#description)
 2. [User Interface 🎨](#ui)
 3. [Functions 📌](#functions)
+4. [Keyboard shortcuts ⌨️](#shortcuts)
 
 <a name="description"></a>
 ## 1. Description 🚀
@@ -248,3 +249,19 @@ model.addShortcut(n8,n9);
 <p align="center">
   <a href="https://ibb.co/F6SJsBv"><img src="https://i.ibb.co/rkCMbZP/Captura.png" alt="Shortcut" border="0"></a>
 </p>
+
+<hr>
+
+<a name="shortcuts"></a>
+## 4. Keyboard shortcuts ⌨️
+
+|   FUNCTION      | KEYBOARD SHORTCUT  |
+| ------------- |:-----------------:|
+| Export SVG      | CTRL+SHIFT+S |
+| Open project      |    CTRL+SHIFT+F |
+| Change example |   CTRL+SHIFT+H  |
+| Set the preview window to full screen |    CTRL+SHIFT+E |
+| Zoom In |  CTRL+SHIFT+ '+' |
+| Zoom Out |  CTRL+SHIFT+ '-' |
+| Reset Image |  CTRL+SHIFT+BACKSPACE |
+| Open menu |  CTRL+SHIFT+Q |
