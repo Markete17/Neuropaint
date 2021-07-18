@@ -6,6 +6,7 @@ var x_max;
 var x_min;
 var y_max;
 var y_min;
+var indexShortcuts=0;
 
 /*Update preview in init*/
 $(function() {
@@ -266,8 +267,8 @@ var example = {
         '\n' +
         'model.add(n1);\n' +
         '\n' +
-        'model.addShortcut(n2,n3);\n' +
-        'model.addShortcut(n4,n5);'
+        'model.addShortcut(n2,n4);\n' +
+        'model.addShortcut(n3,n5);'
     ],
 
 }
@@ -1278,7 +1279,7 @@ class Cube {
         this.coordinates.push(new Coordinate(x_random, y_random, this.coordinates[4].getZ()));
 
         //Shortcut CNN
-        this.coordinates.push(new Coordinate(0, this.coordinates[0].getY() - 50, 0));
+        this.coordinates.push(new Coordinate(0, this.coordinates[0].getY() - 30, 0));
         this.coordinates.push(new Coordinate(0, this.coordinates[0].getY(), 0));
     }
     getX() {
@@ -1844,10 +1845,16 @@ class SvgController {
             let vertex3 = cube2.getCoordinates()[9];
             let vertex4 = cube2.getCoordinates()[10];
 
+            vertex2.setY(vertex2.getY()+indexShortcuts);
+            vertex3.setY(vertex3.getY()+indexShortcuts);
+
+            indexShortcuts-=5;
+
             this.drawArrow(new Arrow(vertex1, vertex2));
             this.drawArrow(new Arrow(vertex2, vertex3));
             this.drawArrow(new Arrow(vertex4, vertex3));
         }
+        indexShortcuts=0;
     }
     selectColor(cube) {
         if (cube.isKernel) {
