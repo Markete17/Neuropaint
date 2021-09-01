@@ -832,11 +832,11 @@ function Input(x, y, z) {
         if (x > 0 && y > 0 && z > 0) {
             return new InputLayer(x, y, z);
         } else {
-            throw new Error("The Input function is poorly defined: (Only positive input numbers.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
+            throw new Error("The Input layer is poorly defined: (Only positive input numbers.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
         }
 
     }
-    throw new Error("The Input function is poorly defined: (Invalid number of arguments.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
+    throw new Error("The Input layer is poorly defined: (Invalid number of arguments.) <p> Example: Input(32,32,20) with 3 arguments.</p>");
 }
 
 /**
@@ -856,26 +856,26 @@ function Conv2D(filters, kernel, strides, padding, input) {
     //Check the arguments
     if ((arguments.length == 4 || arguments.length == 5) && kernel.length == 2 && strides.length == 2) {
         if (arguments.length == 5 && input == undefined) {
-            throw new Error("The Conv2D function is poorly defined: (Input Missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+            throw new Error("The Conv2D layer is poorly defined: (Input Missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
         }
         for (let kern of kernel) {
             if (kern == undefined) {
-                throw new Error("The Conv2D function is poorly defined: (Kernel missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Conv2D layer is poorly defined: (Kernel missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
             if (kern <= 0) {
-                throw new Error("The Conv2D function is poorly defined: (Kernel must have positive numbers.). <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Conv2D layer is poorly defined: (Kernel must have positive numbers.). <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
         for (let str of strides) {
             if (str == undefined) {
-                throw new Error("The Conv2D function is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Conv2D layer is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
             if (str <= 0) {
-                throw new Error("The Conv2D function is poorly defined: (Strides must have positive numbers.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Conv2D layer is poorly defined: (Strides must have positive numbers.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
         if (filters <= 0) {
-            throw new Error("The Conv2D function is poorly defined: (Filters must be a positive number.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+            throw new Error("The Conv2D layer is poorly defined: (Filters must be a positive number.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
         }
         if (input == undefined) {
             return new Conv2DLayer(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
@@ -884,7 +884,7 @@ function Conv2D(filters, kernel, strides, padding, input) {
         }
 
     }
-    throw new Error("The Conv2D function is poorly defined: (Invalid number of arguments.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
+    throw new Error("The Conv2D layer is poorly defined: (Invalid number of arguments.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [1,1], 'same',Input(32,32,20)) with 5 arguments.</p>");
 }
 
 /**
@@ -903,26 +903,26 @@ function Conv2D(filters, kernel, strides, padding, input) {
 function Deconv2D(filters, kernel, strides, padding, input) {
     if ((arguments.length == 4 || arguments.length == 5) && kernel.length == 2 && strides.length == 2) {
         if (arguments.length == 5 && input == undefined) {
-            throw new Error("The Deconv2D function is poorly defined: (Input Missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+            throw new Error("The Deconv2D layer is poorly defined: (Input Missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
         }
         for (let kern of kernel) {
             if (kern == undefined) {
-                throw new Error("The Deconv2D function is poorly defined: (Kernel missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Deconv2D layer is poorly defined: (Kernel missing.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
             if (kern <= 0) {
-                throw new Error("The Deconv2D function is poorly defined: (Kernel must have positive numbers.). <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Deconv2D layer is poorly defined: (Kernel must have positive numbers.). <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
         for (let str of strides) {
             if (str == undefined) {
-                throw new Error("The Deconv2D function is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Deconv2D layer is poorly defined: (Strides missing.) <p> Example: Conv2D(32, [10,10], [1,1], 'same') with 4 arguments.</p> or <p> Example: Conv2D(32, [10,10], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
             if (str <= 0) {
-                throw new Error("The Deconv2D function is poorly defined: (Strides must have positive numbers.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+                throw new Error("The Deconv2D layer is poorly defined: (Strides must have positive numbers.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
             }
         }
         if (filters <= 0) {
-            throw new Error("The Conv2D function is poorly defined: (Filters must be a positive number.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+            throw new Error("The Conv2D layer is poorly defined: (Filters must be a positive number.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
         }
         if (input == undefined) {
             return new Deconv2DLayer(filters, new Tuple(kernel[0], kernel[1]), new Tuple(strides[0], strides[1]), padding);
@@ -931,7 +931,7 @@ function Deconv2D(filters, kernel, strides, padding, input) {
         }
 
     }
-    throw new Error("The Deconv2D function is poorly defined: (Invalid number of arguments.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
+    throw new Error("The Deconv2D layer is poorly defined: (Invalid number of arguments.) <p> Example: Deconv2D(32, [5,5], [2,2], 'same') with 4 arguments.</p> or <p> Example: Deconv2D(32, [5,5], [2,2], 'same',Input(32,32,20)) with 5 arguments.</p>");
 }
 
 /**
@@ -948,15 +948,15 @@ function MaxPooling2D(tuple) {
     if (tuple.length == 2) {
         for (let tup of tuple) {
             if (tup == undefined) {
-                throw new Error("The MaxPooling2D function is poorly defined: (Value missing.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
+                throw new Error("The MaxPooling2D layer is poorly defined: (Value missing.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
             }
             if (tup <= 0) {
-                throw new Error("The MaxPooling2D function is poorly defined: (Only positive numbers.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
+                throw new Error("The MaxPooling2D layer is poorly defined: (Only positive numbers.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
             }
         }
         return new MaxPooling2DLayer(new Tuple(tuple[0], tuple[1]));
     }
-    throw new Error("The MaxPooling2D function is poorly defined: (Invalid number of arguments.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
+    throw new Error("The MaxPooling2D layer is poorly defined: (Invalid number of arguments.) <p> Example: MaxPooling([2,2]) with 1 argument.</p>");
 }
 
 /**
@@ -971,11 +971,11 @@ function MaxPooling2D(tuple) {
 function Dense(vector) {
     if (arguments.length == 1) {
         if (vector <= 0) {
-            throw new Error("The Dense function is poorly defined: (Vector must be a positive number.) <p> Example: Dense(200) with 1 argument.</p>");
+            throw new Error("The Dense layer is poorly defined: (Vector must be a positive number.) <p> Example: Dense(200) with 1 argument.</p>");
         }
         return new DenseLayer(vector);
     }
-    throw new Error("The Dense function is poorly defined: (Invalid number of arguments.) <p> Example: Dense(200) with 1 argument.</p>");
+    throw new Error("The Dense layer is poorly defined: (Invalid number of arguments.) <p> Example: Dense(200) with 1 argument.</p>");
 }
 
 /**
@@ -989,12 +989,12 @@ function Concatenate(nodes) {
     if (arguments.length == 1) {
         for (let node of nodes) {
             if (!(node instanceof Node)) {
-                throw new Error("The Concatenate function is poorly defined: (Arguments must be nodes.).<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
+                throw new Error("The Concatenate layer is poorly defined: (Arguments must be nodes.).<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
             }
         }
         return new ConcatenateLayer(nodes);
     }
-    throw new Error("The Concatenate function is poorly defined: (Invalid number of arguments.)<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
+    throw new Error("The Concatenate layer is poorly defined: (Invalid number of arguments.)<p> Example: Concatenate([x1,x2]) with 1 argument.</p>");
 }
 
 /*MATRICES*/
