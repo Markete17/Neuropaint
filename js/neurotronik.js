@@ -1390,13 +1390,7 @@ class Node {
             this.setLast();
             this.setActualCube(this.getLastCube());
 
-            let node = new Node();
-            let inputCubeList = new Array();
-            inputCubeList.push(inputCube);
-            node.setCubeList(inputCubeList);
-            node.setLastCube(inputCube);
-            node.setActualCube(inputCube);
-            return node;
+            return createAuxNode(inputCube);
 
         } else if (input instanceof Conv2DLayer || input instanceof Conv2DInputLayer) {
             let convolutionList;
@@ -1420,12 +1414,7 @@ class Node {
             this.setLast();
             this.setActualCube(this.getLastCube());
 
-            let node = new Node();
-            node.setCubeList(convolutionList);
-            node.setLastCube(convolutionList[convolutionList.length - 1]);
-            node.setActualCube(node.getLastCube());
-
-            return node;
+            return createAuxNodeList(convolutionList);
         } else if (input instanceof Deconv2DLayer || input instanceof Deconv2DInputLayer) {
             let deconvolutionList;
             if (input.input == undefined) {
@@ -1449,21 +1438,18 @@ class Node {
             this.setLast();
             this.setActualCube(this.getLastCube());
 
-            let node = new Node();
-            node.setCubeList(deconvolutionList);
-            node.setLastCube(deconvolutionList[deconvolutionList.length - 1]);
-            node.setActualCube(node.getLastCube());
-
-            return node;
+            return createAuxNodeList(deconvolutionList);
         } else if (input instanceof MaxPooling2DLayer) {
             if (this.getActualCube() == null || this.cubeList.length == 0) {
                 throw new Error('The node does not have an input layer.');
             }
             this.setActualCube(layerController.MaxPooling2D(input.tuple, this.getActualCube()));
         } else if (input instanceof DenseLayer) {
-            this.cubeList.push(layerController.Dense(input.vector));
+            let denseCube = layerController.Dense(input.vector);
+            this.cubeList.push(denseCube);
             this.setLast();
             this.setActualCube(this.getLastCube());
+            return createAuxNode(denseCube);
         } else if (input instanceof ConcatenateLayer) {
             for (let n of input.nodes) {
                 if (n.cubeList.length == 0) {
@@ -1475,16 +1461,28 @@ class Node {
             this.setLast();
             this.setActualCube(this.getLastCube());
 
-            let node = new Node();
-            let concatenatedCubeList = new Array();
-            concatenatedCubeList.push(concatenatedCube);
-            node.setCubeList(concatenatedCubeList);
-            node.setLastCube(concatenatedCube);
-            node.setActualCube(node.getLastCube());
-            return node;
+            return createAuxNode(concatenatedCube)
         }
     }
 
+}
+
+function createAuxNode(cube){
+    let node = new Node();
+    cubes = new Array();
+    cubes.push(cube);
+    node.setCubeList(cubes);
+    node.setLastCube(cube);
+    node.setActualCube(node.getLastCube());
+    return node;
+}
+
+function createAuxNodeList(cubes){
+    let node = new Node();
+    node.setCubeList(cubes);
+    node.setLastCube(cubes[cubes.length-1]);
+    node.setActualCube(node.getLastCube());
+    return node;
 }
 
 /*NEURALNETOWRK TREE*/
