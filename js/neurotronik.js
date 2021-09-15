@@ -268,7 +268,9 @@ var example = {
         'model.add(n1);\n' +
         '\n' +
         'model.addShortcut(n2,n4);\n' +
-        'model.addShortcut(n3,n5);'
+        'model.addShortcut(n3,n5);',
+        '/* Example 6: Recurrent NN */\n\n' + '/* Part 1: Nodes Definition */\n\nvar n1 = new Node();\n\n/* Part 2: Neural Network */\n\n' + 'var n2 = n1.add(Input(48,32,10));\n' + 'n1.add(Conv2D(32,[10,10], [1,1], "same"));\n' +
+        'n1.add(MaxPooling2D([2,2]));\n' + 'n1.add(Conv2D(64,[5,5],[1,1],"same"));\n' + 'n1.add(Conv2D(86,[5,5],[1,1],"same"));\n' + 'var n3 = n1.add(Dense(200));\n\n' + '/* Part 3: Model Definition */\n\n' + 'model.add(n1);\n' + 'model.addShortcut(n2,n3)',
     ],
 
 }
