@@ -14,7 +14,7 @@
 <p align="justify">
   Neuropaint is a website for creating representations of neural networks of all kinds. It has a user interface with which you can edit and configure everything. Practice, create and edit the representation of your neural network!
   
-  Test the application clicking in this <a href="https://neuropaint.github.io/"link>.
+  Test the application clicking in this <a href="https://neuropaint.github.io/">link/a<>.
 </p>
 
 <p align="center">
