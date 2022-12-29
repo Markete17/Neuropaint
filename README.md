@@ -1,12 +1,16 @@
 # Neuropaint - Marcos Ruiz Muñoz 📄
 
-
-
 ## Index ✒️
 1. [Description 🚀](#description)
 2. [User Interface 🎨](#ui)
 3. [Functions 📌](#functions)
 4. [Keyboard shortcuts ⌨️](#shortcuts)
+
+<p>
+If you want to support my repository =)
+</p>
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/marcoosr9)
 
 <a name="description"></a>
 ## 1. Description 🚀
